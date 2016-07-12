@@ -1,5 +1,6 @@
 package branchAW;
 
+import javax.swing.JLabel;
 import java.util.ArrayList;
 
 import javax.swing.JFrame;
@@ -26,6 +27,8 @@ public class AW
 		{
 			cf.Draw(frame);
 		}
+		JLabel cmp = new JLabel();
+		frame.add(cmp);
 		frame.setVisible(true);
 	}
 
