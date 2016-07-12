@@ -1,5 +1,11 @@
 package branchAW;
 
+import java.awt.Graphics;
+import java.awt.Point;
+
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+
 public class CardField 
 {
 	private int iID;
@@ -173,6 +179,22 @@ public class CardField
 					break;
 				}
 			}	
+		}
+	}
+	
+	public void Draw(JFrame jFrame)
+	{
+		switch (iType)
+		{
+			case 2:
+			{
+				JLabel jl = new JLabel();
+				jl.setSize(iWidth*2, iHeight*2);
+				jl.setText(sText);
+				jl.setLocation(new Point(iTop*2, iLeft*2));
+				jl.setVisible(true);
+				jFrame.add(jl);
+			}
 		}
 	}
 }
