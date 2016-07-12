@@ -2,8 +2,10 @@ package branchAW;
 
 import java.awt.Point;
 
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JTextField;
 
 public class CardField 
 {
@@ -193,6 +195,31 @@ public class CardField
 				jl.setLocation(new Point(iTop*2, iLeft*2));
 				jl.setVisible(true);
 				jFrame.add(jl);
+				break;
+			}
+			case 3:
+			{
+				JTextField tf = new JTextField();
+				tf.setSize(iWidth*2, iHeight*2);
+				tf.setText(sText);
+				tf.setLocation(new Point(iTop*2, iLeft*2));
+				tf.setVisible(true);
+				jFrame.add(tf);
+				break;
+			}
+			case 5:
+			{
+				JComboBox<String> cb = new JComboBox<String>();
+				cb.setSize(iWidth*2, 20);
+				cb.setName(sText);
+				cb.setLocation(new Point(iTop*2, iLeft*2));
+				cb.setVisible(true);
+				jFrame.add(cb);
+				break;
+			}
+			default:
+			{
+				break;
 			}
 		}
 	}
