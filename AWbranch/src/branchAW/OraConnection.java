@@ -21,11 +21,11 @@ public class OraConnection
 		}
 	}
 	
-	public OraConnection(String sConn, String sUser, String sPass)
+	public OraConnection(String sIP, String sPort, String sDB, String sUser, String sPass)
 	{
 		try 
 		{
-			conn = DriverManager.getConnection(sConn, sUser, sPass);
+			conn = DriverManager.getConnection("jdbc:oracle:thin:@"+sIP+":"+sPort+":"+sDB, sUser, sPass);
 		} 
 		catch (SQLException e) 
 		{
