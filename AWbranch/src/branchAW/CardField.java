@@ -1,6 +1,5 @@
 package branchAW;
 
-import java.awt.Graphics;
 import java.awt.Point;
 
 import javax.swing.JFrame;
