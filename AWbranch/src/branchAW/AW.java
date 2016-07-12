@@ -15,6 +15,7 @@ public class AW
 		for (String s: sRows)
 		{
 			System.out.println(s);
+			CardField cf = new CardField(s);
 		}
 	}
 

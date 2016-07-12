@@ -51,7 +51,7 @@ public class OraConnection
 				String sRow = "";
 				for (int i = 1; i <= iCols; ++i)
 				{
-					sRow += "||" + rs.getString(i);
+					sRow += rs.getString(i) + "||";
 				}
 				sRows.add(sRow);
 			}		
