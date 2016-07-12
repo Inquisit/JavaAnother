@@ -1,9 +1,5 @@
 package branchAW;
 
-import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 
 public class AW 
@@ -11,37 +7,15 @@ public class AW
 
 	public static void main(String[] args) 
 	{
+		ArrayList<String> sRows = new ArrayList<String>();
 		OraConnection ora = new OraConnection();
-
-		try 
-		{
-			Statement st = ora.conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
-			ResultSet rs = st.executeQuery("select 1 as int from dual union select 2 as int from dual");
-			ResultSetMetaData md = rs.getMetaData();
-			int iCols = md.getColumnCount();
-			ArrayList<String> sRows = new ArrayList<String>();
-			
-			while (rs.next())
-			{
-				String sRow = "";
-				for (int i = 1; i <= iCols; ++i)
-				{
-					sRow += rs.getString(i);
-				}
-				sRows.add(sRow);
-			}
-			
-			for (String s: sRows)
-			{
-				System.out.println(s);
-			}		
-		} 
-		catch (SQLException e) 
-		{
-			e.printStackTrace();
-		}
-		
+		ora.Connect();
+		ora.Select("select t.field_id, t.field_type, t.field_left, t.field_top, t.field_width, t.field_height, t.field_pos, t.data_type, t.field_name, t.physical_name, t.pfield_id from CARD_FIELDS t where t.type_id = 158 order by t.field_pos, t.pfield_id", sRows);
 		ora.Disconnect();
+		for (String s: sRows)
+		{
+			System.out.println(s);
+		}
 	}
 
 }
