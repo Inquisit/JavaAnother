@@ -1,11 +1,15 @@
 package branchAW;
 
+import java.awt.Component;
+import java.awt.Container;
 import java.awt.Point;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.table.TableColumn;
@@ -23,6 +27,28 @@ public class CardField
 	private String sType;
 	private String sName;
 	private String sText;
+
+	private static Component getComponentById(Container container, String componentId)
+	{
+
+        if(container.getComponents().length > 0)
+        {
+            for(Component c : container.getComponents())
+            {
+                if(componentId.equals(c.getName()))
+                {
+                    return c;
+                }
+                if(c instanceof Container)
+                {
+                    return getComponentById((Container) c, componentId);
+                }
+            }
+        }
+
+        return null;
+
+    }
 	
 	public String getsText() {
 		return sText;
@@ -135,12 +161,12 @@ public class CardField
 				}
 				case 2:
 				{
-					setiTop(Integer.parseInt(sCols[i]));
+					setiLeft(Integer.parseInt(sCols[i]));
 					break;
 				}
 				case 3:
 				{
-					setiLeft(Integer.parseInt(sCols[i]));
+					setiTop(Integer.parseInt(sCols[i]));
 					break;
 				}
 				case 4:
@@ -188,14 +214,33 @@ public class CardField
 	
 	public void Draw(JFrame jFrame)
 	{
+		System.out.println(Integer.toString(iPID));
+		Component cDad = getComponentById(jFrame.getContentPane(), Integer.toString(iPID));
+		JPanel parent = (JPanel)cDad;
+//		System.out.println(parent.getName());
 		switch (iType)
 		{
 			case 0:
 			{
-				jFrame.setSize(iWidth*2, iHeight*2);
+				jFrame.setSize(iWidth*2+20, iHeight*2+20);
 				jFrame.setLocation(iLeft*2, iTop*2);
 				jFrame.setTitle(sText);
-				jFrame.setResizable(false);
+				jFrame.setName(Integer.toString(iID));
+				//jFrame.setResizable(false);
+				break;
+			}
+			case 1:
+			{
+				JTabbedPane tp = new JTabbedPane();
+				JPanel jp = new JPanel();
+				tp.setSize(iWidth*2, iHeight*2);
+				tp.setLocation(new Point(iLeft*2, (iTop-13)*2));
+				tp.setVisible(true);
+				jp.setSize(iWidth*2, iHeight*2);
+				jp.setName(Integer.toString(iID));
+				jp.setVisible(true);
+				tp.addTab(sText, jp);
+				jFrame.add(tp, iPos);
 				break;
 			}
 			case 2:
@@ -203,9 +248,10 @@ public class CardField
 				JLabel jl = new JLabel();
 				jl.setSize(iWidth*2, iHeight*2);
 				jl.setText(sText);
-				jl.setLocation(new Point(iTop*2, iLeft*2));
+				jl.setName(Integer.toString(iID));
+				jl.setLocation(new Point(iLeft*2, iTop*2));
 				jl.setVisible(true);
-				jFrame.add(jl, iPos);
+				parent.add(jl, iPos);
 				break;
 			}
 			case 3:
@@ -213,19 +259,20 @@ public class CardField
 				JTextArea ta = new JTextArea();
 				ta.setSize(iWidth*2, iHeight*2);
 				ta.setText(sText);
-				ta.setLocation(new Point(iTop*2, iLeft*2));
+				ta.setName(Integer.toString(iID));
+				ta.setLocation(new Point(iLeft*2, iTop*2));
 				ta.setVisible(true);
-				jFrame.add(ta, iPos);
+				parent.add(ta, iPos);
 				break;
 			}
 			case 5:
 			{
 				JComboBox<String> cb = new JComboBox<String>();
 				cb.setSize(iWidth*2, 20);
-				cb.setName(sText);
-				cb.setLocation(new Point(iTop*2, iLeft*2));
+				cb.setName(Integer.toString(iID));
+				cb.setLocation(new Point(iLeft*2, iTop*2));
 				cb.setVisible(true);
-				jFrame.add(cb, iPos);
+				parent.add(cb, iPos);
 				break;
 			}
 			case 9:
@@ -233,19 +280,20 @@ public class CardField
 				JButton jb = new JButton();
 				jb.setSize(iWidth*2, iHeight*2);
 				jb.setText(sText);
-				jb.setLocation(new Point(iTop*2, iLeft*2));
+				jb.setName(Integer.toString(iID));
+				jb.setLocation(new Point(iLeft*2, iTop*2));
 				jb.setVisible(true);
-				jFrame.add(jb, iPos);
+				parent.add(jb, iPos);
 				break;
 			}
 			case 10:
 			{
 				JTable jt = new JTable();
 				jt.setSize(iWidth*2, iHeight*2);
-				jt.setName(sText);
-				jt.setLocation(new Point(iTop*2, iLeft*2));
+				jt.setName(Integer.toString(iID));
+				jt.setLocation(new Point(iLeft*2, iTop*2));
 				jt.setVisible(true);
-				jFrame.add(jt, iPos);
+				parent.add(jt, iPos);
 				break;
 			}
 			case 11:
@@ -254,6 +302,7 @@ public class CardField
 				TableColumn tc = new TableColumn();
 				tc.setWidth(iWidth);
 				tc.setHeaderValue(sText);
+//				tc.setName(Integer.toString(iID));
 //				jt.addColumn(tc);
 				break;
 			}
