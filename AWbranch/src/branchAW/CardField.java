@@ -9,6 +9,7 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.JTextArea;
@@ -208,7 +209,9 @@ public class CardField
 				jt.setName(Integer.toString(iID));
 				jt.setLocation(new Point(iLeft*2, iTop*2));
 				jt.setVisible(true);
+				JScrollPane scrollPane = new JScrollPane(jt);
 				((JPanel)parent).add(jt, iPos);
+				((JPanel)parent).add(scrollPane);
 				break;
 			}
 			case 11:
@@ -217,7 +220,7 @@ public class CardField
 				tc.setWidth(iWidth);
 				tc.setHeaderValue(sText);
 				DefaultTableModel dtm = (DefaultTableModel) ((JTable)parent).getModel();
-		        dtm.addColumn("ewr",new String[]{"wer"});
+		        dtm.addColumn(tc);
 				/*TableColumnModel cm = ((JTable)parent).getColumnModel();
 				cm.addColumn(tc);
 				((JTable)parent).setColumnModel(cm);
