@@ -12,7 +12,9 @@ import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.JTextArea;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
+import javax.swing.table.TableColumnModel;
 
 public class CardField 
 {
@@ -28,116 +30,6 @@ public class CardField
 	private String sName;
 	private String sText;
 
-	private static Component getComponentById(Container container, String componentId)
-	{
-
-        if(container.getComponents().length > 0)
-        {
-            for(Component c : container.getComponents())
-            {
-                if(componentId.equals(c.getName()))
-                {
-                    return c;
-                }
-                if(c instanceof Container)
-                {
-                    return getComponentById((Container) c, componentId);
-                }
-            }
-        }
-
-        return null;
-
-    }
-	
-	public String getsText() {
-		return sText;
-	}
-
-	public void setsText(String sText) {
-		this.sText = sText;
-	}
-
-	public String getsName() {
-		return sName;
-	}
-
-	public void setsName(String sName) {
-		this.sName = sName;
-	}
-
-	public String getsType() {
-		return sType;
-	}
-
-	public void setsType(String sType) {
-		this.sType = sType;
-	}
-
-	public int getiHeight() {
-		return iHeight;
-	}
-
-	public void setiHeight(int iHeight) {
-		this.iHeight = iHeight;
-	}
-
-	public int getiWidth() {
-		return iWidth;
-	}
-
-	public void setiWidth(int iWidth) {
-		this.iWidth = iWidth;
-	}
-
-	public int getiLeft() {
-		return iLeft;
-	}
-
-	public void setiLeft(int iLeft) {
-		this.iLeft = iLeft;
-	}
-
-	public int getiTop() {
-		return iTop;
-	}
-
-	public void setiTop(int iTop) {
-		this.iTop = iTop;
-	}
-
-	public int getiPos() {
-		return iPos;
-	}
-
-	public void setiPos(int iPos) {
-		this.iPos = iPos;
-	}
-
-	public int getiPID() {
-		return iPID;
-	}
-
-	public void setiPID(int iPID) {
-		this.iPID = iPID;
-	}
-
-	public int getiType() {
-		return iType;
-	}
-
-	public void setiType(int iType) {
-		this.iType = iType;
-	}
-
-	public int getiID() {
-		return iID;
-	}
-
-	public void setiID(int iID) {
-		this.iID = iID;
-	}
-	
 	public CardField(String sRow)
 	{
 		String[] sCols = sRow.split("\\|\\|");
@@ -151,57 +43,57 @@ public class CardField
 			{
 				case 0:
 				{
-					setiID(Integer.parseInt(sCols[i]));
+					iID = Integer.parseInt(sCols[i]);
 					break;
 				}
 				case 1:
 				{
-					setiType(Integer.parseInt(sCols[i]));
+					iType = Integer.parseInt(sCols[i]);
 					break;
 				}
 				case 2:
 				{
-					setiLeft(Integer.parseInt(sCols[i]));
+					iLeft = Integer.parseInt(sCols[i]);
 					break;
 				}
 				case 3:
 				{
-					setiTop(Integer.parseInt(sCols[i]));
+					iTop = Integer.parseInt(sCols[i]);
 					break;
 				}
 				case 4:
 				{
-					setiWidth(Integer.parseInt(sCols[i]));
+					iWidth = Integer.parseInt(sCols[i]);
 					break;
 				}
 				case 5:
 				{
-					setiHeight(Integer.parseInt(sCols[i]));
+					iHeight = Integer.parseInt(sCols[i]);
 					break;
 				}
 				case 6:
 				{
-					setiPos(Integer.parseInt(sCols[i]));
+					iPos = Integer.parseInt(sCols[i]);
 					break;
 				}
 				case 7:
 				{
-					setsType(sCols[i]);
+					sType = sCols[i];
 					break;
 				}
 				case 8:
 				{
-					setsText(sCols[i]);
+					sText = sCols[i];
 					break;
 				}
 				case 9:
 				{
-					setsName(sCols[i]);
+					sName = sCols[i];
 					break;
 				}
 				case 10:
 				{
-					setiPID(Integer.parseInt(sCols[i]));
+					iPID = Integer.parseInt(sCols[i]);
 					break;
 				}
 				default:
@@ -212,9 +104,34 @@ public class CardField
 		}
 	}
 	
+	private static Component getComponentById(Container container, String componentId)
+	{
+
+        if(container.getComponents().length > 0)
+        {
+            for(Component c : container.getComponents())
+            {
+                if(componentId.equals(c.getName()))
+                {
+                    return c;
+                }
+                if(c instanceof Container)
+                {
+                    Component sub = getComponentById((Container) c, componentId);
+                    if (sub == null)
+                    	continue;
+                    return sub;
+                }
+            }
+        }
+
+        return null;
+
+    }
+	
 	public void Draw(JFrame jFrame)
 	{
-		JPanel parent = (JPanel)getComponentById(jFrame.getContentPane(), Integer.toString(iPID));
+		Component parent = getComponentById(jFrame.getContentPane(), Integer.toString(iPID));
 		switch (iType)
 		{
 			case 0:
@@ -249,7 +166,7 @@ public class CardField
 				jl.setName(Integer.toString(iID));
 				jl.setLocation(new Point(iLeft*2, iTop*2));
 				jl.setVisible(true);
-				parent.add(jl, iPos);
+				((JPanel)parent).add(jl, iPos);
 				break;
 			}
 			case 3:
@@ -260,7 +177,7 @@ public class CardField
 				ta.setName(Integer.toString(iID));
 				ta.setLocation(new Point(iLeft*2, iTop*2));
 				ta.setVisible(true);
-				parent.add(ta, iPos);
+				((JPanel)parent).add(ta, iPos);
 				break;
 			}
 			case 5:
@@ -270,7 +187,7 @@ public class CardField
 				cb.setName(Integer.toString(iID));
 				cb.setLocation(new Point(iLeft*2, iTop*2));
 				cb.setVisible(true);
-				parent.add(cb, iPos);
+				((JPanel)parent).add(cb, iPos);
 				break;
 			}
 			case 9:
@@ -281,7 +198,7 @@ public class CardField
 				jb.setName(Integer.toString(iID));
 				jb.setLocation(new Point(iLeft*2, iTop*2));
 				jb.setVisible(true);
-				parent.add(jb, iPos);
+				((JPanel)parent).add(jb, iPos);
 				break;
 			}
 			case 10:
@@ -291,17 +208,20 @@ public class CardField
 				jt.setName(Integer.toString(iID));
 				jt.setLocation(new Point(iLeft*2, iTop*2));
 				jt.setVisible(true);
-				parent.add(jt, iPos);
+				((JPanel)parent).add(jt, iPos);
 				break;
 			}
 			case 11:
 			{
-//				JTable jt = (JTable)jFrame.getComponentAt();
 				TableColumn tc = new TableColumn();
 				tc.setWidth(iWidth);
 				tc.setHeaderValue(sText);
-//				tc.setName(Integer.toString(iID));
-//				jt.addColumn(tc);
+				DefaultTableModel dtm = (DefaultTableModel) ((JTable)parent).getModel();
+		        dtm.addColumn("ewr",new String[]{"wer"});
+				/*TableColumnModel cm = ((JTable)parent).getColumnModel();
+				cm.addColumn(tc);
+				((JTable)parent).setColumnModel(cm);
+*/
 				break;
 			}
 			default:
