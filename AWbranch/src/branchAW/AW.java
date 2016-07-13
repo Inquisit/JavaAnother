@@ -18,7 +18,6 @@ public class AW
 		ArrayList<CardField> cFields = new ArrayList<CardField>();
 		for (String s: sRows)
 		{
-			System.out.println(s);
 			CardField cf = new CardField(s);
 			cFields.add(cf);
 		}

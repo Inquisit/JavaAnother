@@ -214,10 +214,7 @@ public class CardField
 	
 	public void Draw(JFrame jFrame)
 	{
-		System.out.println(Integer.toString(iPID));
-		Component cDad = getComponentById(jFrame.getContentPane(), Integer.toString(iPID));
-		JPanel parent = (JPanel)cDad;
-//		System.out.println(parent.getName());
+		JPanel parent = (JPanel)getComponentById(jFrame.getContentPane(), Integer.toString(iPID));
 		switch (iType)
 		{
 			case 0:
@@ -237,6 +234,7 @@ public class CardField
 				tp.setLocation(new Point(iLeft*2, (iTop-13)*2));
 				tp.setVisible(true);
 				jp.setSize(iWidth*2, iHeight*2);
+				jp.setLayout(null);
 				jp.setName(Integer.toString(iID));
 				jp.setVisible(true);
 				tp.addTab(sText, jp);
