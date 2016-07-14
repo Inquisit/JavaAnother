@@ -5,6 +5,7 @@ import java.awt.Container;
 import java.awt.Point;
 
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -144,17 +145,22 @@ public class CardField
 			}
 			case 1:
 			{
-				JTabbedPane tp = new JTabbedPane();
+				if (parent == null)
+				{
+					JTabbedPane tp = new JTabbedPane();
+					tp.setSize(iWidth*2, (iHeight+13)*2);
+					tp.setLocation(new Point(iLeft*2, (iTop-13)*2));
+					tp.setVisible(true);
+					tp.setName(Integer.toString(iPID));
+					jFrame.add(tp);
+					parent = tp;
+				}
 				JPanel jp = new JPanel();
-				tp.setSize(iWidth*2, (iHeight+13)*2);
-				tp.setLocation(new Point(iLeft*2, (iTop-13)*2));
-				tp.setVisible(true);
 				jp.setSize(iWidth*2, (iHeight+13)*2);
 				jp.setLayout(null);
 				jp.setName(Integer.toString(iID));
 				jp.setVisible(true);
-				tp.addTab(sText, jp);
-				jFrame.add(tp);
+				((JTabbedPane)parent).addTab(sText, jp);				
 				break;
 			}
 			case 2:
@@ -184,6 +190,17 @@ public class CardField
 				JComboBox<String> cb = new JComboBox<String>();
 				cb.setSize(iWidth*2, 20);
 				cb.setName(Integer.toString(iID));
+				cb.setLocation(new Point(iLeft*2, iTop*2));
+				cb.setVisible(true);
+				((JPanel)parent).add(cb);
+				break;
+			}
+			case 7:
+			{
+				JCheckBox cb = new JCheckBox();
+				cb.setSize(iWidth*2, 20);
+				cb.setName(Integer.toString(iID));
+				cb.setText(sText);
 				cb.setLocation(new Point(iLeft*2, iTop*2));
 				cb.setVisible(true);
 				((JPanel)parent).add(cb);
