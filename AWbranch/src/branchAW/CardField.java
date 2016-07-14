@@ -3,17 +3,21 @@ package branchAW;
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.Point;
+import java.awt.image.BufferedImage;
 
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.JTextArea;
+import javax.swing.border.Border;
 import javax.swing.table.TableColumn;
 
 public class CardField 
@@ -185,6 +189,18 @@ public class CardField
 				((JPanel)parent).add(ta);
 				break;
 			}
+			case 4:
+			{
+				JPanel gb = new JPanel();
+				gb.setLayout(null);
+				Border border = BorderFactory.createTitledBorder(sText);
+				gb.setBorder(border);
+				gb.setSize(iWidth*2, iHeight*2);
+				gb.setName(Integer.toString(iID));
+				gb.setLocation(new Point(iLeft*2, iTop*2));
+				((JPanel)parent).add(gb);
+				break;
+			}
 			case 5:
 			{
 				JComboBox<String> cb = new JComboBox<String>();
@@ -204,6 +220,17 @@ public class CardField
 				cb.setLocation(new Point(iLeft*2, iTop*2));
 				cb.setVisible(true);
 				((JPanel)parent).add(cb);
+				break;
+			}
+			case 8:
+			{
+				JRadioButton rb = new JRadioButton();
+				rb.setSize(iWidth*2, 20);
+				rb.setName(Integer.toString(iID));
+				rb.setText(sText);
+				rb.setLocation(new Point(iLeft*2, iTop*2));
+				rb.setVisible(true);
+				((JPanel)parent).add(rb);
 				break;
 			}
 			case 9:
@@ -236,6 +263,12 @@ public class CardField
 				((JTable)parent).addColumn(tc);
 				break;
 			}
+/*			case 12:
+			{
+				BufferedImage bi = new BufferedImage();
+				((JPanel)parent).add(bi);
+				break;
+			}*/
 			default:
 			{
 				break;
