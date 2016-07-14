@@ -6,6 +6,7 @@ import java.awt.Point;
 import java.awt.image.BufferedImage;
 
 import javax.swing.BorderFactory;
+import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
@@ -191,6 +192,7 @@ public class CardField
 			}
 			case 4:
 			{
+				ButtonGroup bg = new ButtonGroup();
 				JPanel gb = new JPanel();
 				gb.setLayout(null);
 				Border border = BorderFactory.createTitledBorder(sText);
