@@ -135,7 +135,7 @@ public class CardField
 		{
 			case 0:
 			{
-				jFrame.setSize(iWidth*2+20, iHeight*2+20);
+				jFrame.setSize(iWidth*2+20, iHeight*2+46);
 				jFrame.setLocation(iLeft*2, iTop*2);
 				jFrame.setTitle(sText);
 				jFrame.setName(Integer.toString(iID));
@@ -146,10 +146,10 @@ public class CardField
 			{
 				JTabbedPane tp = new JTabbedPane();
 				JPanel jp = new JPanel();
-				tp.setSize(iWidth*2, iHeight*2);
+				tp.setSize(iWidth*2, (iHeight+13)*2);
 				tp.setLocation(new Point(iLeft*2, (iTop-13)*2));
 				tp.setVisible(true);
-				jp.setSize(iWidth*2, iHeight*2);
+				jp.setSize(iWidth*2, (iHeight+13)*2);
 				jp.setLayout(null);
 				jp.setName(Integer.toString(iID));
 				jp.setVisible(true);
@@ -204,6 +204,7 @@ public class CardField
 			{
 				JTable jt = new JTable();
 				jt.setName(Integer.toString(iID));
+				jt.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 				JScrollPane sp = new JScrollPane(jt);
 				sp.setSize(iWidth*2, iHeight*2);
 				sp.setLocation(new Point(iLeft*2, iTop*2));
@@ -213,7 +214,7 @@ public class CardField
 			case 11:
 			{
 				TableColumn tc = new TableColumn();
-				tc.setWidth(iWidth);
+				tc.setPreferredWidth(iWidth*2);
 				tc.setHeaderValue(sText);
 				((JTable)parent).addColumn(tc);
 				break;
