@@ -2,6 +2,7 @@ package branchAW;
 
 import java.awt.Component;
 import java.awt.Container;
+import java.awt.Dimension;
 import java.awt.Point;
 
 import javax.swing.JButton;
@@ -14,6 +15,7 @@ import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
 
@@ -156,7 +158,7 @@ public class CardField
 				jp.setName(Integer.toString(iID));
 				jp.setVisible(true);
 				tp.addTab(sText, jp);
-				jFrame.add(tp, iPos);
+				jFrame.add(tp);
 				break;
 			}
 			case 2:
@@ -167,7 +169,7 @@ public class CardField
 				jl.setName(Integer.toString(iID));
 				jl.setLocation(new Point(iLeft*2, iTop*2));
 				jl.setVisible(true);
-				((JPanel)parent).add(jl, iPos);
+				((JPanel)parent).add(jl);
 				break;
 			}
 			case 3:
@@ -178,7 +180,7 @@ public class CardField
 				ta.setName(Integer.toString(iID));
 				ta.setLocation(new Point(iLeft*2, iTop*2));
 				ta.setVisible(true);
-				((JPanel)parent).add(ta, iPos);
+				((JPanel)parent).add(ta);
 				break;
 			}
 			case 5:
@@ -188,7 +190,7 @@ public class CardField
 				cb.setName(Integer.toString(iID));
 				cb.setLocation(new Point(iLeft*2, iTop*2));
 				cb.setVisible(true);
-				((JPanel)parent).add(cb, iPos);
+				((JPanel)parent).add(cb);
 				break;
 			}
 			case 9:
@@ -199,19 +201,17 @@ public class CardField
 				jb.setName(Integer.toString(iID));
 				jb.setLocation(new Point(iLeft*2, iTop*2));
 				jb.setVisible(true);
-				((JPanel)parent).add(jb, iPos);
+				((JPanel)parent).add(jb);
 				break;
 			}
 			case 10:
 			{
 				JTable jt = new JTable();
-				jt.setSize(iWidth*2, iHeight*2);
 				jt.setName(Integer.toString(iID));
-				jt.setLocation(new Point(iLeft*2, iTop*2));
-				jt.setVisible(true);
-				JScrollPane scrollPane = new JScrollPane(jt);
-				((JPanel)parent).add(jt, iPos);
-				((JPanel)parent).add(scrollPane);
+				JScrollPane sp = new JScrollPane(jt);
+				sp.setSize(iWidth*2, iHeight*2);
+				sp.setLocation(new Point(iLeft*2, iTop*2));
+				((JPanel)parent).add(sp);
 				break;
 			}
 			case 11:
@@ -219,12 +219,7 @@ public class CardField
 				TableColumn tc = new TableColumn();
 				tc.setWidth(iWidth);
 				tc.setHeaderValue(sText);
-				DefaultTableModel dtm = (DefaultTableModel) ((JTable)parent).getModel();
-		        dtm.addColumn(tc);
-				/*TableColumnModel cm = ((JTable)parent).getColumnModel();
-				cm.addColumn(tc);
-				((JTable)parent).setColumnModel(cm);
-*/
+				((JTable)parent).addColumn(tc);
 				break;
 			}
 			default:
