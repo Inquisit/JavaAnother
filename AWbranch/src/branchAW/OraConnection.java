@@ -21,6 +21,7 @@ public class OraConnection
 		}
 		catch (SQLException e) 
 		{
+			conn = null;
 			e.printStackTrace();
 		}
 	}
@@ -33,12 +34,15 @@ public class OraConnection
 		} 
 		catch (SQLException e) 
 		{
+			conn = null;
 			e.printStackTrace();
 		}
 	}
 	
 	public void Select(String sQuery, ArrayList<String> sRows)
 	{
+		if (conn == null)
+			return;
 		try 
 		{
 			Statement st = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
