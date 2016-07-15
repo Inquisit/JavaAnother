@@ -7,7 +7,11 @@ import java.awt.image.BufferedImage;
 import java.awt.image.DataBuffer;
 import java.awt.image.Raster;
 import java.awt.image.SampleModel;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 
+import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
@@ -38,6 +42,7 @@ public class CardField
 	private String sType;
 	private String sName;
 	private String sText;
+	private byte[] bSD;
 
 	public CardField(String sRow)
 	{
@@ -103,6 +108,18 @@ public class CardField
 				case 10:
 				{
 					iPID = Integer.parseInt(sCols[i]);
+					break;
+				}
+				case 11:
+				{
+					bSD = new byte[sCols[i].length()];
+					for (int j = 0; j < sCols[i].length(); ++j)
+					{
+						if (sCols[i].substring(j, 1) != "")
+						{
+							bSD[j] = Byte.parseByte(sCols[i].substring(j, 1), 16);
+						}
+					}
 					break;
 				}
 				default:
@@ -260,16 +277,23 @@ public class CardField
 				((JTable)parent).addColumn(tc);
 				break;
 			}
-/*			case 12:
+			case 12:
 			{
-				BufferedImage bi = null;
-				Raster rs;
-				rs.createRaster(new SampleModel(), new DataBuffer(), null);
-				ImageIcon ic = new ImageIcon(bi);
-				JLabel jl = new JLabel(ic);
-				((JPanel)parent).add(jl);
+				ByteArrayInputStream is = new ByteArrayInputStream(bSD);
+				BufferedImage bi;
+				try 
+				{
+					bi = ImageIO.read(is);
+					ImageIcon ic = new ImageIcon(bi);
+					JLabel jl = new JLabel(ic);
+					((JPanel)parent).add(jl);
+				} 
+				catch (IOException e) 
+				{
+					e.printStackTrace();
+				}
 				break;
-			}*/
+			}
 			default:
 			{
 				break;
