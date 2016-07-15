@@ -260,7 +260,7 @@ public class CardField
 				((JTable)parent).addColumn(tc);
 				break;
 			}
-			case 12:
+/*			case 12:
 			{
 				BufferedImage bi = null;
 				Raster rs;
@@ -269,7 +269,7 @@ public class CardField
 				JLabel jl = new JLabel(ic);
 				((JPanel)parent).add(jl);
 				break;
-			}
+			}*/
 			default:
 			{
 				break;
