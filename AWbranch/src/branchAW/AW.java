@@ -3,8 +3,6 @@ package branchAW;
 import javax.swing.JLabel;
 import java.util.ArrayList;
 
-import javax.swing.JFrame;
-
 public class AW 
 {
 
@@ -18,6 +16,7 @@ public class AW
 		Card cCard = new Card();
 		for (String s: sRows)
 		{
+			System.out.println(s);
 			CardField cf = new CardField(s);
 			cCard.aFields.add(cf);
 		}

@@ -3,8 +3,8 @@ package branchAW;
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.Point;
-import java.util.AbstractMap;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JFrame;
@@ -14,12 +14,13 @@ public class Card
 {
 	public JFrame jFrame;
 	public ArrayList<CardField> aFields;
-	public AbstractMap<String, ButtonGroup> mGroups;
+	public HashMap<String, ButtonGroup> mGroups;
 	
 	public Card()
 	{
 		jFrame = new JFrame();
 		aFields = new ArrayList<CardField>();
+		mGroups = new HashMap<String, ButtonGroup>();
 	}
 	
 	public void Draw()

@@ -1,6 +1,7 @@
 package branchAW;
 
 import java.awt.Component;
+import java.awt.Container;
 import java.awt.Point;
 import java.awt.image.BufferedImage;
 
@@ -120,6 +121,7 @@ public class CardField
 				cCard.jFrame.setTitle(sText);
 				cCard.jFrame.setName(Integer.toString(iID));
 				cCard.jFrame.setResizable(false);
+				cCard.jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 				break;
 			}
 			case 1:
@@ -139,6 +141,8 @@ public class CardField
 				jp.setLayout(null);
 				jp.setName(Integer.toString(iID));
 				jp.setVisible(true);
+				ButtonGroup bg = new ButtonGroup();
+				cCard.mGroups.put(jp.getName(), bg);
 				((JTabbedPane)parent).addTab(sText, jp);				
 				break;
 			}
@@ -166,7 +170,6 @@ public class CardField
 			}
 			case 4:
 			{
-				ButtonGroup bg = new ButtonGroup();
 				JPanel gb = new JPanel();
 				gb.setLayout(null);
 				Border border = BorderFactory.createTitledBorder(sText);
@@ -174,6 +177,8 @@ public class CardField
 				gb.setSize(iWidth*2, iHeight*2);
 				gb.setName(Integer.toString(iID));
 				gb.setLocation(new Point(iLeft*2, iTop*2));
+				ButtonGroup bg = new ButtonGroup();
+				cCard.mGroups.put(gb.getName(), bg);
 				((JPanel)parent).add(gb);
 				break;
 			}
@@ -206,7 +211,18 @@ public class CardField
 				rb.setText(sText);
 				rb.setLocation(new Point(iLeft*2, iTop*2));
 				rb.setVisible(true);
-				((JPanel)parent).add(rb);
+				Component c = cCard.getPanelByXY((Container)parent, iLeft*2, iTop*2);
+				if (c != null)
+				{
+					ButtonGroup bg = cCard.mGroups.get(c.getName());
+					bg.add(rb);
+					System.out.println("added to bg " + sText);
+					((JPanel)c).add(rb);
+				}
+				else
+				{
+					((JPanel)parent).add(rb);
+				}
 				break;
 			}
 			case 9:
