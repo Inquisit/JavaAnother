@@ -109,60 +109,9 @@ public class CardField
 		}
 	}
 	
-	private static Component getComponentById(Container container, String componentId)
-	{
-
-        if(container.getComponents().length > 0)
-        {
-            for(Component c : container.getComponents())
-            {
-                if(componentId.equals(c.getName()))
-                {
-                    return c;
-                }
-                if(c instanceof Container)
-                {
-                    Component sub = getComponentById((Container) c, componentId);
-                    if (sub == null)
-                    	continue;
-                    return sub;
-                }
-            }
-        }
-
-        return null;
-
-    }
-	
-	public static Component getPanelByXY(Container container, int iX, int iY)
-	{
-		if(container.getComponents().length > 0)
-	        {
-	            for(Component c : container.getComponents())
-	            {
-	                Point p = c.getLocation();
-	                int iH = c.getHeight();
-	                int iW = c.getWidth();
-	                if (((p.x + iW >= iX) && (p.x <= iX) && (p.y + iH >= iY) && (p.y <= iY)) && (c instanceof JPanel))
-	                {
-	                	return c;
-	                }
-	                if(c instanceof Container)
-	                {
-	                    Component sub = getPanelByXY((Container) c, iX, iY);
-	                    if (sub == null)
-	                    	continue;
-	                    return sub;
-	                }
-	            }
-	        }
-
-		return null;
-	}
-	
 	public void Draw(JFrame jFrame)
 	{
-		Component parent = getComponentById(jFrame.getContentPane(), Integer.toString(iPID));
+		Component parent = Card.getComponentById(jFrame.getContentPane(), Integer.toString(iPID));
 		switch (iType)
 		{
 			case 0:
@@ -171,7 +120,7 @@ public class CardField
 				jFrame.setLocation(iLeft*2, iTop*2);
 				jFrame.setTitle(sText);
 				jFrame.setName(Integer.toString(iID));
-				//jFrame.setResizable(false);
+				jFrame.setResizable(false);
 				break;
 			}
 			case 1:
