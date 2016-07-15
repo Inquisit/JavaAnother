@@ -217,6 +217,7 @@ public class CardField
 					ButtonGroup bg = cCard.mGroups.get(c.getName());
 					bg.add(rb);
 					System.out.println("added to bg " + sText);
+					rb.setLocation(new Point(iLeft*2 - c.getX(), iTop*2 - c.getY()));
 					((JPanel)c).add(rb);
 				}
 				else
