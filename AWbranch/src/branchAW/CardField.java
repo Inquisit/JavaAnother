@@ -1,7 +1,6 @@
 package branchAW;
 
 import java.awt.Component;
-import java.awt.Container;
 import java.awt.Point;
 import java.awt.image.BufferedImage;
 
@@ -109,18 +108,18 @@ public class CardField
 		}
 	}
 	
-	public void Draw(JFrame jFrame)
+	public void Draw(Card cCard)
 	{
-		Component parent = Card.getComponentById(jFrame.getContentPane(), Integer.toString(iPID));
+		Component parent = cCard.getComponentById(cCard.jFrame.getContentPane(), Integer.toString(iPID));
 		switch (iType)
 		{
 			case 0:
 			{
-				jFrame.setSize(iWidth*2+20, iHeight*2+46);
-				jFrame.setLocation(iLeft*2, iTop*2);
-				jFrame.setTitle(sText);
-				jFrame.setName(Integer.toString(iID));
-				jFrame.setResizable(false);
+				cCard.jFrame.setSize(iWidth*2+20, iHeight*2+46);
+				cCard.jFrame.setLocation(iLeft*2, iTop*2);
+				cCard.jFrame.setTitle(sText);
+				cCard.jFrame.setName(Integer.toString(iID));
+				cCard.jFrame.setResizable(false);
 				break;
 			}
 			case 1:
@@ -132,7 +131,7 @@ public class CardField
 					tp.setLocation(new Point(iLeft*2, (iTop-13)*2));
 					tp.setVisible(true);
 					tp.setName(Integer.toString(iPID));
-					jFrame.add(tp);
+					cCard.jFrame.add(tp);
 					parent = tp;
 				}
 				JPanel jp = new JPanel();

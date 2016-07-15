@@ -3,18 +3,34 @@ package branchAW;
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.Point;
+import java.util.AbstractMap;
 import java.util.ArrayList;
-import java.util.Map;
 
 import javax.swing.ButtonGroup;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 public class Card 
 {
-	ArrayList<CardField> aFields;
-	Map<String, ButtonGroup> mGroups;
+	public JFrame jFrame;
+	public ArrayList<CardField> aFields;
+	public AbstractMap<String, ButtonGroup> mGroups;
 	
-	public static Component getComponentById(Container container, String componentId)
+	public Card()
+	{
+		jFrame = new JFrame();
+		aFields = new ArrayList<CardField>();
+	}
+	
+	public void Draw()
+	{
+		for (CardField cf : aFields)
+		{
+			cf.Draw(this);
+		}
+	}
+	
+	public Component getComponentById(Container container, String componentId)
 	{
 
         if(container.getComponents().length > 0)
@@ -39,7 +55,7 @@ public class Card
 
     }
 	
-	public static Component getPanelByXY(Container container, int iX, int iY)
+	public Component getPanelByXY(Container container, int iX, int iY)
 	{
 		if(container.getComponents().length > 0)
 	        {
