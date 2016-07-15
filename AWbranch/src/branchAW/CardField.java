@@ -4,9 +4,13 @@ import java.awt.Component;
 import java.awt.Container;
 import java.awt.Point;
 import java.awt.image.BufferedImage;
+import java.awt.image.DataBuffer;
+import java.awt.image.Raster;
+import java.awt.image.SampleModel;
 
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
@@ -256,12 +260,16 @@ public class CardField
 				((JTable)parent).addColumn(tc);
 				break;
 			}
-/*			case 12:
+			case 12:
 			{
-				BufferedImage bi = new BufferedImage();
-				((JPanel)parent).add(bi);
+				BufferedImage bi = null;
+				Raster rs;
+				rs.createRaster(new SampleModel(), new DataBuffer(), null);
+				ImageIcon ic = new ImageIcon(bi);
+				JLabel jl = new JLabel(ic);
+				((JPanel)parent).add(jl);
 				break;
-			}*/
+			}
 			default:
 			{
 				break;
