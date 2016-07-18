@@ -33,101 +33,31 @@ public class CardField
 {
 	private int iID;
 	private int iType;
-	private int iPID;
-	private int iPos;
-	private int iTop;
 	private int iLeft;
+	private int iTop;
 	private int iWidth;
 	private int iHeight;
+	private int iPos;
 	private String sType;
-	private String sName;
 	private String sText;
+	private String sName;
+	private int iPID;
 	private byte[] bSD;
 
-	public CardField(String sRow)
+	public CardField(int inID, int inType, int inLeft, int inTop, int inWidth, int inHeight, int inPos, String snType, String snText, String snName, int inPID, byte[] bnSD)
 	{
-		String[] sCols = sRow.split("\\|\\|");
-		for (int i = 0; i < sCols.length; ++i)
-		{
-			if (sCols[i] == "")
-			{
-				sCols[i] = "0";
-			}
-			switch (i)
-			{
-				case 0:
-				{
-					iID = Integer.parseInt(sCols[i]);
-					break;
-				}
-				case 1:
-				{
-					iType = Integer.parseInt(sCols[i]);
-					break;
-				}
-				case 2:
-				{
-					iLeft = Integer.parseInt(sCols[i]);
-					break;
-				}
-				case 3:
-				{
-					iTop = Integer.parseInt(sCols[i]);
-					break;
-				}
-				case 4:
-				{
-					iWidth = Integer.parseInt(sCols[i]);
-					break;
-				}
-				case 5:
-				{
-					iHeight = Integer.parseInt(sCols[i]);
-					break;
-				}
-				case 6:
-				{
-					iPos = Integer.parseInt(sCols[i]);
-					break;
-				}
-				case 7:
-				{
-					sType = sCols[i];
-					break;
-				}
-				case 8:
-				{
-					sText = sCols[i];
-					break;
-				}
-				case 9:
-				{
-					sName = sCols[i];
-					break;
-				}
-				case 10:
-				{
-					iPID = Integer.parseInt(sCols[i]);
-					break;
-				}
-				case 11:
-				{
-					bSD = new byte[sCols[i].length()];
-					for (int j = 0; j < sCols[i].length(); ++j)
-					{
-						if (sCols[i].substring(j, 1) != "")
-						{
-							bSD[j] = Byte.parseByte(sCols[i].substring(j, 1), 16);
-						}
-					}
-					break;
-				}
-				default:
-				{
-					break;
-				}
-			}	
-		}
+		iID = inID;
+		iType = inType;
+		iLeft = inLeft;
+		iTop = inTop;
+		iWidth = inWidth;
+		iHeight = inHeight;
+		iPos = inPos;
+		sType = snType;
+		sText = snText;
+		sName = snName;
+		iPID = inPID;
+		bSD = bnSD;
 	}
 	
 	public void Draw(Card cCard)
@@ -237,7 +167,6 @@ public class CardField
 				{
 					ButtonGroup bg = cCard.mGroups.get(c.getName());
 					bg.add(rb);
-					System.out.println("added to bg " + sText);
 					rb.setLocation(new Point(iLeft*2 - c.getX(), iTop*2 - c.getY()));
 					((JPanel)c).add(rb);
 				}
@@ -277,7 +206,7 @@ public class CardField
 				((JTable)parent).addColumn(tc);
 				break;
 			}
-			case 12:
+/*			case 12:
 			{
 				ByteArrayInputStream is = new ByteArrayInputStream(bSD);
 				BufferedImage bi;
@@ -293,7 +222,7 @@ public class CardField
 					e.printStackTrace();
 				}
 				break;
-			}
+			}*/
 			default:
 			{
 				break;

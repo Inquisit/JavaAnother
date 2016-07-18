@@ -3,6 +3,10 @@ package branchAW;
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.Point;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -15,12 +19,43 @@ public class Card
 	public JFrame jFrame;
 	public ArrayList<CardField> aFields;
 	public HashMap<String, ButtonGroup> mGroups;
+	public int iCardType;
 	
 	public Card()
 	{
 		jFrame = new JFrame();
 		aFields = new ArrayList<CardField>();
 		mGroups = new HashMap<String, ButtonGroup>();
+		iCardType = 0;
+	}
+	
+	public Card(int iTypeID, Connection conn)
+	{
+		jFrame = new JFrame();
+		aFields = new ArrayList<CardField>();
+		mGroups = new HashMap<String, ButtonGroup>();
+		iCardType = iTypeID;
+		fillCardContent(conn);
+	}
+	
+	public void fillCardContent(Connection conn)
+	{
+		if (conn == null)
+			return;
+		try 
+		{
+			Statement st = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
+			ResultSet rs = st.executeQuery("select t.field_id, t.field_type, t.field_left, t.field_top, t.field_width, t.field_height, t.field_pos, t.data_type, t.field_name, t.physical_name, t.pfield_id, t.specific_data from CARD_FIELDS t where t.type_id = 132 order by t.field_id");
+			
+			while (rs.next())
+			{
+				aFields.add(new CardField(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getInt(4), rs.getInt(5), rs.getInt(6), rs.getInt(7), rs.getString(8), rs.getString(9), rs.getString(10), rs.getInt(11), rs.getBytes(12)));
+			}		
+		} 
+		catch (SQLException e) 
+		{
+			e.printStackTrace();
+		}
 	}
 	
 	public void Draw()
