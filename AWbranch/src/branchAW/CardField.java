@@ -29,7 +29,7 @@ import javax.swing.JTextArea;
 import javax.swing.border.Border;
 import javax.swing.table.TableColumn;
 
-public class CardField 
+public class CardField implements Comparable<CardField>
 {
 	private int iID;
 	private int iType;
@@ -43,6 +43,21 @@ public class CardField
 	private String sName;
 	private int iPID;
 	private byte[] bSD;
+	
+	public int getiType() 
+	{
+		return iType;
+	}
+
+	public int getiPos() 
+	{
+		return iPos;
+	}
+
+	public int getiPID() 
+	{
+		return iPID;
+	}
 
 	public CardField(int inID, int inType, int inLeft, int inTop, int inWidth, int inHeight, int inPos, String snType, String snText, String snName, int inPID, byte[] bnSD)
 	{
@@ -228,5 +243,19 @@ public class CardField
 				break;
 			}
 		}
+	}
+
+	@Override
+	public int compareTo(CardField o) 
+	{
+		if (this.iPID != o.iPID)
+		{
+			return ((this.iPID > o.iPID)?1:-1);
+		}
+		if (this.iType != o.iType)
+		{
+			return ((this.iType==4)?(1):(o.iType==4?(-1):(this.iPos>o.iPos?1:(this.iPos==o.iPos?0:-1))));
+		}
+		return 0;
 	}
 }

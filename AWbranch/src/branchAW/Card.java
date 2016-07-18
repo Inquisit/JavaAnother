@@ -36,6 +36,7 @@ public class Card
 		mGroups = new HashMap<String, ButtonGroup>();
 		iCardType = iTypeID;
 		fillCardContent(conn);
+		aFields.sort(null);
 	}
 	
 	public void fillCardContent(Connection conn)
