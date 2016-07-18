@@ -206,9 +206,9 @@ public class CardField
 				((JTable)parent).addColumn(tc);
 				break;
 			}
-/*			case 12:
+			case 12:
 			{
-				ByteArrayInputStream is = new ByteArrayInputStream(bSD);
+				/*ByteArrayInputStream is = new ByteArrayInputStream(bSD);
 				BufferedImage bi;
 				try 
 				{
@@ -220,9 +220,9 @@ public class CardField
 				catch (IOException e) 
 				{
 					e.printStackTrace();
-				}
+				}*/
 				break;
-			}*/
+			}
 			default:
 			{
 				break;

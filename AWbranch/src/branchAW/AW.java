@@ -9,7 +9,7 @@ public class AW
 	{
 		OraConnection ora = new OraConnection();
 		ora.Connect();
-		Card cCard = new Card(132, ora.conn);
+		Card cCard = new Card(199, ora.conn);
 		cCard.Draw();
 		JLabel cmp = new JLabel();
 		cCard.jFrame.add(cmp);

@@ -45,7 +45,7 @@ public class Card
 		try 
 		{
 			Statement st = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
-			ResultSet rs = st.executeQuery("select t.field_id, t.field_type, t.field_left, t.field_top, t.field_width, t.field_height, t.field_pos, t.data_type, t.field_name, t.physical_name, t.pfield_id, t.specific_data from CARD_FIELDS t where t.type_id = 132 order by t.field_id");
+			ResultSet rs = st.executeQuery("select t.field_id, t.field_type, t.field_left, t.field_top, t.field_width, t.field_height, t.field_pos, t.data_type, t.field_name, t.physical_name, t.pfield_id, t.specific_data from CARD_FIELDS t where t.type_id = "+Integer.toString(iCardType)+" order by t.field_id");
 			
 			while (rs.next())
 			{
