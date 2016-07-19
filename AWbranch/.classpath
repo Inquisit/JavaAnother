@@ -3,5 +3,6 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7"/>
 	<classpathentry kind="lib" path="D:/Java/Git/Java/AWbranch/src/ojdbc6.jar"/>
+	<classpathentry kind="lib" path="D:/Java/Git/Java/AWbranch/src/weblaf-complete-1.29.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

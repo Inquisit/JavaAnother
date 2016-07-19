@@ -27,6 +27,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.JTextArea;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.border.Border;
 import javax.swing.table.TableColumn;
 
@@ -84,16 +86,16 @@ public class CardField implements Comparable<CardField>
 			{
 				if (iID == 0)
 				{
-					cCard.jFrame.setSize((iWidth+10)*GLOBAL_CONSTANTS.SCALE, (iHeight+23)*GLOBAL_CONSTANTS.SCALE);
-					cCard.jFrame.setLocation(iLeft*GLOBAL_CONSTANTS.SCALE, iTop*GLOBAL_CONSTANTS.SCALE);
+					cCard.jFrame.setSize((int)((iWidth+10)*GLOBAL_CONSTANTS.SCALE), (int)((iHeight+23)*GLOBAL_CONSTANTS.SCALE));
+					cCard.jFrame.setLocation((int)(iLeft*GLOBAL_CONSTANTS.SCALE), (int)(iTop*GLOBAL_CONSTANTS.SCALE));
 					cCard.jFrame.setTitle(sText);
 					cCard.jFrame.setName(Integer.toString(iID));
 					cCard.jFrame.setResizable(false);
 					cCard.jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 				}
 				JTabbedPane tp = new JTabbedPane();
-				tp.setSize(iWidth*GLOBAL_CONSTANTS.SCALE, iHeight*GLOBAL_CONSTANTS.SCALE);
-				tp.setLocation(new Point(iID==0?0:iLeft*GLOBAL_CONSTANTS.SCALE, (iID==0?0:iTop)*GLOBAL_CONSTANTS.SCALE));
+				tp.setSize((int)(iWidth*GLOBAL_CONSTANTS.SCALE), (int)(iHeight*GLOBAL_CONSTANTS.SCALE));
+				tp.setLocation(new Point((int)((iID==0?0:iLeft)*GLOBAL_CONSTANTS.SCALE), (int)((iID==0?0:iTop)*GLOBAL_CONSTANTS.SCALE)));
 				tp.setVisible(true);
 				tp.setName(Integer.toString(iID));
 				if (parent == null)
@@ -109,7 +111,7 @@ public class CardField implements Comparable<CardField>
 			case 1:
 			{
 				JPanel jp = new JPanel();
-				jp.setSize(iWidth*GLOBAL_CONSTANTS.SCALE, (iHeight+13)*GLOBAL_CONSTANTS.SCALE);
+				jp.setSize((int)(iWidth*GLOBAL_CONSTANTS.SCALE), (int)(iHeight*GLOBAL_CONSTANTS.SCALE));
 				jp.setLayout(null);
 				jp.setName(Integer.toString(iID));
 				jp.setVisible(true);
@@ -121,15 +123,15 @@ public class CardField implements Comparable<CardField>
 			case 2:
 			{
 				JLabel jl = new JLabel();
-				jl.setSize(iWidth*GLOBAL_CONSTANTS.SCALE, iHeight*GLOBAL_CONSTANTS.SCALE);
+				jl.setSize((int)(iWidth*GLOBAL_CONSTANTS.SCALE), (int)(iHeight*GLOBAL_CONSTANTS.SCALE));
 				jl.setText(sText);
 				jl.setName(Integer.toString(iID));
-				jl.setLocation(new Point(iLeft*GLOBAL_CONSTANTS.SCALE, iTop*GLOBAL_CONSTANTS.SCALE));
+				jl.setLocation(new Point((int)(iLeft*GLOBAL_CONSTANTS.SCALE), (int)(iTop*GLOBAL_CONSTANTS.SCALE)));
 				jl.setVisible(true);
-				Component c = cCard.getPanelByXY((Container)parent, iLeft*GLOBAL_CONSTANTS.SCALE, iTop*GLOBAL_CONSTANTS.SCALE);
+				Component c = cCard.getPanelByXY((Container)parent, (int)(iLeft*GLOBAL_CONSTANTS.SCALE), (int)(iTop*GLOBAL_CONSTANTS.SCALE));
 				if (c != null)
 				{
-					jl.setLocation(new Point(iLeft*GLOBAL_CONSTANTS.SCALE - c.getX(), iTop*GLOBAL_CONSTANTS.SCALE - c.getY()));
+					jl.setLocation(new Point((int)(iLeft*GLOBAL_CONSTANTS.SCALE) - c.getX(), (int)(iTop*GLOBAL_CONSTANTS.SCALE) - c.getY()));
 					((JPanel)c).add(jl);
 				}
 				else
@@ -141,15 +143,17 @@ public class CardField implements Comparable<CardField>
 			case 3:
 			{
 				JTextArea ta = new JTextArea();
-				ta.setSize(iWidth*GLOBAL_CONSTANTS.SCALE, iHeight*GLOBAL_CONSTANTS.SCALE);
+				ta.setSize((int)(iWidth*GLOBAL_CONSTANTS.SCALE), (int)(iHeight*GLOBAL_CONSTANTS.SCALE));
 				ta.setText(sText);
 				ta.setName(Integer.toString(iID));
-				ta.setLocation(new Point(iLeft*GLOBAL_CONSTANTS.SCALE, iTop*GLOBAL_CONSTANTS.SCALE));
+				ta.setLocation(new Point((int)(iLeft*GLOBAL_CONSTANTS.SCALE), (int)(iTop*GLOBAL_CONSTANTS.SCALE)));
 				ta.setVisible(true);
-				Component c = cCard.getPanelByXY((Container)parent, iLeft*GLOBAL_CONSTANTS.SCALE, iTop*GLOBAL_CONSTANTS.SCALE);
+				Border border = BorderFactory.createEtchedBorder();
+				ta.setBorder(border);
+				Component c = cCard.getPanelByXY((Container)parent, (int)(iLeft*GLOBAL_CONSTANTS.SCALE), (int)(iTop*GLOBAL_CONSTANTS.SCALE));
 				if (c != null)
 				{
-					ta.setLocation(new Point(iLeft*GLOBAL_CONSTANTS.SCALE - c.getX(), iTop*GLOBAL_CONSTANTS.SCALE - c.getY()));
+					ta.setLocation(new Point((int)(iLeft*GLOBAL_CONSTANTS.SCALE) - c.getX(), (int)(iTop*GLOBAL_CONSTANTS.SCALE) - c.getY()));
 					((JPanel)c).add(ta);
 				}
 				else
@@ -164,9 +168,9 @@ public class CardField implements Comparable<CardField>
 				gb.setLayout(null);
 				Border border = BorderFactory.createTitledBorder(sText);
 				gb.setBorder(border);
-				gb.setSize(iWidth*GLOBAL_CONSTANTS.SCALE, iHeight*GLOBAL_CONSTANTS.SCALE);
+				gb.setSize((int)(iWidth*GLOBAL_CONSTANTS.SCALE), (int)(iHeight*GLOBAL_CONSTANTS.SCALE));
 				gb.setName(Integer.toString(iID));
-				gb.setLocation(new Point(iLeft*GLOBAL_CONSTANTS.SCALE, iTop*GLOBAL_CONSTANTS.SCALE));
+				gb.setLocation(new Point((int)(iLeft*GLOBAL_CONSTANTS.SCALE), (int)(iTop*GLOBAL_CONSTANTS.SCALE)));
 				ButtonGroup bg = new ButtonGroup();
 				cCard.mGroups.put(gb.getName(), bg);
 				((JPanel)parent).add(gb);
@@ -175,14 +179,14 @@ public class CardField implements Comparable<CardField>
 			case 5:
 			{
 				JComboBox<String> cb = new JComboBox<String>();
-				cb.setSize(iWidth*GLOBAL_CONSTANTS.SCALE, 20);
+				cb.setSize((int)(iWidth*GLOBAL_CONSTANTS.SCALE), (int)(10*GLOBAL_CONSTANTS.SCALE));
 				cb.setName(Integer.toString(iID));
-				cb.setLocation(new Point(iLeft*GLOBAL_CONSTANTS.SCALE, iTop*GLOBAL_CONSTANTS.SCALE));
+				cb.setLocation(new Point((int)(iLeft*GLOBAL_CONSTANTS.SCALE), (int)(iTop*GLOBAL_CONSTANTS.SCALE)));
 				cb.setVisible(true);
-				Component c = cCard.getPanelByXY((Container)parent, iLeft*GLOBAL_CONSTANTS.SCALE, iTop*GLOBAL_CONSTANTS.SCALE);
+				Component c = cCard.getPanelByXY((Container)parent, (int)(iLeft*GLOBAL_CONSTANTS.SCALE), (int)(iTop*GLOBAL_CONSTANTS.SCALE));
 				if (c != null)
 				{
-					cb.setLocation(new Point(iLeft*GLOBAL_CONSTANTS.SCALE - c.getX(), iTop*GLOBAL_CONSTANTS.SCALE - c.getY()));
+					cb.setLocation(new Point((int)(iLeft*GLOBAL_CONSTANTS.SCALE) - c.getX(), (int)(iTop*GLOBAL_CONSTANTS.SCALE) - c.getY()));
 					((JPanel)c).add(cb);
 				}
 				else
@@ -194,15 +198,15 @@ public class CardField implements Comparable<CardField>
 			case 7:
 			{
 				JCheckBox cb = new JCheckBox();
-				cb.setSize(iWidth*GLOBAL_CONSTANTS.SCALE, iHeight*GLOBAL_CONSTANTS.SCALE);
+				cb.setSize((int)(iWidth*GLOBAL_CONSTANTS.SCALE), (int)(iHeight*GLOBAL_CONSTANTS.SCALE));
 				cb.setName(Integer.toString(iID));
 				cb.setText(sText);
-				cb.setLocation(new Point(iLeft*GLOBAL_CONSTANTS.SCALE, iTop*GLOBAL_CONSTANTS.SCALE));
+				cb.setLocation(new Point((int)(iLeft*GLOBAL_CONSTANTS.SCALE), (int)(iTop*GLOBAL_CONSTANTS.SCALE)));
 				cb.setVisible(true);
-				Component c = cCard.getPanelByXY((Container)parent, iLeft*GLOBAL_CONSTANTS.SCALE, iTop*GLOBAL_CONSTANTS.SCALE);
+				Component c = cCard.getPanelByXY((Container)parent, (int)(iLeft*GLOBAL_CONSTANTS.SCALE), (int)(iTop*GLOBAL_CONSTANTS.SCALE));
 				if (c != null)
 				{
-					cb.setLocation(new Point(iLeft*GLOBAL_CONSTANTS.SCALE - c.getX(), iTop*GLOBAL_CONSTANTS.SCALE - c.getY()));
+					cb.setLocation(new Point((int)(iLeft*GLOBAL_CONSTANTS.SCALE) - c.getX(), (int)(iTop*GLOBAL_CONSTANTS.SCALE) - c.getY()));
 					((JPanel)c).add(cb);
 				}
 				else
@@ -214,17 +218,17 @@ public class CardField implements Comparable<CardField>
 			case 8:
 			{
 				JRadioButton rb = new JRadioButton();
-				rb.setSize(iWidth*GLOBAL_CONSTANTS.SCALE, iHeight*GLOBAL_CONSTANTS.SCALE);
+				rb.setSize((int)(iWidth*GLOBAL_CONSTANTS.SCALE), (int)(iHeight*GLOBAL_CONSTANTS.SCALE));
 				rb.setName(Integer.toString(iID));
 				rb.setText(sText);
-				rb.setLocation(new Point(iLeft*GLOBAL_CONSTANTS.SCALE, iTop*GLOBAL_CONSTANTS.SCALE));
+				rb.setLocation(new Point((int)(iLeft*GLOBAL_CONSTANTS.SCALE), (int)(iTop*GLOBAL_CONSTANTS.SCALE)));
 				rb.setVisible(true);
-				Component c = cCard.getPanelByXY((Container)parent, iLeft*GLOBAL_CONSTANTS.SCALE, iTop*GLOBAL_CONSTANTS.SCALE);
+				Component c = cCard.getPanelByXY((Container)parent, (int)(iLeft*GLOBAL_CONSTANTS.SCALE), (int)(iTop*GLOBAL_CONSTANTS.SCALE));
 				if (c != null)
 				{
 					ButtonGroup bg = cCard.mGroups.get(c.getName());
 					bg.add(rb);
-					rb.setLocation(new Point(iLeft*GLOBAL_CONSTANTS.SCALE - c.getX(), iTop*GLOBAL_CONSTANTS.SCALE - c.getY()));
+					rb.setLocation(new Point((int)(iLeft*GLOBAL_CONSTANTS.SCALE) - c.getX(), (int)(iTop*GLOBAL_CONSTANTS.SCALE) - c.getY()));
 					((JPanel)c).add(rb);
 				}
 				else
@@ -236,15 +240,15 @@ public class CardField implements Comparable<CardField>
 			case 9:
 			{
 				JButton jb = new JButton();
-				jb.setSize(iWidth*GLOBAL_CONSTANTS.SCALE, iHeight*GLOBAL_CONSTANTS.SCALE);
+				jb.setSize((int)(iWidth*GLOBAL_CONSTANTS.SCALE), (int)(iHeight*GLOBAL_CONSTANTS.SCALE));
 				jb.setText(sText);
 				jb.setName(Integer.toString(iID));
-				jb.setLocation(new Point(iLeft*GLOBAL_CONSTANTS.SCALE, iTop*GLOBAL_CONSTANTS.SCALE));
+				jb.setLocation(new Point((int)(iLeft*GLOBAL_CONSTANTS.SCALE), (int)(iTop*GLOBAL_CONSTANTS.SCALE)));
 				jb.setVisible(true);
-				Component c = cCard.getPanelByXY((Container)parent, iLeft*GLOBAL_CONSTANTS.SCALE, iTop*GLOBAL_CONSTANTS.SCALE);
+				Component c = cCard.getPanelByXY((Container)parent, (int)(iLeft*GLOBAL_CONSTANTS.SCALE), (int)(iTop*GLOBAL_CONSTANTS.SCALE));
 				if (c != null)
 				{
-					jb.setLocation(new Point(iLeft*GLOBAL_CONSTANTS.SCALE - c.getX(), iTop*GLOBAL_CONSTANTS.SCALE - c.getY()));
+					jb.setLocation(new Point((int)(iLeft*GLOBAL_CONSTANTS.SCALE) - c.getX(), (int)(iTop*GLOBAL_CONSTANTS.SCALE) - c.getY()));
 					((JPanel)c).add(jb);
 				}
 				else
@@ -259,12 +263,12 @@ public class CardField implements Comparable<CardField>
 				jt.setName(Integer.toString(iID));
 				jt.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 				JScrollPane sp = new JScrollPane(jt);
-				sp.setSize(iWidth*GLOBAL_CONSTANTS.SCALE, iHeight*GLOBAL_CONSTANTS.SCALE);
-				sp.setLocation(new Point(iLeft*GLOBAL_CONSTANTS.SCALE, iTop*GLOBAL_CONSTANTS.SCALE));
-				Component c = cCard.getPanelByXY((Container)parent, iLeft*GLOBAL_CONSTANTS.SCALE, iTop*GLOBAL_CONSTANTS.SCALE);
+				sp.setSize((int)(iWidth*GLOBAL_CONSTANTS.SCALE), (int)(iHeight*GLOBAL_CONSTANTS.SCALE));
+				sp.setLocation(new Point((int)(iLeft*GLOBAL_CONSTANTS.SCALE), (int)(iTop*GLOBAL_CONSTANTS.SCALE)));
+				Component c = cCard.getPanelByXY((Container)parent, (int)(iLeft*GLOBAL_CONSTANTS.SCALE), (int)(iTop*GLOBAL_CONSTANTS.SCALE));
 				if (c != null)
 				{
-					sp.setLocation(new Point(iLeft*GLOBAL_CONSTANTS.SCALE - c.getX(), iTop*GLOBAL_CONSTANTS.SCALE - c.getY()));
+					sp.setLocation(new Point((int)(iLeft*GLOBAL_CONSTANTS.SCALE) - c.getX(), (int)(iTop*GLOBAL_CONSTANTS.SCALE) - c.getY()));
 					((JPanel)c).add(sp);
 				}
 				else
@@ -276,7 +280,7 @@ public class CardField implements Comparable<CardField>
 			case 11:
 			{
 				TableColumn tc = new TableColumn();
-				tc.setPreferredWidth(iWidth*GLOBAL_CONSTANTS.SCALE);
+				tc.setPreferredWidth((int)(iWidth*GLOBAL_CONSTANTS.SCALE));
 				tc.setHeaderValue(sText);
 				((JTable)parent).addColumn(tc);
 				break;
