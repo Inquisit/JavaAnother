@@ -120,7 +120,16 @@ public class CardField implements Comparable<CardField>
 				jl.setName(Integer.toString(iID));
 				jl.setLocation(new Point(iLeft*2, iTop*2));
 				jl.setVisible(true);
-				((JPanel)parent).add(jl);
+				Component c = cCard.getPanelByXY((Container)parent, iLeft*2, iTop*2);
+				if (c != null)
+				{
+					jl.setLocation(new Point(iLeft*2 - c.getX(), iTop*2 - c.getY()));
+					((JPanel)c).add(jl);
+				}
+				else
+				{
+					((JPanel)parent).add(jl);
+				}
 				break;
 			}
 			case 3:
@@ -131,7 +140,16 @@ public class CardField implements Comparable<CardField>
 				ta.setName(Integer.toString(iID));
 				ta.setLocation(new Point(iLeft*2, iTop*2));
 				ta.setVisible(true);
-				((JPanel)parent).add(ta);
+				Component c = cCard.getPanelByXY((Container)parent, iLeft*2, iTop*2);
+				if (c != null)
+				{
+					ta.setLocation(new Point(iLeft*2 - c.getX(), iTop*2 - c.getY()));
+					((JPanel)c).add(ta);
+				}
+				else
+				{
+					((JPanel)parent).add(ta);
+				}
 				break;
 			}
 			case 4:
@@ -155,7 +173,16 @@ public class CardField implements Comparable<CardField>
 				cb.setName(Integer.toString(iID));
 				cb.setLocation(new Point(iLeft*2, iTop*2));
 				cb.setVisible(true);
-				((JPanel)parent).add(cb);
+				Component c = cCard.getPanelByXY((Container)parent, iLeft*2, iTop*2);
+				if (c != null)
+				{
+					cb.setLocation(new Point(iLeft*2 - c.getX(), iTop*2 - c.getY()));
+					((JPanel)c).add(cb);
+				}
+				else
+				{
+					((JPanel)parent).add(cb);
+				}
 				break;
 			}
 			case 7:
@@ -166,7 +193,16 @@ public class CardField implements Comparable<CardField>
 				cb.setText(sText);
 				cb.setLocation(new Point(iLeft*2, iTop*2));
 				cb.setVisible(true);
-				((JPanel)parent).add(cb);
+				Component c = cCard.getPanelByXY((Container)parent, iLeft*2, iTop*2);
+				if (c != null)
+				{
+					cb.setLocation(new Point(iLeft*2 - c.getX(), iTop*2 - c.getY()));
+					((JPanel)c).add(cb);
+				}
+				else
+				{
+					((JPanel)parent).add(cb);
+				}
 				break;
 			}
 			case 8:
@@ -199,7 +235,16 @@ public class CardField implements Comparable<CardField>
 				jb.setName(Integer.toString(iID));
 				jb.setLocation(new Point(iLeft*2, iTop*2));
 				jb.setVisible(true);
-				((JPanel)parent).add(jb);
+				Component c = cCard.getPanelByXY((Container)parent, iLeft*2, iTop*2);
+				if (c != null)
+				{
+					jb.setLocation(new Point(iLeft*2 - c.getX(), iTop*2 - c.getY()));
+					((JPanel)c).add(jb);
+				}
+				else
+				{
+					((JPanel)parent).add(jb);
+				}
 				break;
 			}
 			case 10:
@@ -210,7 +255,16 @@ public class CardField implements Comparable<CardField>
 				JScrollPane sp = new JScrollPane(jt);
 				sp.setSize(iWidth*2, iHeight*2);
 				sp.setLocation(new Point(iLeft*2, iTop*2));
-				((JPanel)parent).add(sp);
+				Component c = cCard.getPanelByXY((Container)parent, iLeft*2, iTop*2);
+				if (c != null)
+				{
+					sp.setLocation(new Point(iLeft*2 - c.getX(), iTop*2 - c.getY()));
+					((JPanel)c).add(sp);
+				}
+				else
+				{
+					((JPanel)parent).add(sp);
+				}
 				break;
 			}
 			case 11:
@@ -244,6 +298,12 @@ public class CardField implements Comparable<CardField>
 			}
 		}
 	}
+	
+	@Override
+	public String toString()
+	{
+		return Integer.toString(iID) + " " + sText + " " + Integer.toString(iType);
+	}
 
 	@Override
 	public int compareTo(CardField o) 
@@ -254,7 +314,18 @@ public class CardField implements Comparable<CardField>
 		}
 		if (this.iType != o.iType)
 		{
-			return ((this.iType==4)?(1):(o.iType==4?(-1):(this.iPos>o.iPos?1:(this.iPos==o.iPos?0:-1))));
+			if (this.iType == 4)
+			{
+				return -1;
+			}
+			if (o.iType == 4)
+			{
+				return 1;
+			}
+		}
+		if (this.iPos != o.iPos)
+		{
+			return ((this.iPos > o.iPos)?1:-1);
 		}
 		return 0;
 	}
