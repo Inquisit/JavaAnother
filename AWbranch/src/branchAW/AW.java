@@ -5,7 +5,7 @@ import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
 import javax.swing.UnsupportedLookAndFeelException;
 
-import com.alee.laf.WebLookAndFeel;
+//import com.alee.laf.WebLookAndFeel;
 
 import globals.GLOBAL_CONSTANTS;
 
@@ -14,21 +14,20 @@ public class AW
 
 	public static void main(String[] args) 
 	{
-/*		try 
+		try 
 		{
-			UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
-			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-			UIManager.setLookAndFeel("com.sun.java.swing.plaf.motif.MotifLookAndFeel");
-			UIManager.setLookAndFeel("javax.swing.plaf.basic.BasicLookAndFeel");*/
+//			UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
+//			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+//			UIManager.setLookAndFeel("com.sun.java.swing.plaf.motif.MotifLookAndFeel");
 //			WebLookAndFeel.install ();
 			
-			/*for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) 
+			for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) 
 			{
-				System.out.println(info.getName());
+//				System.out.println(info.getName());
 		        if (GLOBAL_CONSTANTS.THEME.equals(info.getName())) 
 		        {
 		            UIManager.setLookAndFeel(info.getClassName());
-		            //break;
+		            break;
 		        }
 		    }
 			
@@ -36,7 +35,7 @@ public class AW
 		catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e) 
 		{
 			e.printStackTrace();
-		}*/
+		}
 		OraConnection ora = new OraConnection();
 		ora.Connect();
 		Card cCard = new Card(199, ora.conn);
@@ -44,7 +43,7 @@ public class AW
 		JLabel cmp = new JLabel();
 		cCard.jFrame.add(cmp);
 		cCard.jFrame.setVisible(true);
-		cCard.aFields.get(13).parseSpecificData();
+//		cCard.aFields.get(13).parseSpecificData();
 		ora.Disconnect();
 	}
 

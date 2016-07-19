@@ -179,7 +179,7 @@ public class CardField implements Comparable<CardField>
 			case 5:
 			{
 				JComboBox<String> cb = new JComboBox<String>();
-				cb.setSize((int)(iWidth*GLOBAL_CONSTANTS.SCALE), (int)(10*GLOBAL_CONSTANTS.SCALE));
+				cb.setSize((int)(iWidth*GLOBAL_CONSTANTS.SCALE), (int)(GLOBAL_CONSTANTS.COMBOBOX_SIZE*GLOBAL_CONSTANTS.SCALE));
 				cb.setName(Integer.toString(iID));
 				cb.setLocation(new Point((int)(iLeft*GLOBAL_CONSTANTS.SCALE), (int)(iTop*GLOBAL_CONSTANTS.SCALE)));
 				cb.setVisible(true);
