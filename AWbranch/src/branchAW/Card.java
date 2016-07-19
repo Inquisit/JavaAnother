@@ -21,14 +21,6 @@ public class Card
 	public HashMap<String, ButtonGroup> mGroups;
 	public int iCardType;
 	
-	public Card()
-	{
-		jFrame = new JFrame();
-		aFields = new ArrayList<CardField>();
-		mGroups = new HashMap<String, ButtonGroup>();
-		iCardType = 0;
-	}
-	
 	public Card(int iTypeID, Connection conn)
 	{
 		jFrame = new JFrame();

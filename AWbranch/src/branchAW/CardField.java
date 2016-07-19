@@ -44,21 +44,6 @@ public class CardField implements Comparable<CardField>
 	private int iPID;
 	private byte[] bSD;
 	
-	public int getiType() 
-	{
-		return iType;
-	}
-
-	public int getiPos() 
-	{
-		return iPos;
-	}
-
-	public int getiPID() 
-	{
-		return iPID;
-	}
-
 	public CardField(int inID, int inType, int inLeft, int inTop, int inWidth, int inHeight, int inPos, String snType, String snText, String snName, int inPID, byte[] bnSD)
 	{
 		iID = inID;
