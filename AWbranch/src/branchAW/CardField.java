@@ -10,6 +10,7 @@ import java.awt.image.SampleModel;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
 
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
@@ -60,6 +61,30 @@ public class CardField implements Comparable<CardField>
 		bSD = bnSD;
 	}
 	
+	final protected static char[] hexArray = "0123456789ABCDEF".toCharArray();
+	public static String bytesToHex(byte[] bytes) {
+	    char[] hexChars = new char[bytes.length * 2];
+	    for ( int j = 0; j < bytes.length; j++ ) {
+	        int v = bytes[j] & 0xFF;
+	        hexChars[j * 2] = hexArray[v >>> 4];
+	        hexChars[j * 2 + 1] = hexArray[v & 0x0F];
+	    }
+	    return new String(hexChars);
+	}
+	
+	public void parseSpecificData()
+	{
+		//System.out.println(bytesToHex(bSD));
+		try 
+		{
+			System.out.println(new String(bSD, "Windows-1251"));
+		} 
+		catch (UnsupportedEncodingException e) 
+		{
+			e.printStackTrace();
+		}
+	}
+	
 	public void Draw(Card cCard)
 	{
 		Component parent = cCard.getComponentById(cCard.jFrame.getContentPane(), Integer.toString(iPID));
@@ -67,26 +92,32 @@ public class CardField implements Comparable<CardField>
 		{
 			case 0:
 			{
-				cCard.jFrame.setSize(iWidth*2+20, iHeight*2+46);
-				cCard.jFrame.setLocation(iLeft*2, iTop*2);
-				cCard.jFrame.setTitle(sText);
-				cCard.jFrame.setName(Integer.toString(iID));
-				cCard.jFrame.setResizable(false);
-				cCard.jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+				if (iID == 0)
+				{
+					cCard.jFrame.setSize((iWidth+10)*2, (iHeight+23)*2);
+					cCard.jFrame.setLocation(iLeft*2, iTop*2);
+					cCard.jFrame.setTitle(sText);
+					cCard.jFrame.setName(Integer.toString(iID));
+					cCard.jFrame.setResizable(false);
+					cCard.jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+				}
+				JTabbedPane tp = new JTabbedPane();
+				tp.setSize(iWidth*2, iHeight*2);
+				tp.setLocation(new Point(iID==0?0:iLeft*2, (iID==0?0:iTop)*2));
+				tp.setVisible(true);
+				tp.setName(Integer.toString(iID));
+				if (parent == null)
+				{
+					cCard.jFrame.add(tp);
+				}
+				else
+				{
+					((JPanel)parent).add(tp);
+				}
 				break;
 			}
 			case 1:
 			{
-				if (parent == null)
-				{
-					JTabbedPane tp = new JTabbedPane();
-					tp.setSize(iWidth*2, (iHeight+13)*2);
-					tp.setLocation(new Point(iLeft*2, (iTop-13)*2));
-					tp.setVisible(true);
-					tp.setName(Integer.toString(iPID));
-					cCard.jFrame.add(tp);
-					parent = tp;
-				}
 				JPanel jp = new JPanel();
 				jp.setSize(iWidth*2, (iHeight+13)*2);
 				jp.setLayout(null);
