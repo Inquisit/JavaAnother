@@ -32,12 +32,13 @@ import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.border.Border;
 import javax.swing.table.TableColumn;
 
+import globals.FIELD_TYPES;
 import globals.GLOBAL_CONSTANTS;
 
 public class CardField implements Comparable<CardField>
 {
 	private int iID;
-	private int iType;
+	private FIELD_TYPES fType;
 	private int iLeft;
 	private int iTop;
 	private int iWidth;
@@ -49,10 +50,10 @@ public class CardField implements Comparable<CardField>
 	private int iPID;
 	private byte[] bSD;
 	
-	public CardField(int inID, int inType, int inLeft, int inTop, int inWidth, int inHeight, int inPos, String snType, String snText, String snName, int inPID, byte[] bnSD)
+	public CardField(int inID, FIELD_TYPES fnType, int inLeft, int inTop, int inWidth, int inHeight, int inPos, String snType, String snText, String snName, int inPID, byte[] bnSD)
 	{
 		iID = inID;
-		iType = inType;
+		fType = fnType;
 		iLeft = inLeft;
 		iTop = inTop;
 		iWidth = inWidth;
@@ -87,9 +88,9 @@ public class CardField implements Comparable<CardField>
 	public void Draw(Card cCard)
 	{
 		Component parent = cCard.getComponentById(cCard.jFrame.getContentPane(), Integer.toString(iPID));
-		switch (iType)
+		switch (fType)
 		{
-			case 0:
+			case TABBED_PANE:
 			{
 				if (iID == 0)
 				{
@@ -115,7 +116,7 @@ public class CardField implements Comparable<CardField>
 				}
 				break;
 			}
-			case 1:
+			case TAB_PANEL:
 			{
 				JPanel jp = new JPanel();
 				jp.setSize((int)(iWidth*GLOBAL_CONSTANTS.SCALE), (int)(iHeight*GLOBAL_CONSTANTS.SCALE));
@@ -127,7 +128,7 @@ public class CardField implements Comparable<CardField>
 				((JTabbedPane)parent).addTab(sText, jp);				
 				break;
 			}
-			case 2:
+			case LABEL:
 			{
 				JLabel jl = new JLabel();
 				jl.setSize((int)(iWidth*GLOBAL_CONSTANTS.SCALE), (int)(iHeight*GLOBAL_CONSTANTS.SCALE));
@@ -147,7 +148,7 @@ public class CardField implements Comparable<CardField>
 				}
 				break;
 			}
-			case 3:
+			case TEXT_AREA:
 			{
 				JTextArea ta = new JTextArea();
 				ta.setSize((int)(iWidth*GLOBAL_CONSTANTS.SCALE), (int)(iHeight*GLOBAL_CONSTANTS.SCALE));
@@ -169,7 +170,7 @@ public class CardField implements Comparable<CardField>
 				}
 				break;
 			}
-			case 4:
+			case GROUP_PANE:
 			{
 				JPanel gb = new JPanel();
 				gb.setLayout(null);
@@ -183,7 +184,7 @@ public class CardField implements Comparable<CardField>
 				((JPanel)parent).add(gb);
 				break;
 			}
-			case 5:
+			case COMBO_BOX:
 			{
 				JComboBox<String> cb = new JComboBox<String>();
 				cb.setSize((int)(iWidth*GLOBAL_CONSTANTS.SCALE), (int)(GLOBAL_CONSTANTS.COMBOBOX_SIZE*GLOBAL_CONSTANTS.SCALE));
@@ -202,7 +203,7 @@ public class CardField implements Comparable<CardField>
 				}
 				break;
 			}
-			case 7:
+			case CHECK_BOX:
 			{
 				JCheckBox cb = new JCheckBox();
 				cb.setSize((int)(iWidth*GLOBAL_CONSTANTS.SCALE), (int)(iHeight*GLOBAL_CONSTANTS.SCALE));
@@ -222,7 +223,7 @@ public class CardField implements Comparable<CardField>
 				}
 				break;
 			}
-			case 8:
+			case RADIO_BUTTON:
 			{
 				JRadioButton rb = new JRadioButton();
 				rb.setSize((int)(iWidth*GLOBAL_CONSTANTS.SCALE), (int)(iHeight*GLOBAL_CONSTANTS.SCALE));
@@ -244,7 +245,7 @@ public class CardField implements Comparable<CardField>
 				}
 				break;
 			}
-			case 9:
+			case BUTTON:
 			{
 				JButton jb = new JButton();
 				jb.setSize((int)(iWidth*GLOBAL_CONSTANTS.SCALE), (int)(iHeight*GLOBAL_CONSTANTS.SCALE));
@@ -264,7 +265,7 @@ public class CardField implements Comparable<CardField>
 				}
 				break;
 			}
-			case 10:
+			case TABLE:
 			{
 				JTable jt = new JTable();
 				jt.setName(Integer.toString(iID));
@@ -284,7 +285,7 @@ public class CardField implements Comparable<CardField>
 				}
 				break;
 			}
-			case 11:
+			case COLUMN:
 			{
 				TableColumn tc = new TableColumn();
 				tc.setPreferredWidth((int)(iWidth*GLOBAL_CONSTANTS.SCALE));
@@ -292,7 +293,7 @@ public class CardField implements Comparable<CardField>
 				((JTable)parent).addColumn(tc);
 				break;
 			}
-			case 12:
+			case IMAGE:
 			{
 				/*ByteArrayInputStream is = new ByteArrayInputStream(bSD);
 				BufferedImage bi;
@@ -319,7 +320,7 @@ public class CardField implements Comparable<CardField>
 	@Override
 	public String toString()
 	{
-		return Integer.toString(iID) + " " + sText + " " + Integer.toString(iType);
+		return Integer.toString(iID) + " " + sText + " " + fType.toString();
 	}
 
 	@Override
@@ -329,13 +330,13 @@ public class CardField implements Comparable<CardField>
 		{
 			return ((this.iPID > o.iPID)?1:-1);
 		}
-		if (this.iType != o.iType)
+		if (this.fType != o.fType)
 		{
-			if (this.iType == 4)
+			if (this.fType == FIELD_TYPES.GROUP_PANE)
 			{
 				return -1;
 			}
-			if (o.iType == 4)
+			if (o.fType == FIELD_TYPES.GROUP_PANE)
 			{
 				return 1;
 			}

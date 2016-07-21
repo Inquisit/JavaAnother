@@ -14,6 +14,8 @@ import javax.swing.ButtonGroup;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import globals.FIELD_TYPES;
+
 public class Card 
 {
 	public JFrame jFrame;
@@ -42,7 +44,7 @@ public class Card
 			
 			while (rs.next())
 			{
-				aFields.add(new CardField(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getInt(4), rs.getInt(5), rs.getInt(6), rs.getInt(7), rs.getString(8), rs.getString(9), rs.getString(10), rs.getInt(11), rs.getBytes(12)));
+				aFields.add(new CardField(rs.getInt(1), FIELD_TYPES.getType(rs.getInt(2)), rs.getInt(3), rs.getInt(4), rs.getInt(5), rs.getInt(6), rs.getInt(7), rs.getString(8), rs.getString(9), rs.getString(10), rs.getInt(11), rs.getBytes(12)));
 			}		
 		} 
 		catch (SQLException e) 
