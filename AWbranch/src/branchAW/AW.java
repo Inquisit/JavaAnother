@@ -16,21 +16,7 @@ public class AW
 	{
 		try 
 		{
-//			UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
-//			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-//			UIManager.setLookAndFeel("com.sun.java.swing.plaf.motif.MotifLookAndFeel");
-//			WebLookAndFeel.install ();
-			
-			for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) 
-			{
-//				System.out.println(info.getName());
-		        if (GLOBAL_CONSTANTS.THEME.equals(info.getName())) 
-		        {
-		            UIManager.setLookAndFeel(info.getClassName());
-		            break;
-		        }
-		    }
-			
+			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 		} 
 		catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e) 
 		{

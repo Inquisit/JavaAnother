@@ -1,0 +1,15 @@
+//			UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
+//			UIManager.setLookAndFeel("com.sun.java.swing.plaf.motif.MotifLookAndFeel");
+//			WebLookAndFeel.install ();
+			
+//			for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) 
+			{
+//				System.out.println(info.getName());
+//		        if (GLOBAL_CONSTANTS.THEME.equals(info.getName())) 
+		        {
+//		            UIManager.setLookAndFeel(info.getClassName());
+//		            break;
+		        }
+		    }
+			
+/**************************************************************************************************************/
