@@ -55,7 +55,6 @@ public class Card
 	{
 		for (CardField cf : aFields)
 		{
-			//System.out.println(cf.toString());
 			cf.Draw(this);
 		}
 	}

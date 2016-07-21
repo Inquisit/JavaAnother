@@ -69,7 +69,14 @@ public class CardField implements Comparable<CardField>
 	{
 		try 
 		{
-			System.out.println(new String(bSD, "Windows-1251"));
+			String sData = new String(bSD, "Windows-1251");
+			System.out.println(sData);
+			System.out.println("/*****************************************/");
+			for (String s: sData.split("[\\u0000]+FormulaText[\\u0000]+"))
+			{
+				System.out.println(s);
+				System.out.println("/**/");
+			}
 		} 
 		catch (UnsupportedEncodingException e) 
 		{

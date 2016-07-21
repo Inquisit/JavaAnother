@@ -2,12 +2,7 @@ package branchAW;
 
 import javax.swing.JLabel;
 import javax.swing.UIManager;
-import javax.swing.UIManager.LookAndFeelInfo;
 import javax.swing.UnsupportedLookAndFeelException;
-
-//import com.alee.laf.WebLookAndFeel;
-
-import globals.GLOBAL_CONSTANTS;
 
 public class AW 
 {
@@ -29,7 +24,7 @@ public class AW
 		JLabel cmp = new JLabel();
 		cCard.jFrame.add(cmp);
 		cCard.jFrame.setVisible(true);
-//		cCard.aFields.get(13).parseSpecificData();
+		cCard.aFields.get(13).parseSpecificData();
 		ora.Disconnect();
 	}
 
