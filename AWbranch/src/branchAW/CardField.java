@@ -49,6 +49,7 @@ public class CardField implements Comparable<CardField>
 	private String sName;
 	private int iPID;
 	private byte[] bSD;
+	private SpecificData sdData;
 	
 	public CardField(int inID, FIELD_TYPES fnType, int inLeft, int inTop, int inWidth, int inHeight, int inPos, String snType, String snText, String snName, int inPID, byte[] bnSD)
 	{

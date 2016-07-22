@@ -1,6 +1,6 @@
 package branchAW;
 
-public class SpecificData<FIELD_TYPES> 
+public abstract class SpecificData 
 {
 	String sMainFormula;
 	String sAddFormula;
@@ -11,16 +11,17 @@ public class SpecificData<FIELD_TYPES>
 	String sSelFormula;
 	boolean bService;
 	
-	public SpecificData()
+	SpecificData()
 	{
 		sMainFormula = "";
 		sAddFormula = "";
-		bCalcMethod = false;
-		bRecalc = false;
+		sSelFormula = "";
 		sDisabled = "";
 		sInvisible = "";
-		sSelFormula = "";
+		bCalcMethod = false;
+		bRecalc = false;
 		bService = false;
 	}
-
+	
+	public abstract void parse(byte[] bSD);
 }
