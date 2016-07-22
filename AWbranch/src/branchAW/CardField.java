@@ -65,6 +65,7 @@ public class CardField implements Comparable<CardField>
 		sName = snName;
 		iPID = inPID;
 		bSD = bnSD;
+		sdData.parse(bSD);
 	}
 	
 	public void parseSpecificData()
