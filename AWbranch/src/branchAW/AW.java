@@ -24,7 +24,6 @@ public class AW
 		JLabel cmp = new JLabel();
 		cCard.jFrame.add(cmp);
 		cCard.jFrame.setVisible(true);
-		cCard.aFields.get(13).parseSpecificData();
 		ora.Disconnect();
 	}
 

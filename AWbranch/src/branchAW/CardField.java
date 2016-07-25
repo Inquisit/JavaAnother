@@ -65,7 +65,6 @@ public class CardField implements Comparable<CardField>
 		sName = snName;
 		iPID = inPID;
 		bSD = bnSD;
-		sdData.parse(bSD);
 	}
 	
 	public void parseSpecificData()
@@ -132,6 +131,9 @@ public class CardField implements Comparable<CardField>
 			}
 			case LABEL:
 			{
+				sdData = new SD_Label();
+				sdData.parse(bSD);
+				//System.out.println(sdData.sMainFormula);
 				JLabel jl = new JLabel();
 				jl.setSize((int)(iWidth*GLOBAL_CONSTANTS.SCALE), (int)(iHeight*GLOBAL_CONSTANTS.SCALE));
 				jl.setText(sText);
