@@ -51,9 +51,12 @@ public class RetrieveImage
 				InputStream barr=rs.getBinaryStream(1);
 				GZIPInputStream gzs = new GZIPInputStream(barr);
 				ByteArrayOutputStream out = new ByteArrayOutputStream();
-		        try{
+		        try
+		        {
 		            IOUtils.copy(gzs, out);
-		        } catch(IOException e){
+		        } 
+		        catch(IOException e)
+		        {
 		            throw new RuntimeException(e);
 		        }
 		        ByteArrayInputStream bas = new ByteArrayInputStream(out.toByteArray());
@@ -82,7 +85,8 @@ public class RetrieveImage
 			jFrame.add(jl);
 			jFrame.setVisible(true); 
 		}
-		catch (Exception e) {
+		catch (Exception e) 
+		{
 			e.printStackTrace();  
 		}
 		
