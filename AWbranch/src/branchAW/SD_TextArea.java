@@ -4,11 +4,18 @@ import java.io.UnsupportedEncodingException;
 
 import globals.DATA_INTERVALS;
 
-public class SD_Label extends SpecificData 
+public class SD_TextArea extends SpecificData 
 {
-	SD_Label()
+	protected boolean bMultiLine;
+	protected boolean bHScroll;
+	protected boolean bVScroll;
+	
+	SD_TextArea()
 	{
 		super();
+		bMultiLine = false;
+		bHScroll = false;
+		bVScroll = false;
 	}
 	
 	public void parse(byte[] bSD)
@@ -146,6 +153,31 @@ public class SD_Label extends SpecificData
 					this.bService = true;
 				}
 			}
+		}
+		else
+		{
+			iCurPos += DATA_INTERVALS.SERVICE.getPos();
+		}
+		
+		iCurPos += 16;
+		
+		if (bSD[iCurPos] != 0)
+		{
+			this.bMultiLine = true;
+		}
+		
+		iCurPos += DATA_INTERVALS.MULTILINE.getPos();
+		
+		if (bSD[iCurPos] != 0)
+		{
+			this.bHScroll = true;
+		}
+		
+		iCurPos += DATA_INTERVALS.HSCROLL.getPos();
+		
+		if (bSD[iCurPos] != 0)
+		{
+			this.bVScroll = true;
 		}
 	}
 }

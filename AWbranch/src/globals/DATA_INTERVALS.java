@@ -2,10 +2,9 @@ package globals;
 
 public enum DATA_INTERVALS 
 {
-	MAIN_FORMULA, ADD_FORMULA, CALC_METHOD, RECALC, DISABLED, INVISIBLE, SEL_FORMULA, SERVICE;
+	MAIN_FORMULA, ADD_FORMULA, CALC_METHOD, RECALC, DISABLED, INVISIBLE, SEL_FORMULA, SERVICE, MULTILINE, HSCROLL, VSCROLL;
 	
 	public static final int iSize = 16;
-	public static final int MIN_SD_SIZE = 72;
 	
 	public int getPos()
 	{
@@ -13,7 +12,7 @@ public enum DATA_INTERVALS
 		{
 			case MAIN_FORMULA:
 			{
-				return 16;
+				return 4;
 			}
 			case ADD_FORMULA:
 			{
@@ -40,6 +39,18 @@ public enum DATA_INTERVALS
 				return 4;
 			}
 			case SERVICE:
+			{
+				return 4;
+			}
+			case MULTILINE:
+			{
+				return 4;
+			}
+			case HSCROLL:
+			{
+				return 4;
+			}
+			case VSCROLL:
 			{
 				return 4;
 			}

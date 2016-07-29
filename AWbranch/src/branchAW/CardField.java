@@ -137,6 +137,28 @@ public class CardField implements Comparable<CardField>
 			{
 				sdData = new SD_Label();
 				sdData.parse(bSD);
+				JLabel jl = new JLabel();
+				jl.setSize((int)(iWidth*GLOBAL_CONSTANTS.SCALE), (int)(iHeight*GLOBAL_CONSTANTS.SCALE));
+				jl.setText(sText);
+				jl.setName(Integer.toString(iID));
+				jl.setLocation(new Point((int)(iLeft*GLOBAL_CONSTANTS.SCALE), (int)(iTop*GLOBAL_CONSTANTS.SCALE)));
+				jl.setVisible(true);
+				Component c = cCard.getPanelByXY((Container)parent, (int)(iLeft*GLOBAL_CONSTANTS.SCALE), (int)(iTop*GLOBAL_CONSTANTS.SCALE));
+				if (c != null)
+				{
+					jl.setLocation(new Point((int)(iLeft*GLOBAL_CONSTANTS.SCALE) - c.getX(), (int)(iTop*GLOBAL_CONSTANTS.SCALE) - c.getY()));
+					((JPanel)c).add(jl);
+				}
+				else
+				{
+					((JPanel)parent).add(jl);
+				}
+				break;
+			}
+			case TEXT_AREA:
+			{
+				sdData = new SD_TextArea();
+				sdData.parse(bSD);
 				if (sdData.isMF) 
 				{
 					System.out.println(sdData.sMainFormula);
@@ -201,26 +223,30 @@ public class CardField implements Comparable<CardField>
 				{
 					System.out.println("Service false");
 				}
-				JLabel jl = new JLabel();
-				jl.setSize((int)(iWidth*GLOBAL_CONSTANTS.SCALE), (int)(iHeight*GLOBAL_CONSTANTS.SCALE));
-				jl.setText(sText);
-				jl.setName(Integer.toString(iID));
-				jl.setLocation(new Point((int)(iLeft*GLOBAL_CONSTANTS.SCALE), (int)(iTop*GLOBAL_CONSTANTS.SCALE)));
-				jl.setVisible(true);
-				Component c = cCard.getPanelByXY((Container)parent, (int)(iLeft*GLOBAL_CONSTANTS.SCALE), (int)(iTop*GLOBAL_CONSTANTS.SCALE));
-				if (c != null)
+				if (((SD_TextArea)sdData).bMultiLine)
 				{
-					jl.setLocation(new Point((int)(iLeft*GLOBAL_CONSTANTS.SCALE) - c.getX(), (int)(iTop*GLOBAL_CONSTANTS.SCALE) - c.getY()));
-					((JPanel)c).add(jl);
+					System.out.println("MultiLine true");
 				}
 				else
 				{
-					((JPanel)parent).add(jl);
+					System.out.println("MultiLine false");
 				}
-				break;
-			}
-			case TEXT_AREA:
-			{
+				if (((SD_TextArea)sdData).bHScroll)
+				{
+					System.out.println("HScroll true");
+				}
+				else
+				{
+					System.out.println("HScroll false");
+				}
+				if (((SD_TextArea)sdData).bVScroll)
+				{
+					System.out.println("VScroll true");
+				}
+				else
+				{
+					System.out.println("VScroll false");
+				}
 				JTextArea ta = new JTextArea();
 				ta.setSize((int)(iWidth*GLOBAL_CONSTANTS.SCALE), (int)(iHeight*GLOBAL_CONSTANTS.SCALE));
 				ta.setText(sText);
