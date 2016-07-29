@@ -40,16 +40,13 @@ public class SD_Label extends SpecificData
 			if (iBlockSize != 0)
 			{
 				this.isMF = true;
-				System.out.println(iCurPos);
-				System.out.println(iBlockSize);
-				this.sMainFormula = sSD.substring(iCurPos, iBlockSize + 36);
+				this.sMainFormula = sSD.substring(iCurPos, iCurPos + iBlockSize);
 				iCurPos += iBlockSize;
-				System.out.println(this.sMainFormula);
 			}
 		}
 		else
 		{
-			iCurPos += DATA_INTERVALS.ADD_FORMULA.getPos();;
+			iCurPos += DATA_INTERVALS.ADD_FORMULA.getPos();
 		}
 		
 		if (bSD[iCurPos] != 0)
@@ -60,11 +57,8 @@ public class SD_Label extends SpecificData
 			if (iBlockSize != 0)
 			{
 				this.isAF = true;
-				System.out.println(iCurPos);
-				System.out.println(iBlockSize);
-				this.sAddFormula = sSD.substring(iCurPos, iBlockSize);
+				this.sAddFormula = sSD.substring(iCurPos, iCurPos + iBlockSize);
 				iCurPos += iBlockSize;
-				System.out.println(this.sAddFormula);
 			}
 		}
 		else
@@ -84,12 +78,79 @@ public class SD_Label extends SpecificData
 			iBlockSize = Byte.toUnsignedInt(bSD[iCurPos]);
 			if (iBlockSize != 0)
 			{
-				this.bCalcMethod = true;
+				this.bRecalc = true;
 			}
+			iCurPos += 4;
 		}
 		else
 		{
 			iCurPos += DATA_INTERVALS.DISABLED.getPos();;
+		}
+		
+		if (bSD[iCurPos] != 0)
+		{
+			iCurPos += DATA_INTERVALS.iSize;
+			iBlockSize = Byte.toUnsignedInt(bSD[iCurPos]);
+			iCurPos += 4;
+			if (iBlockSize != 0)
+			{
+				this.isDS = true;
+				this.sDisabled = sSD.substring(iCurPos, iCurPos + iBlockSize);
+				iCurPos += iBlockSize;
+			}
+		}
+		else
+		{
+			iCurPos += DATA_INTERVALS.INVISIBLE.getPos();;
+		}
+		
+		if (bSD[iCurPos] != 0)
+		{
+			iCurPos += DATA_INTERVALS.iSize;
+			iBlockSize = Byte.toUnsignedInt(bSD[iCurPos]);
+			iCurPos += 4;
+			if (iBlockSize != 0)
+			{
+				this.isIN = true;
+				this.sInvisible = sSD.substring(iCurPos, iCurPos + iBlockSize);
+				iCurPos += iBlockSize;
+			}
+		}
+		else
+		{
+			iCurPos += DATA_INTERVALS.SEL_FORMULA.getPos();;
+		}
+		
+		if (bSD[iCurPos] != 0)
+		{
+			iCurPos += DATA_INTERVALS.iSize;
+			iBlockSize = Byte.toUnsignedInt(bSD[iCurPos]);
+			iCurPos += 4;
+			if (iBlockSize != 0)
+			{
+				this.isSF = true;
+				this.sSelFormula = sSD.substring(iCurPos, iCurPos + iBlockSize);
+				iCurPos += iBlockSize;
+			}
+		}
+		else
+		{
+			iCurPos += DATA_INTERVALS.SERVICE.getPos();;
+		}
+		
+		if (bSD[iCurPos] != 0)
+		{
+			iCurPos += DATA_INTERVALS.iSize;
+			iBlockSize = Byte.toUnsignedInt(bSD[iCurPos]);
+			iCurPos += 4;
+			if (iBlockSize != 0)
+			{
+				iCurPos += iBlockSize;
+				if (iBlockSize == 4)
+				{
+					this.bService = true;
+				}
+			}
 		}
 	}
 }

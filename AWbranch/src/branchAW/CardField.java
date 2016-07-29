@@ -2,15 +2,19 @@ package branchAW;
 
 import java.awt.Component;
 import java.awt.Container;
+import java.awt.Image;
 import java.awt.Point;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBuffer;
 import java.awt.image.Raster;
 import java.awt.image.SampleModel;
 import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
+import java.sql.ResultSet;
+import java.util.zip.GZIPInputStream;
 
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
@@ -133,7 +137,70 @@ public class CardField implements Comparable<CardField>
 			{
 				sdData = new SD_Label();
 				sdData.parse(bSD);
-				//System.out.println(sdData.sMainFormula);
+				if (sdData.isMF) 
+				{
+					System.out.println(sdData.sMainFormula);
+				}
+				else
+				{
+					System.out.println("NO main formula");
+				}
+				if (sdData.isAF) 
+				{
+					System.out.println(sdData.sAddFormula);
+				}
+				else
+				{
+					System.out.println("NO add formula");
+				}
+				if (sdData.bCalcMethod)
+				{
+					System.out.println("Calc true");
+				}
+				else
+				{
+					System.out.println("Calc false");
+				}
+				if (sdData.bRecalc)
+				{
+					System.out.println("ReCalc true");
+				}
+				else
+				{
+					System.out.println("ReCalc false");
+				}
+				if (sdData.isDS) 
+				{
+					System.out.println(sdData.sDisabled);
+				}
+				else
+				{
+					System.out.println("NO disabled");
+				}
+				if (sdData.isIN) 
+				{
+					System.out.println(sdData.sInvisible);
+				}
+				else
+				{
+					System.out.println("NO invis");
+				}
+				if (sdData.isSF) 
+				{
+					System.out.println(sdData.sSelFormula);
+				}
+				else
+				{
+					System.out.println("NO SelF");
+				}
+				if (sdData.bService)
+				{
+					System.out.println("Service true");
+				}
+				else
+				{
+					System.out.println("Service false");
+				}
 				JLabel jl = new JLabel();
 				jl.setSize((int)(iWidth*GLOBAL_CONSTANTS.SCALE), (int)(iHeight*GLOBAL_CONSTANTS.SCALE));
 				jl.setText(sText);
@@ -299,19 +366,36 @@ public class CardField implements Comparable<CardField>
 			}
 			case IMAGE:
 			{
-				/*ByteArrayInputStream is = new ByteArrayInputStream(bSD);
-				BufferedImage bi;
+			    ByteArrayInputStream bas = new ByteArrayInputStream(bSD);
+			    BufferedImage img = null;
 				try 
 				{
-					bi = ImageIO.read(is);
-					ImageIcon ic = new ImageIcon(bi);
-					JLabel jl = new JLabel(ic);
-					((JPanel)parent).add(jl);
+					img = ImageIO.read(bas);
+					bas.close();
 				} 
 				catch (IOException e) 
 				{
 					e.printStackTrace();
-				}*/
+					break;
+				} 
+				JLabel jl = new JLabel();
+				Image scaled = img.getScaledInstance((int)(iWidth*GLOBAL_CONSTANTS.SCALE), (int)(iHeight*GLOBAL_CONSTANTS.SCALE), java.awt.Image.SCALE_SMOOTH);
+				ImageIcon icon = new ImageIcon(scaled);
+				jl.setIcon(icon);
+				jl.setLocation(new Point((int)(iLeft*GLOBAL_CONSTANTS.SCALE), (int)(iTop*GLOBAL_CONSTANTS.SCALE)));
+				jl.setSize((int)(iWidth*GLOBAL_CONSTANTS.SCALE), (int)(iHeight*GLOBAL_CONSTANTS.SCALE));
+				jl.setName(Integer.toString(iID));
+				jl.setVisible(true);
+				Component c = cCard.getPanelByXY((Container)parent, (int)(iLeft*GLOBAL_CONSTANTS.SCALE), (int)(iTop*GLOBAL_CONSTANTS.SCALE));
+				if (c != null)
+				{
+					jl.setLocation(new Point((int)(iLeft*GLOBAL_CONSTANTS.SCALE) - c.getX(), (int)(iTop*GLOBAL_CONSTANTS.SCALE) - c.getY()));
+					((JPanel)c).add(jl);
+				}
+				else
+				{
+					((JPanel)parent).add(jl);
+				}
 				break;
 			}
 			default:

@@ -31,6 +31,18 @@ public enum DATA_INTERVALS
 			{
 				return 4;
 			}
+			case INVISIBLE:
+			{
+				return 4;
+			}
+			case SEL_FORMULA:
+			{
+				return 4;
+			}
+			case SERVICE:
+			{
+				return 4;
+			}
 			default:
 			{
 				return 0;
