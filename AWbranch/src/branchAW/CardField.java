@@ -159,6 +159,30 @@ public class CardField implements Comparable<CardField>
 			{
 				sdData = new SD_TextArea();
 				sdData.parse(bSD);
+				JTextArea ta = new JTextArea();
+				ta.setSize((int)(iWidth*GLOBAL_CONSTANTS.SCALE), (int)(iHeight*GLOBAL_CONSTANTS.SCALE));
+				ta.setText(sText);
+				ta.setName(Integer.toString(iID));
+				ta.setLocation(new Point((int)(iLeft*GLOBAL_CONSTANTS.SCALE), (int)(iTop*GLOBAL_CONSTANTS.SCALE)));
+				ta.setVisible(true);
+				Border border = BorderFactory.createEtchedBorder();
+				ta.setBorder(border);
+				Component c = cCard.getPanelByXY((Container)parent, (int)(iLeft*GLOBAL_CONSTANTS.SCALE), (int)(iTop*GLOBAL_CONSTANTS.SCALE));
+				if (c != null)
+				{
+					ta.setLocation(new Point((int)(iLeft*GLOBAL_CONSTANTS.SCALE) - c.getX(), (int)(iTop*GLOBAL_CONSTANTS.SCALE) - c.getY()));
+					((JPanel)c).add(ta);
+				}
+				else
+				{
+					((JPanel)parent).add(ta);
+				}
+				break;
+			}
+			case GROUP_PANE:
+			{
+				sdData = new SD_GroupPane();
+				sdData.parse(bSD);
 				if (sdData.isMF) 
 				{
 					System.out.println(sdData.sMainFormula);
@@ -223,52 +247,6 @@ public class CardField implements Comparable<CardField>
 				{
 					System.out.println("Service false");
 				}
-				if (((SD_TextArea)sdData).bMultiLine)
-				{
-					System.out.println("MultiLine true");
-				}
-				else
-				{
-					System.out.println("MultiLine false");
-				}
-				if (((SD_TextArea)sdData).bHScroll)
-				{
-					System.out.println("HScroll true");
-				}
-				else
-				{
-					System.out.println("HScroll false");
-				}
-				if (((SD_TextArea)sdData).bVScroll)
-				{
-					System.out.println("VScroll true");
-				}
-				else
-				{
-					System.out.println("VScroll false");
-				}
-				JTextArea ta = new JTextArea();
-				ta.setSize((int)(iWidth*GLOBAL_CONSTANTS.SCALE), (int)(iHeight*GLOBAL_CONSTANTS.SCALE));
-				ta.setText(sText);
-				ta.setName(Integer.toString(iID));
-				ta.setLocation(new Point((int)(iLeft*GLOBAL_CONSTANTS.SCALE), (int)(iTop*GLOBAL_CONSTANTS.SCALE)));
-				ta.setVisible(true);
-				Border border = BorderFactory.createEtchedBorder();
-				ta.setBorder(border);
-				Component c = cCard.getPanelByXY((Container)parent, (int)(iLeft*GLOBAL_CONSTANTS.SCALE), (int)(iTop*GLOBAL_CONSTANTS.SCALE));
-				if (c != null)
-				{
-					ta.setLocation(new Point((int)(iLeft*GLOBAL_CONSTANTS.SCALE) - c.getX(), (int)(iTop*GLOBAL_CONSTANTS.SCALE) - c.getY()));
-					((JPanel)c).add(ta);
-				}
-				else
-				{
-					((JPanel)parent).add(ta);
-				}
-				break;
-			}
-			case GROUP_PANE:
-			{
 				JPanel gb = new JPanel();
 				gb.setLayout(null);
 				Border border = BorderFactory.createTitledBorder(sText);
