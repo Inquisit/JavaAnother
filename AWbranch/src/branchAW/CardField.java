@@ -4,8 +4,13 @@ import java.awt.Component;
 import java.awt.Container;
 import java.awt.Image;
 import java.awt.Point;
+import java.awt.Transparency;
+import java.awt.color.ColorSpace;
 import java.awt.image.BufferedImage;
+import java.awt.image.ColorModel;
+import java.awt.image.ComponentColorModel;
 import java.awt.image.DataBuffer;
+import java.awt.image.DataBufferByte;
 import java.awt.image.Raster;
 import java.awt.image.SampleModel;
 import java.io.ByteArrayInputStream;
@@ -123,65 +128,7 @@ public class CardField implements Comparable<CardField>
 			}
 			case TAB_PANEL:
 			{
-				JPanel jp = new JPanel();
-				jp.setSize((int)(iWidth*GLOBAL_CONSTANTS.SCALE), (int)(iHeight*GLOBAL_CONSTANTS.SCALE));
-				jp.setLayout(null);
-				jp.setName(Integer.toString(iID));
-				jp.setVisible(true);
-				ButtonGroup bg = new ButtonGroup();
-				cCard.mGroups.put(jp.getName(), bg);
-				((JTabbedPane)parent).addTab(sText, jp);				
-				break;
-			}
-			case LABEL:
-			{
-				sdData = new SD_Label();
-				sdData.parse(bSD);
-				JLabel jl = new JLabel();
-				jl.setSize((int)(iWidth*GLOBAL_CONSTANTS.SCALE), (int)(iHeight*GLOBAL_CONSTANTS.SCALE));
-				jl.setText(sText);
-				jl.setName(Integer.toString(iID));
-				jl.setLocation(new Point((int)(iLeft*GLOBAL_CONSTANTS.SCALE), (int)(iTop*GLOBAL_CONSTANTS.SCALE)));
-				jl.setVisible(true);
-				Component c = cCard.getPanelByXY((Container)parent, (int)(iLeft*GLOBAL_CONSTANTS.SCALE), (int)(iTop*GLOBAL_CONSTANTS.SCALE));
-				if (c != null)
-				{
-					jl.setLocation(new Point((int)(iLeft*GLOBAL_CONSTANTS.SCALE) - c.getX(), (int)(iTop*GLOBAL_CONSTANTS.SCALE) - c.getY()));
-					((JPanel)c).add(jl);
-				}
-				else
-				{
-					((JPanel)parent).add(jl);
-				}
-				break;
-			}
-			case TEXT_AREA:
-			{
-				sdData = new SD_TextArea();
-				sdData.parse(bSD);
-				JTextArea ta = new JTextArea();
-				ta.setSize((int)(iWidth*GLOBAL_CONSTANTS.SCALE), (int)(iHeight*GLOBAL_CONSTANTS.SCALE));
-				ta.setText(sText);
-				ta.setName(Integer.toString(iID));
-				ta.setLocation(new Point((int)(iLeft*GLOBAL_CONSTANTS.SCALE), (int)(iTop*GLOBAL_CONSTANTS.SCALE)));
-				ta.setVisible(true);
-				Border border = BorderFactory.createEtchedBorder();
-				ta.setBorder(border);
-				Component c = cCard.getPanelByXY((Container)parent, (int)(iLeft*GLOBAL_CONSTANTS.SCALE), (int)(iTop*GLOBAL_CONSTANTS.SCALE));
-				if (c != null)
-				{
-					ta.setLocation(new Point((int)(iLeft*GLOBAL_CONSTANTS.SCALE) - c.getX(), (int)(iTop*GLOBAL_CONSTANTS.SCALE) - c.getY()));
-					((JPanel)c).add(ta);
-				}
-				else
-				{
-					((JPanel)parent).add(ta);
-				}
-				break;
-			}
-			case GROUP_PANE:
-			{
-				sdData = new SD_GroupPane();
+				sdData = new SD_TabPanel();
 				sdData.parse(bSD);
 				if (sdData.isMF) 
 				{
@@ -247,6 +194,86 @@ public class CardField implements Comparable<CardField>
 				{
 					System.out.println("Service false");
 				}
+				if (((SD_TabPanel)sdData).isIcon)
+				{
+					System.out.println("With ICON");
+				}
+				else
+				{
+					System.out.println("No ICON");
+				}
+				JPanel jp = new JPanel();
+				jp.setSize((int)(iWidth*GLOBAL_CONSTANTS.SCALE), (int)(iHeight*GLOBAL_CONSTANTS.SCALE));
+				jp.setLayout(null);
+				jp.setName(Integer.toString(iID));
+				jp.setVisible(true);
+				ButtonGroup bg = new ButtonGroup();
+				cCard.mGroups.put(jp.getName(), bg);
+				if (((SD_TabPanel)sdData).isIcon)
+				{
+					DataBufferByte buffer = new DataBufferByte(((SD_TabPanel)sdData).bIcon, ((SD_TabPanel)sdData).bIcon.length);
+				    ColorModel cm = new ComponentColorModel(ColorSpace.getInstance(ColorSpace.CS_sRGB), new int[]{8, 8, 8}, false, false, Transparency.OPAQUE, DataBuffer.TYPE_BYTE);
+				    BufferedImage img = new BufferedImage(cm, Raster.createInterleavedRaster(buffer, 32, 32, 32*3, 3, new int[]{0, 1, 2}, null), false, null);
+					ImageIcon ico = new ImageIcon();
+					ico.setImage(img);
+					((JTabbedPane)parent).addTab(sText, ico, jp);
+				}
+				else
+				{
+					((JTabbedPane)parent).addTab(sText, jp);
+				}
+				break;
+			}
+			case LABEL:
+			{
+				sdData = new SD_Label();
+				sdData.parse(bSD);
+				JLabel jl = new JLabel();
+				jl.setSize((int)(iWidth*GLOBAL_CONSTANTS.SCALE), (int)(iHeight*GLOBAL_CONSTANTS.SCALE));
+				jl.setText(sText);
+				jl.setName(Integer.toString(iID));
+				jl.setLocation(new Point((int)(iLeft*GLOBAL_CONSTANTS.SCALE), (int)(iTop*GLOBAL_CONSTANTS.SCALE)));
+				jl.setVisible(true);
+				Component c = cCard.getPanelByXY((Container)parent, (int)(iLeft*GLOBAL_CONSTANTS.SCALE), (int)(iTop*GLOBAL_CONSTANTS.SCALE));
+				if (c != null)
+				{
+					jl.setLocation(new Point((int)(iLeft*GLOBAL_CONSTANTS.SCALE) - c.getX(), (int)(iTop*GLOBAL_CONSTANTS.SCALE) - c.getY()));
+					((JPanel)c).add(jl);
+				}
+				else
+				{
+					((JPanel)parent).add(jl);
+				}
+				break;
+			}
+			case TEXT_AREA:
+			{
+				sdData = new SD_TextArea();
+				sdData.parse(bSD);
+				JTextArea ta = new JTextArea();
+				ta.setSize((int)(iWidth*GLOBAL_CONSTANTS.SCALE), (int)(iHeight*GLOBAL_CONSTANTS.SCALE));
+				ta.setText(sText);
+				ta.setName(Integer.toString(iID));
+				ta.setLocation(new Point((int)(iLeft*GLOBAL_CONSTANTS.SCALE), (int)(iTop*GLOBAL_CONSTANTS.SCALE)));
+				ta.setVisible(true);
+				Border border = BorderFactory.createEtchedBorder();
+				ta.setBorder(border);
+				Component c = cCard.getPanelByXY((Container)parent, (int)(iLeft*GLOBAL_CONSTANTS.SCALE), (int)(iTop*GLOBAL_CONSTANTS.SCALE));
+				if (c != null)
+				{
+					ta.setLocation(new Point((int)(iLeft*GLOBAL_CONSTANTS.SCALE) - c.getX(), (int)(iTop*GLOBAL_CONSTANTS.SCALE) - c.getY()));
+					((JPanel)c).add(ta);
+				}
+				else
+				{
+					((JPanel)parent).add(ta);
+				}
+				break;
+			}
+			case GROUP_PANE:
+			{
+				sdData = new SD_GroupPane();
+				sdData.parse(bSD);
 				JPanel gb = new JPanel();
 				gb.setLayout(null);
 				Border border = BorderFactory.createTitledBorder(sText);
