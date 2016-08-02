@@ -19,6 +19,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.sql.ResultSet;
+import java.util.List;
 import java.util.zip.GZIPInputStream;
 
 import javax.imageio.ImageIO;
@@ -43,6 +44,7 @@ import javax.swing.table.TableColumn;
 
 import globals.FIELD_TYPES;
 import globals.GLOBAL_CONSTANTS;
+import net.sf.image4j.codec.ico.ICODecoder;
 
 public class CardField implements Comparable<CardField>
 {
@@ -211,12 +213,29 @@ public class CardField implements Comparable<CardField>
 				cCard.mGroups.put(jp.getName(), bg);
 				if (((SD_TabPanel)sdData).isIcon)
 				{
-					DataBufferByte buffer = new DataBufferByte(((SD_TabPanel)sdData).bIcon, ((SD_TabPanel)sdData).bIcon.length);
+					/*DataBufferByte buffer = new DataBufferByte(((SD_TabPanel)sdData).bIcon, ((SD_TabPanel)sdData).bIcon.length);
 				    ColorModel cm = new ComponentColorModel(ColorSpace.getInstance(ColorSpace.CS_sRGB), new int[]{8, 8, 8}, false, false, Transparency.OPAQUE, DataBuffer.TYPE_BYTE);
-				    BufferedImage img = new BufferedImage(cm, Raster.createInterleavedRaster(buffer, 32, 32, 32*3, 3, new int[]{0, 1, 2}, null), false, null);
+				    BufferedImage img = new BufferedImage(cm, Raster.createInterleavedRaster(buffer, 32, 32, 32*3, 3, new int[]{0, 1, 2}, null), false, null);*/
+					List<BufferedImage> img = null;
+					try 
+					{
+						img = ICODecoder.read(new ByteArrayInputStream(((SD_TabPanel)sdData).bIcon));
+					} 
+					catch (IOException e) 
+					{
+						e.printStackTrace();
+						break;
+					}
 					ImageIcon ico = new ImageIcon();
-					ico.setImage(img);
+					ico.setImage(img.get(0));
 					((JTabbedPane)parent).addTab(sText, ico, jp);
+					Image scaled = img.get(0).getScaledInstance(128, 128, java.awt.Image.SCALE_SMOOTH);
+					ImageIcon icon = new ImageIcon(scaled);
+					JLabel jl = new JLabel(icon);
+					jl.setSize(130, 130);
+					jl.setLocation(new Point(5,5));
+					jl.setVisible(true);
+					jp.add(jl);
 				}
 				else
 				{

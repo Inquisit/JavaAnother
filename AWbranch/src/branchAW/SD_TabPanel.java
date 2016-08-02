@@ -162,14 +162,14 @@ public class SD_TabPanel extends SpecificData
 		{
 			isIcon = true;
 			iCurPos += 542;
-			iCurPos += 62;
+			//iCurPos += 62;
 			int lngth = bSD.length - iCurPos - 4;
 			bIcon = new byte [lngth];
 			for (int i = 0; i < lngth; ++i)
 			{
 				bIcon[i] = bSD[iCurPos + i];
 			}
-			/*bIcon[0]=Byte.decode("0x00");
+			bIcon[0]=Byte.decode("0x00");
 			bIcon[1]=Byte.decode("0x00");
 			bIcon[2]=Byte.decode("0x01");
 			bIcon[3]=Byte.decode("0x00");
@@ -190,7 +190,7 @@ public class SD_TabPanel extends SpecificData
 			bIcon[18]=Byte.decode("0x16");
 			bIcon[19]=Byte.decode("0x00");
 			bIcon[20]=Byte.decode("0x00");
-			bIcon[21]=Byte.decode("0x00");*/
+			bIcon[21]=Byte.decode("0x00");
 		}
 	}
 }
