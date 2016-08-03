@@ -217,7 +217,7 @@ public class CardField implements Comparable<CardField>
 				    ColorModel cm = new ComponentColorModel(ColorSpace.getInstance(ColorSpace.CS_sRGB), new int[]{8, 8, 8}, false, false, Transparency.OPAQUE, DataBuffer.TYPE_BYTE);
 				    BufferedImage img = new BufferedImage(cm, Raster.createInterleavedRaster(buffer, 32, 32, 32*3, 3, new int[]{0, 1, 2}, null), false, null);*/
 					List<BufferedImage> img = null;
-					try /**/
+					try
 					{
 						img = ICODecoder.read(new ByteArrayInputStream(((SD_TabPanel)sdData).bIcon));
 					} 
