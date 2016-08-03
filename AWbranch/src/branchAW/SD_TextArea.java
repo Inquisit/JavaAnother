@@ -37,12 +37,12 @@ public class SD_TextArea extends SpecificData
 		if (bSD[iCurPos] != 0)
 		{
 			iCurPos += DATA_INTERVALS.iSize;
-			iBlockSize = Byte.toUnsignedInt(bSD[iCurPos]);
+			iBlockSize = Byte.toUnsignedInt(bSD[iCurPos]) + Byte.toUnsignedInt(bSD[iCurPos + 1]) * 256;
 			iCurPos += 4;
 			if (iBlockSize != 0)
 			{
 				this.isMF = true;
-				this.sMainFormula = sSD.substring(iCurPos, iCurPos + iBlockSize);
+				this.sMainFormula = sSD.substring(iCurPos, iCurPos + iBlockSize - 1);
 				iCurPos += iBlockSize;
 			}
 		}
@@ -54,12 +54,12 @@ public class SD_TextArea extends SpecificData
 		if (bSD[iCurPos] != 0)
 		{
 			iCurPos += DATA_INTERVALS.iSize;
-			iBlockSize = Byte.toUnsignedInt(bSD[iCurPos]);
+			iBlockSize = Byte.toUnsignedInt(bSD[iCurPos]) + Byte.toUnsignedInt(bSD[iCurPos + 1]) * 256;
 			iCurPos += 4;
 			if (iBlockSize != 0)
 			{
 				this.isAF = true;
-				this.sAddFormula = sSD.substring(iCurPos, iCurPos + iBlockSize);
+				this.sAddFormula = sSD.substring(iCurPos, iCurPos + iBlockSize - 1);
 				iCurPos += iBlockSize;
 			}
 		}
@@ -92,12 +92,12 @@ public class SD_TextArea extends SpecificData
 		if (bSD[iCurPos] != 0)
 		{
 			iCurPos += DATA_INTERVALS.iSize;
-			iBlockSize = Byte.toUnsignedInt(bSD[iCurPos]);
+			iBlockSize = Byte.toUnsignedInt(bSD[iCurPos]) + Byte.toUnsignedInt(bSD[iCurPos + 1]) * 256;
 			iCurPos += 4;
 			if (iBlockSize != 0)
 			{
 				this.isDS = true;
-				this.sDisabled = sSD.substring(iCurPos, iCurPos + iBlockSize);
+				this.sDisabled = sSD.substring(iCurPos, iCurPos + iBlockSize - 1);
 				iCurPos += iBlockSize;
 			}
 		}
@@ -109,12 +109,12 @@ public class SD_TextArea extends SpecificData
 		if (bSD[iCurPos] != 0)
 		{
 			iCurPos += DATA_INTERVALS.iSize;
-			iBlockSize = Byte.toUnsignedInt(bSD[iCurPos]);
+			iBlockSize = Byte.toUnsignedInt(bSD[iCurPos]) + Byte.toUnsignedInt(bSD[iCurPos + 1]) * 256;
 			iCurPos += 4;
 			if (iBlockSize != 0)
 			{
 				this.isIN = true;
-				this.sInvisible = sSD.substring(iCurPos, iCurPos + iBlockSize);
+				this.sInvisible = sSD.substring(iCurPos, iCurPos + iBlockSize - 1);
 				iCurPos += iBlockSize;
 			}
 		}
@@ -126,12 +126,12 @@ public class SD_TextArea extends SpecificData
 		if (bSD[iCurPos] != 0)
 		{
 			iCurPos += DATA_INTERVALS.iSize;
-			iBlockSize = Byte.toUnsignedInt(bSD[iCurPos]);
+			iBlockSize = Byte.toUnsignedInt(bSD[iCurPos]) + Byte.toUnsignedInt(bSD[iCurPos + 1]) * 256;
 			iCurPos += 4;
 			if (iBlockSize != 0)
 			{
 				this.isSF = true;
-				this.sSelFormula = sSD.substring(iCurPos, iCurPos + iBlockSize);
+				this.sSelFormula = sSD.substring(iCurPos, iCurPos + iBlockSize - 1);
 				iCurPos += iBlockSize;
 			}
 		}
