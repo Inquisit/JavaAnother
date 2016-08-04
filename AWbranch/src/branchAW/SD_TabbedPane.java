@@ -1,19 +1,19 @@
 package branchAW;
 
 import java.io.UnsupportedEncodingException;
-import java.nio.ByteBuffer;
 
 import globals.DATA_INTERVALS;
 
-public class SD_TabPanel extends SpecificData
+public class SD_TabbedPane extends SpecificData 
 {
-	protected boolean isIcon;
-	protected byte[] bIcon;
+	protected boolean bButtonLike;
+	protected int iSide;
 	
-	SD_TabPanel()
+	SD_TabbedPane()
 	{
 		super();
-		isIcon = false;
+		bButtonLike = false;
+		iSide = 0;
 	}
 	
 	public void parse(byte[] bSD)
@@ -152,67 +152,14 @@ public class SD_TabPanel extends SpecificData
 				}
 			}
 		}
-		else
-		{
-			iCurPos += DATA_INTERVALS.SERVICE.getPos();
-		}
 		
-		iCurPos += 16;
-		
+		iCurPos += 20;
 		if (bSD[iCurPos] != 0)
 		{
-			int iIcoSize = Byte.toUnsignedInt(bSD[iCurPos]) + Byte.toUnsignedInt(bSD[iCurPos + 1]) * 256;
-			isIcon = true;
-			iCurPos += 528;
-			int iImCount = Byte.toUnsignedInt(bSD[iCurPos]);
-			iIcoSize -= 522 + 16 * iImCount;
-			bIcon = new byte [iIcoSize];
-			bIcon[0]=Byte.decode("0x00");
-			bIcon[1]=Byte.decode("0x00");
-			bIcon[2]=Byte.decode("0x01");
-			bIcon[3]=Byte.decode("0x00");
-			bIcon[4]=Byte.decode(Integer.toHexString(iImCount));
-			bIcon[5]=Byte.decode("0x00");
-			iCurPos += 4;
-			int iImSize = 0;
-			for (int i = 0; i < iImCount; ++i)
-			{
-				int iCurImSize = 0;
-				bIcon[6 + i * 16] = bSD[iCurPos];/*w*/
-				iCurPos += 4;
-				bIcon[7 + i * 16] = bSD[iCurPos];/*h*/
-				bIcon[8 + i * 16] = 0;/*colors*/
-				bIcon[9 + i * 16] = 0;/*reserved*/
-				bIcon[10 + i * 16] = 0;/*planes*/
-				bIcon[11 + i * 16] = 0;/*planes*/
-				bIcon[12 + i * 16] = 0;/*bpp*/
-				bIcon[13 + i * 16] = 0;/*bpp*/
-				iCurPos += 12;
-				bIcon[14 + i * 16] = bSD[iCurPos];/*size*/
-				iCurImSize += Byte.toUnsignedInt(bSD[iCurPos]);
-				++iCurPos;
-				bIcon[15 + i * 16] = bSD[iCurPos];/*size*/
-				iCurImSize += Byte.toUnsignedInt(bSD[iCurPos]) * 256;
-				++iCurPos;
-				bIcon[16 + i * 16] = bSD[iCurPos];/*size*/
-				iCurImSize += Byte.toUnsignedInt(bSD[iCurPos]) * 65536;
-				++iCurPos;
-				bIcon[17 + i * 16] = bSD[iCurPos];/*size*/
-				iCurImSize += Byte.toUnsignedInt(bSD[iCurPos]) * 16777216;
-				++iCurPos;
-				int iOffset = 6 + 16 * iImCount + iImSize;
-				byte[] bytes = ByteBuffer.allocate(4).putInt(iOffset).array();
-				bIcon[18 + i * 16] = bytes[3];/*offset*/
-				bIcon[19 + i * 16] = bytes[2];/*offset*/
-				bIcon[20 + i * 16] = bytes[1];/*offset*/
-				bIcon[21 + i * 16] = bytes[0];/*offset*/
-				iImSize += iCurImSize;
-				iCurPos += 12;
-			}
-			for (int i = 6 + 16 * iImCount; i < iIcoSize; ++i, ++iCurPos)
-			{
-				bIcon[i] = bSD[iCurPos];
-			}
+			bButtonLike = true;
 		}
+		
+		iCurPos += 4;
+		iSide = Byte.toUnsignedInt(bSD[iCurPos]);
 	}
 }

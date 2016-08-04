@@ -112,8 +112,41 @@ public class CardField implements Comparable<CardField>
 					cCard.jFrame.setName(Integer.toString(iID));
 					cCard.jFrame.setResizable(false);
 					cCard.jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+					sdData = new SD_MainTab();
+					sdData.parse(bSD);
+					if (((SD_MainTab)sdData).isIcon)
+					{
+						List<BufferedImage> img = null;
+						try
+						{
+							img = ICODecoder.read(new ByteArrayInputStream(((SD_MainTab)sdData).bIcon));
+						} 
+						catch (IOException e) 
+						{
+							e.printStackTrace();
+							break;
+						}
+						BufferedImage target = img.get(0);
+						for (BufferedImage bi : img)
+						{
+							if (bi.getHeight() == 16)
+							{
+								target = bi;
+								break;
+							}
+						}
+						Image scaled = target.getScaledInstance(16, 16, java.awt.Image.SCALE_SMOOTH);
+						cCard.jFrame.setIconImage(scaled);
+					}
+					
 				}
-				JTabbedPane tp = new JTabbedPane();
+				else
+				{
+					sdData = new SD_TabbedPane();
+					sdData.parse(bSD);
+				}
+				JTabbedPane tp = new JTabbedPane(((SD_TabbedPane)sdData).iSide + 1);
+				tp.setTabLayoutPolicy(JTabbedPane.SCROLL_TAB_LAYOUT);
 				tp.setSize((int)(iWidth*GLOBAL_CONSTANTS.SCALE), (int)(iHeight*GLOBAL_CONSTANTS.SCALE));
 				tp.setLocation(new Point((int)((iID==0?0:iLeft)*GLOBAL_CONSTANTS.SCALE), (int)((iID==0?0:iTop)*GLOBAL_CONSTANTS.SCALE)));
 				tp.setVisible(true);
@@ -132,78 +165,6 @@ public class CardField implements Comparable<CardField>
 			{
 				sdData = new SD_TabPanel();
 				sdData.parse(bSD);
-				if (sdData.isMF) 
-				{
-					System.out.println(sdData.sMainFormula);
-				}
-				else
-				{
-					System.out.println("NO main formula");
-				}
-				if (sdData.isAF) 
-				{
-					System.out.println(sdData.sAddFormula);
-				}
-				else
-				{
-					System.out.println("NO add formula");
-				}
-				if (sdData.bCalcMethod)
-				{
-					System.out.println("Calc true");
-				}
-				else
-				{
-					System.out.println("Calc false");
-				}
-				if (sdData.bRecalc)
-				{
-					System.out.println("ReCalc true");
-				}
-				else
-				{
-					System.out.println("ReCalc false");
-				}
-				if (sdData.isDS) 
-				{
-					System.out.println(sdData.sDisabled);
-				}
-				else
-				{
-					System.out.println("NO disabled");
-				}
-				if (sdData.isIN) 
-				{
-					System.out.println(sdData.sInvisible);
-				}
-				else
-				{
-					System.out.println("NO invis");
-				}
-				if (sdData.isSF) 
-				{
-					System.out.println(sdData.sSelFormula);
-				}
-				else
-				{
-					System.out.println("NO SelF");
-				}
-				if (sdData.bService)
-				{
-					System.out.println("Service true");
-				}
-				else
-				{
-					System.out.println("Service false");
-				}
-				if (((SD_TabPanel)sdData).isIcon)
-				{
-					System.out.println("With ICON");
-				}
-				else
-				{
-					System.out.println("No ICON");
-				}
 				JPanel jp = new JPanel();
 				jp.setSize((int)(iWidth*GLOBAL_CONSTANTS.SCALE), (int)(iHeight*GLOBAL_CONSTANTS.SCALE));
 				jp.setLayout(null);
@@ -213,9 +174,6 @@ public class CardField implements Comparable<CardField>
 				cCard.mGroups.put(jp.getName(), bg);
 				if (((SD_TabPanel)sdData).isIcon)
 				{
-					/*DataBufferByte buffer = new DataBufferByte(((SD_TabPanel)sdData).bIcon, ((SD_TabPanel)sdData).bIcon.length);
-				    ColorModel cm = new ComponentColorModel(ColorSpace.getInstance(ColorSpace.CS_sRGB), new int[]{8, 8, 8}, false, false, Transparency.OPAQUE, DataBuffer.TYPE_BYTE);
-				    BufferedImage img = new BufferedImage(cm, Raster.createInterleavedRaster(buffer, 32, 32, 32*3, 3, new int[]{0, 1, 2}, null), false, null);*/
 					List<BufferedImage> img = null;
 					try
 					{
@@ -226,16 +184,18 @@ public class CardField implements Comparable<CardField>
 						e.printStackTrace();
 						break;
 					}
-					ImageIcon ico = new ImageIcon();
-					ico.setImage(img.get(0));
-					((JTabbedPane)parent).addTab(sText, ico, jp);
-					Image scaled = img.get(0).getScaledInstance(128, 128, java.awt.Image.SCALE_SMOOTH);
+					BufferedImage target = img.get(0);
+					for (BufferedImage bi : img)
+					{
+						if (bi.getHeight() == 16)
+						{
+							target = bi;
+							break;
+						}
+					}
+					Image scaled = target.getScaledInstance(16, 16, java.awt.Image.SCALE_SMOOTH);
 					ImageIcon icon = new ImageIcon(scaled);
-					JLabel jl = new JLabel(icon);
-					jl.setSize(130, 130);
-					jl.setLocation(new Point(5,5));
-					jl.setVisible(true);
-					jp.add(jl);
+					((JTabbedPane)parent).addTab(sText, icon, jp);
 				}
 				else
 				{

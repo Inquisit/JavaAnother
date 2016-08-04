@@ -5,12 +5,12 @@ import java.nio.ByteBuffer;
 
 import globals.DATA_INTERVALS;
 
-public class SD_TabPanel extends SpecificData
+public class SD_MainTab extends SD_TabbedPane 
 {
 	protected boolean isIcon;
 	protected byte[] bIcon;
 	
-	SD_TabPanel()
+	SD_MainTab()
 	{
 		super();
 		isIcon = false;
@@ -151,10 +151,6 @@ public class SD_TabPanel extends SpecificData
 					this.bService = true;
 				}
 			}
-		}
-		else
-		{
-			iCurPos += DATA_INTERVALS.SERVICE.getPos();
 		}
 		
 		iCurPos += 16;

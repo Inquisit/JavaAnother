@@ -16,3 +16,69 @@
 		    }
 			
 /**************************************************************************************************************/
+/*
+if (sdData.isMF) 
+				{
+					System.out.println(sdData.sMainFormula);
+				}
+				else
+				{
+					System.out.println("NO main formula");
+				}
+				if (sdData.isAF) 
+				{
+					System.out.println(sdData.sAddFormula);
+				}
+				else
+				{
+					System.out.println("NO add formula");
+				}
+				if (sdData.bCalcMethod)
+				{
+					System.out.println("Calc true");
+				}
+				else
+				{
+					System.out.println("Calc false");
+				}
+				if (sdData.bRecalc)
+				{
+					System.out.println("ReCalc true");
+				}
+				else
+				{
+					System.out.println("ReCalc false");
+				}
+				if (sdData.isDS) 
+				{
+					System.out.println(sdData.sDisabled);
+				}
+				else
+				{
+					System.out.println("NO disabled");
+				}
+				if (sdData.isIN) 
+				{
+					System.out.println(sdData.sInvisible);
+				}
+				else
+				{
+					System.out.println("NO invis");
+				}
+				if (sdData.isSF) 
+				{
+					System.out.println(sdData.sSelFormula);
+				}
+				else
+				{
+					System.out.println("NO SelF");
+				}
+				if (sdData.bService)
+				{
+					System.out.println("Service true");
+				}
+				else
+				{
+					System.out.println("Service false");
+				}
+				*/
