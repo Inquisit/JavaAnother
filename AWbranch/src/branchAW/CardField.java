@@ -4,23 +4,12 @@ import java.awt.Component;
 import java.awt.Container;
 import java.awt.Image;
 import java.awt.Point;
-import java.awt.Transparency;
-import java.awt.color.ColorSpace;
 import java.awt.image.BufferedImage;
-import java.awt.image.ColorModel;
-import java.awt.image.ComponentColorModel;
-import java.awt.image.DataBuffer;
-import java.awt.image.DataBufferByte;
-import java.awt.image.Raster;
-import java.awt.image.SampleModel;
 import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
-import java.sql.ResultSet;
 import java.util.List;
-import java.util.zip.GZIPInputStream;
 
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
@@ -37,14 +26,11 @@ import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.JTextArea;
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.border.Border;
 import javax.swing.table.TableColumn;
 
 import globals.FIELD_TYPES;
 import globals.GLOBAL_CONSTANTS;
-import net.sf.image4j.codec.bmp.BMPDecoder;
 import net.sf.image4j.codec.ico.ICODecoder;
 
 public class CardField implements Comparable<CardField>
