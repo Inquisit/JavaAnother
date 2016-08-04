@@ -52,10 +52,10 @@ public enum FIELD_TYPES
 			{
 				return COLUMN;
 			}
-			/*case 12:
+			case 12:
 			{
 				return IMAGE;
-			}*/
+			}
 			default:
 			{
 				return NONE;

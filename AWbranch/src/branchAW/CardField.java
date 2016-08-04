@@ -44,6 +44,7 @@ import javax.swing.table.TableColumn;
 
 import globals.FIELD_TYPES;
 import globals.GLOBAL_CONSTANTS;
+import net.sf.image4j.codec.bmp.BMPDecoder;
 import net.sf.image4j.codec.ico.ICODecoder;
 
 public class CardField implements Comparable<CardField>
@@ -376,22 +377,22 @@ public class CardField implements Comparable<CardField>
 			}
 			case IMAGE:
 			{
-			    ByteArrayInputStream bas = new ByteArrayInputStream(bSD);
-			    BufferedImage img = null;
+				sdData = new SD_Image();
+				sdData.parse(bSD);
+				BufferedImage img = null;
 				try 
 				{
-					img = ImageIO.read(bas);
-					bas.close();
-				} 
-				catch (IOException e) 
+		            InputStream inputStream = new ByteArrayInputStream(((SD_Image)sdData).bImage);
+		            img = ImageIO.read(inputStream);
+		        } 
+				catch (IOException ex) 
 				{
-					e.printStackTrace();
-					break;
-				} 
-				JLabel jl = new JLabel();
+		            System.out.println(ex.getMessage());
+		        }
+				
 				Image scaled = img.getScaledInstance((int)(iWidth*GLOBAL_CONSTANTS.SCALE), (int)(iHeight*GLOBAL_CONSTANTS.SCALE), java.awt.Image.SCALE_SMOOTH);
 				ImageIcon icon = new ImageIcon(scaled);
-				jl.setIcon(icon);
+				JLabel jl = new JLabel(icon);
 				jl.setLocation(new Point((int)(iLeft*GLOBAL_CONSTANTS.SCALE), (int)(iTop*GLOBAL_CONSTANTS.SCALE)));
 				jl.setSize((int)(iWidth*GLOBAL_CONSTANTS.SCALE), (int)(iHeight*GLOBAL_CONSTANTS.SCALE));
 				jl.setName(Integer.toString(iID));

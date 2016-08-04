@@ -2,7 +2,7 @@ package globals;
 
 public enum DATA_INTERVALS 
 {
-	MAIN_FORMULA, ADD_FORMULA, CALC_METHOD, RECALC, DISABLED, INVISIBLE, SEL_FORMULA, SERVICE, MULTILINE, HSCROLL, VSCROLL;
+	MAIN_FORMULA, ADD_FORMULA, CALC_METHOD, RECALC, DISABLED, INVISIBLE, SEL_FORMULA, SERVICE, MULTILINE, HSCROLL, VSCROLL, IMAGE;
 	
 	public static final int iSize = 16;
 	
@@ -51,6 +51,10 @@ public enum DATA_INTERVALS
 				return 4;
 			}
 			case VSCROLL:
+			{
+				return 4;
+			}
+			case IMAGE:
 			{
 				return 4;
 			}
