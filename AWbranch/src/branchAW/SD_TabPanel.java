@@ -192,13 +192,13 @@ public class SD_TabPanel extends SpecificData
 				iCurImSize += Byte.toUnsignedInt(bSD[iCurPos]);
 				++iCurPos;
 				bIcon[15 + i * 16] = bSD[iCurPos];/*size*/
-				iCurImSize += Byte.toUnsignedInt(bSD[iCurPos]) * 16;
-				++iCurPos;
-				bIcon[16 + i * 16] = bSD[iCurPos];/*size*/
 				iCurImSize += Byte.toUnsignedInt(bSD[iCurPos]) * 256;
 				++iCurPos;
+				bIcon[16 + i * 16] = bSD[iCurPos];/*size*/
+				iCurImSize += Byte.toUnsignedInt(bSD[iCurPos]) * 65536;
+				++iCurPos;
 				bIcon[17 + i * 16] = bSD[iCurPos];/*size*/
-				iCurImSize += Byte.toUnsignedInt(bSD[iCurPos]) * 4096;
+				iCurImSize += Byte.toUnsignedInt(bSD[iCurPos]) * 16777216;
 				++iCurPos;
 				int iOffset = 6 + 16 * iImCount + iImSize;
 				byte[] bytes = ByteBuffer.allocate(4).putInt(iOffset).array();
