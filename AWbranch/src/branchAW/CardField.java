@@ -1,7 +1,9 @@
 package branchAW;
 
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
+import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.Point;
 import java.awt.image.BufferedImage;
@@ -375,10 +377,31 @@ public class CardField implements Comparable<CardField>
 				{
 		            System.out.println(ex.getMessage());
 		        }
-				
-				Image scaled = img.getScaledInstance((int)(iWidth*GLOBAL_CONSTANTS.SCALE), (int)(iHeight*GLOBAL_CONSTANTS.SCALE), java.awt.Image.SCALE_SMOOTH);
+				Image scaled = null;
+				switch (((SD_Image)sdData).iScale)
+				{
+					case 1:
+					{
+						scaled = img.getScaledInstance((int)(iWidth*GLOBAL_CONSTANTS.SCALE), (int)(img.getHeight()*(iWidth*GLOBAL_CONSTANTS.SCALE/img.getWidth())), java.awt.Image.SCALE_SMOOTH);
+						break;
+					}
+					case 2:
+					{
+						scaled = img.getScaledInstance((int)(iWidth*GLOBAL_CONSTANTS.SCALE), (int)(iHeight*GLOBAL_CONSTANTS.SCALE), java.awt.Image.SCALE_SMOOTH);
+						break;
+					}
+					default:
+					{
+						scaled = img;
+						break;
+					}
+				}
 				ImageIcon icon = new ImageIcon(scaled);
 				JLabel jl = new JLabel(icon);
+				if (((SD_Image)sdData).bBorder)
+				{
+					jl.setBorder(BorderFactory.createLineBorder(Color.black));
+				}
 				jl.setLocation(new Point((int)(iLeft*GLOBAL_CONSTANTS.SCALE), (int)(iTop*GLOBAL_CONSTANTS.SCALE)));
 				jl.setSize((int)(iWidth*GLOBAL_CONSTANTS.SCALE), (int)(iHeight*GLOBAL_CONSTANTS.SCALE));
 				jl.setName(Integer.toString(iID));
