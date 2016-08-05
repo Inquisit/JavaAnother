@@ -67,25 +67,6 @@ public class CardField implements Comparable<CardField>
 		bSD = bnSD;
 	}
 	
-	public void parseSpecificData()
-	{
-		try 
-		{
-			String sData = new String(bSD, "Windows-1251");
-			System.out.println(sData);
-			System.out.println("/*****************************************/");
-			for (String s: sData.split("[\\u0000]+FormulaText[\\u0000]+"))
-			{
-				System.out.println(s);
-				System.out.println("/**/");
-			}
-		} 
-		catch (UnsupportedEncodingException e) 
-		{
-			e.printStackTrace();
-		}
-	}
-	
 	public void Draw(Card cCard)
 	{
 		Component parent = cCard.getComponentById(cCard.jFrame.getContentPane(), Integer.toString(iPID));
@@ -367,6 +348,10 @@ public class CardField implements Comparable<CardField>
 			{
 				sdData = new SD_Image();
 				sdData.parse(bSD);
+				if (!((SD_Image)sdData).isImage)
+				{
+					break;
+				}
 				BufferedImage img = null;
 				try 
 				{

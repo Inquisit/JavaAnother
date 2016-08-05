@@ -168,31 +168,34 @@ public class SD_Image extends SpecificData
 		if (bSD[iCurPos] != 0)
 		{
 			iBlockSize = Byte.toUnsignedInt(bSD[iCurPos]) + Byte.toUnsignedInt(bSD[iCurPos + 1]) * 256;
-			isImage = true;
 			iCurPos += 4 + iBlockSize;
 			int iImSize = Byte.toUnsignedInt(bSD[iCurPos]) + Byte.toUnsignedInt(bSD[iCurPos + 1]) * 256 + Byte.toUnsignedInt(bSD[iCurPos + 2]) * 65536 + Byte.toUnsignedInt(bSD[iCurPos + 3]) * 16777216;
-			bImage = new byte [iImSize];
-			bImage[0] = Byte.decode("0x42");
-			bImage[1] = Byte.decode("0x4D");
-			bImage[2] = bSD[iCurPos];
-			++iCurPos;
-			bImage[3] = bSD[iCurPos];
-			++iCurPos;
-			bImage[4] = bSD[iCurPos];
-			++iCurPos;
-			bImage[5] = bSD[iCurPos];
-			++iCurPos;
-			bImage[6] = 0;
-			bImage[7] = 0;
-			bImage[8] = 0;
-			bImage[9] = 0;
-			bImage[10] = (byte) (bSD[iCurPos] + Byte.decode("0x0E"));
-			bImage[11] = 0;
-			bImage[12] = 0;
-			bImage[13] = 0;
-			for (int i = 14; i < iImSize; ++i, ++iCurPos)
+			if (iImSize != 0)
 			{
-				bImage[i] = bSD[iCurPos];
+				isImage = true;
+				bImage = new byte [iImSize];
+				bImage[0] = Byte.decode("0x42");
+				bImage[1] = Byte.decode("0x4D");
+				bImage[2] = bSD[iCurPos];
+				++iCurPos;
+				bImage[3] = bSD[iCurPos];
+				++iCurPos;
+				bImage[4] = bSD[iCurPos];
+				++iCurPos;
+				bImage[5] = bSD[iCurPos];
+				++iCurPos;
+				bImage[6] = 0;
+				bImage[7] = 0;
+				bImage[8] = 0;
+				bImage[9] = 0;
+				bImage[10] = (byte) (bSD[iCurPos] + Byte.decode("0x0E"));
+				bImage[11] = 0;
+				bImage[12] = 0;
+				bImage[13] = 0;
+				for (int i = 14; i < iImSize; ++i, ++iCurPos)
+				{
+					bImage[i] = bSD[iCurPos];
+				}
 			}
 		}
 		else
