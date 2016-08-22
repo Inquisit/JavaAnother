@@ -367,12 +367,22 @@ public class CardField implements Comparable<CardField>
 				{
 					case 1:
 					{
-						scaled = img.getScaledInstance((int)(iWidth*GLOBAL_CONSTANTS.SCALE), (int)(img.getHeight()*(iWidth*GLOBAL_CONSTANTS.SCALE/img.getWidth())), java.awt.Image.SCALE_SMOOTH);
+						scaled = img.getScaledInstance((int)(iWidth*GLOBAL_CONSTANTS.SCALE), (int)(iHeight*GLOBAL_CONSTANTS.SCALE), java.awt.Image.SCALE_SMOOTH);
 						break;
 					}
 					case 2:
 					{
-						scaled = img.getScaledInstance((int)(iWidth*GLOBAL_CONSTANTS.SCALE), (int)(iHeight*GLOBAL_CONSTANTS.SCALE), java.awt.Image.SCALE_SMOOTH);
+						double iWScale, iHScale;
+						iWScale = (iWidth*GLOBAL_CONSTANTS.SCALE) / img.getWidth();
+						iHScale = (iHeight*GLOBAL_CONSTANTS.SCALE) / img.getHeight();
+						if (iWScale < iHScale)
+						{
+							scaled = img.getScaledInstance((int)(img.getWidth()*iWScale), (int)(img.getHeight()*iWScale), java.awt.Image.SCALE_SMOOTH);
+						}
+						else
+						{
+							scaled = img.getScaledInstance((int)(img.getWidth()*iHScale), (int)(img.getHeight()*iHScale), java.awt.Image.SCALE_SMOOTH);
+						}
 						break;
 					}
 					default:
@@ -383,10 +393,14 @@ public class CardField implements Comparable<CardField>
 				}
 				ImageIcon icon = new ImageIcon(scaled);
 				JLabel jl = new JLabel(icon);
+				jl.setHorizontalAlignment(JLabel.LEFT);
+				jl.setVerticalAlignment(JLabel.TOP);
 				if (((SD_Image)sdData).bBorder)
 				{
 					jl.setBorder(BorderFactory.createLineBorder(Color.black));
 				}
+				jl.setHorizontalTextPosition(JLabel.RIGHT);
+			    jl.setVerticalTextPosition(JLabel.BOTTOM);
 				jl.setLocation(new Point((int)(iLeft*GLOBAL_CONSTANTS.SCALE), (int)(iTop*GLOBAL_CONSTANTS.SCALE)));
 				jl.setSize((int)(iWidth*GLOBAL_CONSTANTS.SCALE), (int)(iHeight*GLOBAL_CONSTANTS.SCALE));
 				jl.setName(Integer.toString(iID));
