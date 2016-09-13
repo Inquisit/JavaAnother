@@ -28,6 +28,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.JTextArea;
+import javax.swing.JToggleButton;
 import javax.swing.border.Border;
 import javax.swing.table.TableColumn;
 
@@ -108,7 +109,6 @@ public class CardField implements Comparable<CardField>
 						Image scaled = target.getScaledInstance(16, 16, java.awt.Image.SCALE_SMOOTH);
 						cCard.jFrame.setIconImage(scaled);
 					}
-					
 				}
 				else
 				{
@@ -276,23 +276,24 @@ public class CardField implements Comparable<CardField>
 			}
 			case RADIO_BUTTON:
 			{
-				JRadioButton rb = new JRadioButton();
-				rb.setSize((int)(iWidth*GLOBAL_CONSTANTS.SCALE), (int)(iHeight*GLOBAL_CONSTANTS.SCALE));
-				rb.setName(Integer.toString(iID));
-				rb.setText(sText);
-				rb.setLocation(new Point((int)(iLeft*GLOBAL_CONSTANTS.SCALE), (int)(iTop*GLOBAL_CONSTANTS.SCALE)));
-				rb.setVisible(true);
+				JToggleButton tb = new JToggleButton();
+				//JRadioButton tb = new JRadioButton();
+				tb.setSize((int)(iWidth*GLOBAL_CONSTANTS.SCALE), (int)(iHeight*GLOBAL_CONSTANTS.SCALE));
+				tb.setName(Integer.toString(iID));
+				tb.setText(sText);
+				tb.setLocation(new Point((int)(iLeft*GLOBAL_CONSTANTS.SCALE), (int)(iTop*GLOBAL_CONSTANTS.SCALE)));
+				tb.setVisible(true);
 				Component c = cCard.getPanelByXY((Container)parent, (int)(iLeft*GLOBAL_CONSTANTS.SCALE), (int)(iTop*GLOBAL_CONSTANTS.SCALE));
 				if (c != null)
 				{
 					ButtonGroup bg = cCard.mGroups.get(c.getName());
-					bg.add(rb);
-					rb.setLocation(new Point((int)(iLeft*GLOBAL_CONSTANTS.SCALE) - c.getX(), (int)(iTop*GLOBAL_CONSTANTS.SCALE) - c.getY()));
-					((JPanel)c).add(rb);
+					bg.add(tb);
+					tb.setLocation(new Point((int)(iLeft*GLOBAL_CONSTANTS.SCALE) - c.getX(), (int)(iTop*GLOBAL_CONSTANTS.SCALE) - c.getY()));
+					((JPanel)c).add(tb);
 				}
 				else
 				{
-					((JPanel)parent).add(rb);
+					((JPanel)parent).add(tb);
 				}
 				break;
 			}

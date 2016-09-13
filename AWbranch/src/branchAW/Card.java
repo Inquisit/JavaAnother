@@ -89,26 +89,29 @@ public class Card
 	public Component getPanelByXY(Container container, int iX, int iY)
 	{
 		if(container.getComponents().length > 0)
-	        {
-	            for(Component c : container.getComponents())
-	            {
-	                Point p = c.getLocation();
-	                int iH = c.getHeight();
-	                int iW = c.getWidth();
-	                if (((p.x + iW >= iX) && (p.x <= iX) && (p.y + iH >= iY) && (p.y <= iY)) && (c instanceof JPanel))
-	                {
-	                	return c;
-	                }
-	                if(c instanceof Container)
-	                {
-	                    Component sub = getPanelByXY((Container) c, iX, iY);
-	                    if (sub == null)
-	                    	continue;
-	                    return sub;
-	                }
-	            }
-	        }
-
+		{
+			for(Component c : container.getComponents())
+			{
+				Point p = c.getLocation();
+				int iH = c.getHeight();
+				int iW = c.getWidth();
+				if (((p.x + iW >= iX) && (p.x <= iX) && (p.y + iH >= iY) && (p.y <= iY)) && (c instanceof JPanel))
+				{
+					return c;
+				}
+				if(c instanceof Container)
+				{
+					Component sub = getPanelByXY((Container) c, iX, iY);
+					if (sub == null)
+						continue;
+					return sub;
+				}
+			}
+		}
+		if (((container.getLocation().x + container.getWidth() >= iX) && (container.getLocation().x <= iX) && (container.getLocation().y + container.getHeight() >= iY) && (container.getLocation().y <= iY)) && (container instanceof JPanel))
+		{
+			return container;
+		}
 		return null;
 	}
 }
