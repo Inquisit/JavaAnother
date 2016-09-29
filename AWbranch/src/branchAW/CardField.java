@@ -276,6 +276,8 @@ public class CardField implements Comparable<CardField>
 			}
 			case RADIO_BUTTON:
 			{
+				sdData = new SD_RadioButton();
+				sdData.parse(bSD);
 				JToggleButton tb = new JToggleButton();
 				//JRadioButton tb = new JRadioButton();
 				tb.setSize((int)(iWidth*GLOBAL_CONSTANTS.SCALE), (int)(iHeight*GLOBAL_CONSTANTS.SCALE));

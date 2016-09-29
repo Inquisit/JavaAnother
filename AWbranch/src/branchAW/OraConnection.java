@@ -13,6 +13,7 @@ public class OraConnection
 		try
 		{
 			conn = DriverManager.getConnection("jdbc:oracle:thin:@172.16.103.47:1521:STISTER", "DWADM", "DWADM");
+			//conn = DriverManager.getConnection("jdbc:oracle:thin:@172.30.200.235:1521:EDS", "DWADM", "EDS_ADM");
 		}
 		catch (SQLException e) 
 		{
