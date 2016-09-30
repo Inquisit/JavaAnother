@@ -35,5 +35,5 @@ public abstract class SpecificData
 		isSF = false;
 	}
 	
-	public abstract void parse(byte[] bSD);
+	public abstract void parse(SD_Byte bSD);
 }

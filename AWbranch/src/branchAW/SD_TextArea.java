@@ -18,14 +18,14 @@ public class SD_TextArea extends SpecificData
 		bVScroll = false;
 	}
 	
-	public void parse(byte[] bSD)
+	public void parse(SD_Byte bSD)
 	{
 		int iCurPos = 0;
 		int iBlockSize = 0;
 		String sSD;
 		try 
 		{
-			sSD = new String(bSD, "Windows-1251");
+			sSD = new String(bSD.bSD, "Windows-1251");
 		} 
 		catch (UnsupportedEncodingException e) 
 		{
@@ -34,10 +34,10 @@ public class SD_TextArea extends SpecificData
 		}
 		iCurPos = DATA_INTERVALS.iSize; 
 		
-		if (bSD[iCurPos] != 0)
+		if (bSD.bSD[iCurPos] != 0)
 		{
 			iCurPos += DATA_INTERVALS.iSize;
-			iBlockSize = Byte.toUnsignedInt(bSD[iCurPos]) + Byte.toUnsignedInt(bSD[iCurPos + 1]) * 256;
+			iBlockSize = Byte.toUnsignedInt(bSD.bSD[iCurPos]) + Byte.toUnsignedInt(bSD.bSD[iCurPos + 1]) * 256;
 			iCurPos += 4;
 			if (iBlockSize != 0)
 			{
@@ -51,10 +51,10 @@ public class SD_TextArea extends SpecificData
 			iCurPos += DATA_INTERVALS.MAIN_FORMULA.getPos();
 		}
 		
-		if (bSD[iCurPos] != 0)
+		if (bSD.bSD[iCurPos] != 0)
 		{
 			iCurPos += DATA_INTERVALS.iSize;
-			iBlockSize = Byte.toUnsignedInt(bSD[iCurPos]) + Byte.toUnsignedInt(bSD[iCurPos + 1]) * 256;
+			iBlockSize = Byte.toUnsignedInt(bSD.bSD[iCurPos]) + Byte.toUnsignedInt(bSD.bSD[iCurPos + 1]) * 256;
 			iCurPos += 4;
 			if (iBlockSize != 0)
 			{
@@ -68,16 +68,16 @@ public class SD_TextArea extends SpecificData
 			iCurPos += DATA_INTERVALS.ADD_FORMULA.getPos();
 		}
 		
-		if (bSD[iCurPos] != 0)
+		if (bSD.bSD[iCurPos] != 0)
 		{
 			iCurPos += DATA_INTERVALS.iSize-1;
-			iBlockSize = Byte.toUnsignedInt(bSD[iCurPos]);
+			iBlockSize = Byte.toUnsignedInt(bSD.bSD[iCurPos]);
 			if (iBlockSize != 0)
 			{
 				this.bCalcMethod = true;
 			}
 			iCurPos += DATA_INTERVALS.RECALC.getPos();
-			iBlockSize = Byte.toUnsignedInt(bSD[iCurPos]);
+			iBlockSize = Byte.toUnsignedInt(bSD.bSD[iCurPos]);
 			if (iBlockSize != 0)
 			{
 				this.bRecalc = true;
@@ -89,10 +89,10 @@ public class SD_TextArea extends SpecificData
 			iCurPos += DATA_INTERVALS.CALC_METHOD.getPos();
 		}
 		
-		if (bSD[iCurPos] != 0)
+		if (bSD.bSD[iCurPos] != 0)
 		{
 			iCurPos += DATA_INTERVALS.iSize;
-			iBlockSize = Byte.toUnsignedInt(bSD[iCurPos]) + Byte.toUnsignedInt(bSD[iCurPos + 1]) * 256;
+			iBlockSize = Byte.toUnsignedInt(bSD.bSD[iCurPos]) + Byte.toUnsignedInt(bSD.bSD[iCurPos + 1]) * 256;
 			iCurPos += 4;
 			if (iBlockSize != 0)
 			{
@@ -106,10 +106,10 @@ public class SD_TextArea extends SpecificData
 			iCurPos += DATA_INTERVALS.DISABLED.getPos();
 		}
 		
-		if (bSD[iCurPos] != 0)
+		if (bSD.bSD[iCurPos] != 0)
 		{
 			iCurPos += DATA_INTERVALS.iSize;
-			iBlockSize = Byte.toUnsignedInt(bSD[iCurPos]) + Byte.toUnsignedInt(bSD[iCurPos + 1]) * 256;
+			iBlockSize = Byte.toUnsignedInt(bSD.bSD[iCurPos]) + Byte.toUnsignedInt(bSD.bSD[iCurPos + 1]) * 256;
 			iCurPos += 4;
 			if (iBlockSize != 0)
 			{
@@ -123,10 +123,10 @@ public class SD_TextArea extends SpecificData
 			iCurPos += DATA_INTERVALS.INVISIBLE.getPos();
 		}
 		
-		if (bSD[iCurPos] != 0)
+		if (bSD.bSD[iCurPos] != 0)
 		{
 			iCurPos += DATA_INTERVALS.iSize;
-			iBlockSize = Byte.toUnsignedInt(bSD[iCurPos]) + Byte.toUnsignedInt(bSD[iCurPos + 1]) * 256;
+			iBlockSize = Byte.toUnsignedInt(bSD.bSD[iCurPos]) + Byte.toUnsignedInt(bSD.bSD[iCurPos + 1]) * 256;
 			iCurPos += 4;
 			if (iBlockSize != 0)
 			{
@@ -140,10 +140,10 @@ public class SD_TextArea extends SpecificData
 			iCurPos += DATA_INTERVALS.SEL_FORMULA.getPos();
 		}
 		
-		if (bSD[iCurPos] != 0)
+		if (bSD.bSD[iCurPos] != 0)
 		{
 			iCurPos += DATA_INTERVALS.iSize;
-			iBlockSize = Byte.toUnsignedInt(bSD[iCurPos]);
+			iBlockSize = Byte.toUnsignedInt(bSD.bSD[iCurPos]);
 			iCurPos += 4;
 			if (iBlockSize != 0)
 			{
@@ -161,21 +161,21 @@ public class SD_TextArea extends SpecificData
 		
 		iCurPos += 16;
 		
-		if (bSD[iCurPos] != 0)
+		if (bSD.bSD[iCurPos] != 0)
 		{
 			this.bMultiLine = true;
 		}
 		
 		iCurPos += DATA_INTERVALS.MULTILINE.getPos();
 		
-		if (bSD[iCurPos] != 0)
+		if (bSD.bSD[iCurPos] != 0)
 		{
 			this.bHScroll = true;
 		}
 		
 		iCurPos += DATA_INTERVALS.HSCROLL.getPos();
 		
-		if (bSD[iCurPos] != 0)
+		if (bSD.bSD[iCurPos] != 0)
 		{
 			this.bVScroll = true;
 		}

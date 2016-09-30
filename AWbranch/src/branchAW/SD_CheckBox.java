@@ -5,17 +5,23 @@ import java.nio.ByteBuffer;
 
 import globals.DATA_INTERVALS;
 
-public class SD_RadioButton extends SpecificData
+public class SD_CheckBox extends SpecificData
 {
 	protected boolean bMultiLine;
 	protected boolean bButtonLike;
-	protected boolean isIcon;
-	protected byte[] bIcon;
+	protected boolean isIcoUnCh;
+	protected byte[] bIcoUnCh;
+	protected boolean isIcoChosen;
+	protected byte[] bIcoChosen;
+	protected boolean isIcoUndef;
+	protected byte[] bIcoUndef;
 	
-	SD_RadioButton()
+	SD_CheckBox()
 	{
 		super();
-		isIcon = false;
+		isIcoChosen = false;
+		isIcoUnCh = false;
+		isIcoUndef = false;
 		bMultiLine = false;
 		bButtonLike = false;
 	}
@@ -164,10 +170,30 @@ public class SD_RadioButton extends SpecificData
 		
 		if (bSD.bSD[bSD.iCurPos] != 0)
 		{
-			isIcon = true;
+			isIcoUnCh = true;
 			int iIconSize = SD_Methods.sdGetIcoSize(bSD);
-			bIcon = new byte [iIconSize];
-			SD_Methods.sdParseIco(bSD, bIcon);
+			bIcoUnCh = new byte [iIconSize];
+			SD_Methods.sdParseIco(bSD, bIcoUnCh);
+		}
+		
+		bSD.iCurPos += 16;
+		
+		if (bSD.bSD[bSD.iCurPos] != 0)
+		{
+			isIcoChosen = true;
+			int iIconSize = SD_Methods.sdGetIcoSize(bSD);
+			bIcoChosen = new byte [iIconSize];
+			SD_Methods.sdParseIco(bSD, bIcoChosen);
+		}
+		
+		bSD.iCurPos += 16;
+		
+		if (bSD.bSD[bSD.iCurPos] != 0)
+		{
+			isIcoUndef = true;
+			int iIconSize = SD_Methods.sdGetIcoSize(bSD);
+			bIcoUndef = new byte [iIconSize];
+			SD_Methods.sdParseIco(bSD, bIcoUndef);
 		}
 		
 		bSD.iCurPos += 8;
