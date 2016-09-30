@@ -175,8 +175,10 @@ public class SD_CheckBox extends SpecificData
 			bIcoUnCh = new byte [iIconSize];
 			SD_Methods.sdParseIco(bSD, bIcoUnCh);
 		}
-		
-		bSD.iCurPos += 16;
+		else
+		{
+			bSD.iCurPos += 4;
+		}
 		
 		if (bSD.bSD[bSD.iCurPos] != 0)
 		{
@@ -185,8 +187,10 @@ public class SD_CheckBox extends SpecificData
 			bIcoChosen = new byte [iIconSize];
 			SD_Methods.sdParseIco(bSD, bIcoChosen);
 		}
-		
-		bSD.iCurPos += 16;
+		else
+		{
+			bSD.iCurPos += 4;
+		}
 		
 		if (bSD.bSD[bSD.iCurPos] != 0)
 		{
@@ -195,8 +199,12 @@ public class SD_CheckBox extends SpecificData
 			bIcoUndef = new byte [iIconSize];
 			SD_Methods.sdParseIco(bSD, bIcoUndef);
 		}
+		else
+		{
+			bSD.iCurPos += 4;
+		}
 		
-		bSD.iCurPos += 8;
+		bSD.iCurPos += 12;
 		
 		if (bSD.bSD[bSD.iCurPos] != 0)
 		{

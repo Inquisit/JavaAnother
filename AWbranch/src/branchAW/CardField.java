@@ -256,6 +256,8 @@ public class CardField implements Comparable<CardField>
 			}
 			case CHECK_BOX:
 			{
+				sdData = new SD_CheckBox();
+				sdData.parse(bSD);
 				JCheckBox cb = new JCheckBox();
 				cb.setSize((int)(iWidth*GLOBAL_CONSTANTS.SCALE), (int)(iHeight*GLOBAL_CONSTANTS.SCALE));
 				cb.setName(Integer.toString(iID));
