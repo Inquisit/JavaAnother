@@ -1,7 +1,6 @@
 package branchAW;
 
 import java.io.UnsupportedEncodingException;
-import java.nio.ByteBuffer;
 
 import globals.DATA_INTERVALS;
 

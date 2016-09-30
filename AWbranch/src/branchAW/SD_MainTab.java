@@ -1,7 +1,6 @@
 package branchAW;
 
 import java.io.UnsupportedEncodingException;
-import java.nio.ByteBuffer;
 
 import globals.DATA_INTERVALS;
 
@@ -16,136 +15,135 @@ public class SD_MainTab extends SD_TabbedPane
 		isIcon = false;
 	}
 	
-	public void parse(byte[] bSD)
+	public void parse(SD_Byte bSD)
 	{
-		int iCurPos = 0;
 		int iBlockSize = 0;
 		String sSD;
 		try 
 		{
-			sSD = new String(bSD, "Windows-1251");
+			sSD = new String(bSD.bSD, "Windows-1251");
 		} 
 		catch (UnsupportedEncodingException e) 
 		{
 			e.printStackTrace();
 			return;
 		}
-		iCurPos = DATA_INTERVALS.iSize; 
+		bSD.iCurPos = DATA_INTERVALS.iSize; 
 		
-		if (bSD[iCurPos] != 0)
+		if (bSD.bSD[bSD.iCurPos] != 0)
 		{
-			iCurPos += DATA_INTERVALS.iSize;
-			iBlockSize = Byte.toUnsignedInt(bSD[iCurPos]) + Byte.toUnsignedInt(bSD[iCurPos + 1]) * 256;
-			iCurPos += 4;
+			bSD.iCurPos += DATA_INTERVALS.iSize;
+			iBlockSize = Byte.toUnsignedInt(bSD.bSD[bSD.iCurPos]) + Byte.toUnsignedInt(bSD.bSD[bSD.iCurPos + 1]) * 256;
+			bSD.iCurPos += 4;
 			if (iBlockSize != 0)
 			{
 				this.isMF = true;
-				this.sMainFormula = sSD.substring(iCurPos, iCurPos + iBlockSize - 1);
-				iCurPos += iBlockSize;
+				this.sMainFormula = sSD.substring(bSD.iCurPos, bSD.iCurPos + iBlockSize - 1);
+				bSD.iCurPos += iBlockSize;
 			}
 		}
 		else
 		{
-			iCurPos += DATA_INTERVALS.MAIN_FORMULA.getPos();
+			bSD.iCurPos += DATA_INTERVALS.MAIN_FORMULA.getPos();
 		}
 		
-		if (bSD[iCurPos] != 0)
+		if (bSD.bSD[bSD.iCurPos] != 0)
 		{
-			iCurPos += DATA_INTERVALS.iSize;
-			iBlockSize = Byte.toUnsignedInt(bSD[iCurPos]) + Byte.toUnsignedInt(bSD[iCurPos + 1]) * 256;
-			iCurPos += 4;
+			bSD.iCurPos += DATA_INTERVALS.iSize;
+			iBlockSize = Byte.toUnsignedInt(bSD.bSD[bSD.iCurPos]) + Byte.toUnsignedInt(bSD.bSD[bSD.iCurPos + 1]) * 256;
+			bSD.iCurPos += 4;
 			if (iBlockSize != 0)
 			{
 				this.isAF = true;
-				this.sAddFormula = sSD.substring(iCurPos, iCurPos + iBlockSize - 1);
-				iCurPos += iBlockSize;
+				this.sAddFormula = sSD.substring(bSD.iCurPos, bSD.iCurPos + iBlockSize - 1);
+				bSD.iCurPos += iBlockSize;
 			}
 		}
 		else
 		{
-			iCurPos += DATA_INTERVALS.ADD_FORMULA.getPos();
+			bSD.iCurPos += DATA_INTERVALS.ADD_FORMULA.getPos();
 		}
 		
-		if (bSD[iCurPos] != 0)
+		if (bSD.bSD[bSD.iCurPos] != 0)
 		{
-			iCurPos += DATA_INTERVALS.iSize-1;
-			iBlockSize = Byte.toUnsignedInt(bSD[iCurPos]);
+			bSD.iCurPos += DATA_INTERVALS.iSize-1;
+			iBlockSize = Byte.toUnsignedInt(bSD.bSD[bSD.iCurPos]);
 			if (iBlockSize != 0)
 			{
 				this.bCalcMethod = true;
 			}
-			iCurPos += DATA_INTERVALS.RECALC.getPos();
-			iBlockSize = Byte.toUnsignedInt(bSD[iCurPos]);
+			bSD.iCurPos += DATA_INTERVALS.RECALC.getPos();
+			iBlockSize = Byte.toUnsignedInt(bSD.bSD[bSD.iCurPos]);
 			if (iBlockSize != 0)
 			{
 				this.bRecalc = true;
 			}
-			iCurPos += 4;
+			bSD.iCurPos += 4;
 		}
 		else
 		{
-			iCurPos += DATA_INTERVALS.CALC_METHOD.getPos();
+			bSD.iCurPos += DATA_INTERVALS.CALC_METHOD.getPos();
 		}
 		
-		if (bSD[iCurPos] != 0)
+		if (bSD.bSD[bSD.iCurPos] != 0)
 		{
-			iCurPos += DATA_INTERVALS.iSize;
-			iBlockSize = Byte.toUnsignedInt(bSD[iCurPos]) + Byte.toUnsignedInt(bSD[iCurPos + 1]) * 256;
-			iCurPos += 4;
+			bSD.iCurPos += DATA_INTERVALS.iSize;
+			iBlockSize = Byte.toUnsignedInt(bSD.bSD[bSD.iCurPos]) + Byte.toUnsignedInt(bSD.bSD[bSD.iCurPos + 1]) * 256;
+			bSD.iCurPos += 4;
 			if (iBlockSize != 0)
 			{
 				this.isDS = true;
-				this.sDisabled = sSD.substring(iCurPos, iCurPos + iBlockSize - 1);
-				iCurPos += iBlockSize;
+				this.sDisabled = sSD.substring(bSD.iCurPos, bSD.iCurPos + iBlockSize - 1);
+				bSD.iCurPos += iBlockSize;
 			}
 		}
 		else
 		{
-			iCurPos += DATA_INTERVALS.DISABLED.getPos();
+			bSD.iCurPos += DATA_INTERVALS.DISABLED.getPos();
 		}
 		
-		if (bSD[iCurPos] != 0)
+		if (bSD.bSD[bSD.iCurPos] != 0)
 		{
-			iCurPos += DATA_INTERVALS.iSize;
-			iBlockSize = Byte.toUnsignedInt(bSD[iCurPos]) + Byte.toUnsignedInt(bSD[iCurPos + 1]) * 256;
-			iCurPos += 4;
+			bSD.iCurPos += DATA_INTERVALS.iSize;
+			iBlockSize = Byte.toUnsignedInt(bSD.bSD[bSD.iCurPos]) + Byte.toUnsignedInt(bSD.bSD[bSD.iCurPos + 1]) * 256;
+			bSD.iCurPos += 4;
 			if (iBlockSize != 0)
 			{
 				this.isIN = true;
-				this.sInvisible = sSD.substring(iCurPos, iCurPos + iBlockSize - 1);
-				iCurPos += iBlockSize;
+				this.sInvisible = sSD.substring(bSD.iCurPos, bSD.iCurPos + iBlockSize - 1);
+				bSD.iCurPos += iBlockSize;
 			}
 		}
 		else
 		{
-			iCurPos += DATA_INTERVALS.INVISIBLE.getPos();
+			bSD.iCurPos += DATA_INTERVALS.INVISIBLE.getPos();
 		}
 		
-		if (bSD[iCurPos] != 0)
+		if (bSD.bSD[bSD.iCurPos] != 0)
 		{
-			iCurPos += DATA_INTERVALS.iSize;
-			iBlockSize = Byte.toUnsignedInt(bSD[iCurPos]) + Byte.toUnsignedInt(bSD[iCurPos + 1]) * 256;
-			iCurPos += 4;
+			bSD.iCurPos += DATA_INTERVALS.iSize;
+			iBlockSize = Byte.toUnsignedInt(bSD.bSD[bSD.iCurPos]) + Byte.toUnsignedInt(bSD.bSD[bSD.iCurPos + 1]) * 256;
+			bSD.iCurPos += 4;
 			if (iBlockSize != 0)
 			{
 				this.isSF = true;
-				this.sSelFormula = sSD.substring(iCurPos, iCurPos + iBlockSize - 1);
-				iCurPos += iBlockSize;
+				this.sSelFormula = sSD.substring(bSD.iCurPos, bSD.iCurPos + iBlockSize - 1);
+				bSD.iCurPos += iBlockSize;
 			}
 		}
 		else
 		{
-			iCurPos += DATA_INTERVALS.SEL_FORMULA.getPos();
+			bSD.iCurPos += DATA_INTERVALS.SEL_FORMULA.getPos();
 		}
 		
-		if (bSD[iCurPos] != 0)
+		if (bSD.bSD[bSD.iCurPos] != 0)
 		{
-			iCurPos += DATA_INTERVALS.iSize;
-			iBlockSize = Byte.toUnsignedInt(bSD[iCurPos]);
-			iCurPos += 4;
+			bSD.iCurPos += DATA_INTERVALS.iSize;
+			iBlockSize = Byte.toUnsignedInt(bSD.bSD[bSD.iCurPos]);
+			bSD.iCurPos += 4;
 			if (iBlockSize != 0)
 			{
-				iCurPos += iBlockSize;
+				bSD.iCurPos += iBlockSize;
 				if (iBlockSize == 4)
 				{
 					this.bService = true;
@@ -153,62 +151,14 @@ public class SD_MainTab extends SD_TabbedPane
 			}
 		}
 		
-		iCurPos += 16;
+		bSD.iCurPos += 20;
 		
-		if (bSD[iCurPos] != 0)
+		if (bSD.bSD[bSD.iCurPos] != 0)
 		{
-			int iIcoSize = Byte.toUnsignedInt(bSD[iCurPos]) + Byte.toUnsignedInt(bSD[iCurPos + 1]) * 256;
 			isIcon = true;
-			iCurPos += 528;
-			int iImCount = Byte.toUnsignedInt(bSD[iCurPos]);
-			iIcoSize -= 522 + 16 * iImCount;
-			bIcon = new byte [iIcoSize];
-			bIcon[0]=Byte.decode("0x00");
-			bIcon[1]=Byte.decode("0x00");
-			bIcon[2]=Byte.decode("0x01");
-			bIcon[3]=Byte.decode("0x00");
-			bIcon[4]=Byte.decode(Integer.toHexString(iImCount));
-			bIcon[5]=Byte.decode("0x00");
-			iCurPos += 4;
-			int iImSize = 0;
-			for (int i = 0; i < iImCount; ++i)
-			{
-				int iCurImSize = 0;
-				bIcon[6 + i * 16] = bSD[iCurPos];/*w*/
-				iCurPos += 4;
-				bIcon[7 + i * 16] = bSD[iCurPos];/*h*/
-				bIcon[8 + i * 16] = 0;/*colors*/
-				bIcon[9 + i * 16] = 0;/*reserved*/
-				bIcon[10 + i * 16] = 0;/*planes*/
-				bIcon[11 + i * 16] = 0;/*planes*/
-				bIcon[12 + i * 16] = 0;/*bpp*/
-				bIcon[13 + i * 16] = 0;/*bpp*/
-				iCurPos += 12;
-				bIcon[14 + i * 16] = bSD[iCurPos];/*size*/
-				iCurImSize += Byte.toUnsignedInt(bSD[iCurPos]);
-				++iCurPos;
-				bIcon[15 + i * 16] = bSD[iCurPos];/*size*/
-				iCurImSize += Byte.toUnsignedInt(bSD[iCurPos]) * 256;
-				++iCurPos;
-				bIcon[16 + i * 16] = bSD[iCurPos];/*size*/
-				iCurImSize += Byte.toUnsignedInt(bSD[iCurPos]) * 65536;
-				++iCurPos;
-				bIcon[17 + i * 16] = bSD[iCurPos];/*size*/
-				iCurImSize += Byte.toUnsignedInt(bSD[iCurPos]) * 16777216;
-				++iCurPos;
-				int iOffset = 6 + 16 * iImCount + iImSize;
-				byte[] bytes = ByteBuffer.allocate(4).putInt(iOffset).array();
-				bIcon[18 + i * 16] = bytes[3];/*offset*/
-				bIcon[19 + i * 16] = bytes[2];/*offset*/
-				bIcon[20 + i * 16] = bytes[1];/*offset*/
-				bIcon[21 + i * 16] = bytes[0];/*offset*/
-				iImSize += iCurImSize;
-				iCurPos += 12;
-			}
-			for (int i = 6 + 16 * iImCount; i < iIcoSize; ++i, ++iCurPos)
-			{
-				bIcon[i] = bSD[iCurPos];
-			}
+			int iIconSize = SD_Methods.sdGetIcoSize(bSD);
+			bIcon = new byte [iIconSize];
+			SD_Methods.sdParseIco(bSD, bIcon);
 		}
 	}
 }
