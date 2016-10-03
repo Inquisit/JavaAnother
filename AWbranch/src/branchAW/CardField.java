@@ -325,6 +325,8 @@ public class CardField implements Comparable<CardField>
 			}
 			case TABLE:
 			{
+				sdData = new SD_Table();
+				sdData.parse(bSD);
 				JTable jt = new JTable();
 				jt.setName(Integer.toString(iID));
 				jt.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
