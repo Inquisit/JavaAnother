@@ -237,6 +237,8 @@ public class CardField implements Comparable<CardField>
 			}
 			case COMBO_BOX:
 			{
+				sdData = new SD_ComboBox();
+				sdData.parse(bSD);
 				JComboBox<String> cb = new JComboBox<String>();
 				cb.setSize((int)(iWidth*GLOBAL_CONSTANTS.SCALE), (int)(GLOBAL_CONSTANTS.COMBOBOX_SIZE*GLOBAL_CONSTANTS.SCALE));
 				cb.setName(Integer.toString(iID));
