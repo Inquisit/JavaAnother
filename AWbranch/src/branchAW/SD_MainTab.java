@@ -38,7 +38,7 @@ public class SD_MainTab extends SD_TabbedPane
 			if (iBlockSize != 0)
 			{
 				this.isMF = true;
-				this.sMainFormula = sSD.substring(bSD.iCurPos, bSD.iCurPos + iBlockSize - 1);
+				this.sMainFormula = sSD.substring(bSD.iCurPos, bSD.iCurPos + iBlockSize);
 				bSD.iCurPos += iBlockSize;
 			}
 		}
@@ -55,7 +55,7 @@ public class SD_MainTab extends SD_TabbedPane
 			if (iBlockSize != 0)
 			{
 				this.isAF = true;
-				this.sAddFormula = sSD.substring(bSD.iCurPos, bSD.iCurPos + iBlockSize - 1);
+				this.sAddFormula = sSD.substring(bSD.iCurPos, bSD.iCurPos + iBlockSize);
 				bSD.iCurPos += iBlockSize;
 			}
 		}
@@ -93,7 +93,7 @@ public class SD_MainTab extends SD_TabbedPane
 			if (iBlockSize != 0)
 			{
 				this.isDS = true;
-				this.sDisabled = sSD.substring(bSD.iCurPos, bSD.iCurPos + iBlockSize - 1);
+				this.sDisabled = sSD.substring(bSD.iCurPos, bSD.iCurPos + iBlockSize);
 				bSD.iCurPos += iBlockSize;
 			}
 		}
@@ -110,7 +110,7 @@ public class SD_MainTab extends SD_TabbedPane
 			if (iBlockSize != 0)
 			{
 				this.isIN = true;
-				this.sInvisible = sSD.substring(bSD.iCurPos, bSD.iCurPos + iBlockSize - 1);
+				this.sInvisible = sSD.substring(bSD.iCurPos, bSD.iCurPos + iBlockSize);
 				bSD.iCurPos += iBlockSize;
 			}
 		}
@@ -127,7 +127,7 @@ public class SD_MainTab extends SD_TabbedPane
 			if (iBlockSize != 0)
 			{
 				this.isSF = true;
-				this.sSelFormula = sSD.substring(bSD.iCurPos, bSD.iCurPos + iBlockSize - 1);
+				this.sSelFormula = sSD.substring(bSD.iCurPos, bSD.iCurPos + iBlockSize);
 				bSD.iCurPos += iBlockSize;
 			}
 		}

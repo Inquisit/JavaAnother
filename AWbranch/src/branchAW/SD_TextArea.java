@@ -42,7 +42,7 @@ public class SD_TextArea extends SpecificData
 			if (iBlockSize != 0)
 			{
 				this.isMF = true;
-				this.sMainFormula = sSD.substring(iCurPos, iCurPos + iBlockSize - 1);
+				this.sMainFormula = sSD.substring(iCurPos, iCurPos + iBlockSize);
 				iCurPos += iBlockSize;
 			}
 		}
@@ -59,7 +59,7 @@ public class SD_TextArea extends SpecificData
 			if (iBlockSize != 0)
 			{
 				this.isAF = true;
-				this.sAddFormula = sSD.substring(iCurPos, iCurPos + iBlockSize - 1);
+				this.sAddFormula = sSD.substring(iCurPos, iCurPos + iBlockSize);
 				iCurPos += iBlockSize;
 			}
 		}
@@ -97,7 +97,7 @@ public class SD_TextArea extends SpecificData
 			if (iBlockSize != 0)
 			{
 				this.isDS = true;
-				this.sDisabled = sSD.substring(iCurPos, iCurPos + iBlockSize - 1);
+				this.sDisabled = sSD.substring(iCurPos, iCurPos + iBlockSize);
 				iCurPos += iBlockSize;
 			}
 		}
@@ -114,7 +114,7 @@ public class SD_TextArea extends SpecificData
 			if (iBlockSize != 0)
 			{
 				this.isIN = true;
-				this.sInvisible = sSD.substring(iCurPos, iCurPos + iBlockSize - 1);
+				this.sInvisible = sSD.substring(iCurPos, iCurPos + iBlockSize);
 				iCurPos += iBlockSize;
 			}
 		}
@@ -131,7 +131,7 @@ public class SD_TextArea extends SpecificData
 			if (iBlockSize != 0)
 			{
 				this.isSF = true;
-				this.sSelFormula = sSD.substring(iCurPos, iCurPos + iBlockSize - 1);
+				this.sSelFormula = sSD.substring(iCurPos, iCurPos + iBlockSize);
 				iCurPos += iBlockSize;
 			}
 		}
