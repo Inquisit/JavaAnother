@@ -1,18 +1,22 @@
-package branchAW;
+package specData;
 
 import java.io.UnsupportedEncodingException;
 
 import globals.DATA_INTERVALS;
 
-public class SD_Column extends SpecificData 
+public class SD_RadioButton extends SpecificData
 {
-	protected int iBind;
-	protected int iFormID;
-	protected int iFormField;
+	protected boolean bMultiLine;
+	protected boolean bButtonLike;
+	protected boolean isIcon;
+	protected byte[] bIcon;
 	
-	SD_Column()
+	public SD_RadioButton()
 	{
 		super();
+		isIcon = false;
+		bMultiLine = false;
+		bButtonLike = false;
 	}
 	
 	public void parse(SD_Byte bSD)
@@ -150,25 +154,33 @@ public class SD_Column extends SpecificData
 				}
 			}
 		}
-		
-		bSD.iCurPos += 24;
-		
-		iBind = Byte.toUnsignedInt(bSD.bSD[bSD.iCurPos]);
-		
-		switch (iBind)
+		else
 		{
-			case 1:
-			{
-				bSD.iCurPos+=4;
-				iFormID = Byte.toUnsignedInt(bSD.bSD[bSD.iCurPos]) + Byte.toUnsignedInt(bSD.bSD[bSD.iCurPos + 1]) * 256;
-				bSD.iCurPos+=4;
-				iFormField = Byte.toUnsignedInt(bSD.bSD[bSD.iCurPos]) + Byte.toUnsignedInt(bSD.bSD[bSD.iCurPos + 1]) * 256;
-				break;
-			}
-			default:
-			{
-				break;
-			}
+			bSD.iCurPos += DATA_INTERVALS.SERVICE.getPos();
+		}
+		
+		bSD.iCurPos += 16;
+		
+		if (bSD.bSD[bSD.iCurPos] != 0)
+		{
+			isIcon = true;
+			int iIconSize = SD_Methods.sdGetIcoSize(bSD);
+			bIcon = new byte [iIconSize];
+			SD_Methods.sdParseIco(bSD, bIcon);
+		}
+		
+		bSD.iCurPos += 8;
+		
+		if (bSD.bSD[bSD.iCurPos] != 0)
+		{
+			this.bButtonLike = true;
+		}
+		
+		bSD.iCurPos += DATA_INTERVALS.MULTILINE.getPos();
+		
+		if (bSD.bSD[bSD.iCurPos] != 0)
+		{
+			this.bMultiLine = true;
 		}
 	}
 }

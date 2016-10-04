@@ -1,4 +1,4 @@
-package branchAW;
+package specData;
 
 import java.io.UnsupportedEncodingException;
 
@@ -10,7 +10,7 @@ public class SD_TextArea extends SpecificData
 	protected boolean bHScroll;
 	protected boolean bVScroll;
 	
-	SD_TextArea()
+	public SD_TextArea()
 	{
 		super();
 		bMultiLine = false;

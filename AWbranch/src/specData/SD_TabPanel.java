@@ -1,22 +1,28 @@
-package branchAW;
+package specData;
 
 import java.io.UnsupportedEncodingException;
 
 import globals.DATA_INTERVALS;
 
-public class SD_RadioButton extends SpecificData
+public class SD_TabPanel extends SpecificData
 {
-	protected boolean bMultiLine;
-	protected boolean bButtonLike;
 	protected boolean isIcon;
 	protected byte[] bIcon;
 	
-	SD_RadioButton()
+	public SD_TabPanel()
 	{
 		super();
 		isIcon = false;
-		bMultiLine = false;
-		bButtonLike = false;
+	}
+	
+	public boolean isIcon()
+	{
+		return isIcon;
+	}
+	
+	public byte[] getIcon()
+	{
+		return bIcon;
 	}
 	
 	public void parse(SD_Byte bSD)
@@ -167,20 +173,6 @@ public class SD_RadioButton extends SpecificData
 			int iIconSize = SD_Methods.sdGetIcoSize(bSD);
 			bIcon = new byte [iIconSize];
 			SD_Methods.sdParseIco(bSD, bIcon);
-		}
-		
-		bSD.iCurPos += 8;
-		
-		if (bSD.bSD[bSD.iCurPos] != 0)
-		{
-			this.bButtonLike = true;
-		}
-		
-		bSD.iCurPos += DATA_INTERVALS.MULTILINE.getPos();
-		
-		if (bSD.bSD[bSD.iCurPos] != 0)
-		{
-			this.bMultiLine = true;
 		}
 	}
 }

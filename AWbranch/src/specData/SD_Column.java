@@ -1,22 +1,18 @@
-package branchAW;
+package specData;
 
 import java.io.UnsupportedEncodingException;
 
 import globals.DATA_INTERVALS;
 
-public class SD_Table extends SpecificData 
+public class SD_Column extends SpecificData 
 {
-	protected boolean isQF;
-	protected String sQueryFormula;
-	protected boolean isSort;
-	protected String sSort;
-	protected boolean bBind;
+	protected int iBind;
 	protected int iFormID;
+	protected int iFormField;
 	
-	SD_Table()
+	public SD_Column()
 	{
 		super();
-		isQF = false;
 	}
 	
 	public void parse(SD_Byte bSD)
@@ -155,45 +151,24 @@ public class SD_Table extends SpecificData
 			}
 		}
 		
-		bSD.iCurPos += 16;
+		bSD.iCurPos += 24;
 		
-		if (bSD.bSD[bSD.iCurPos] != 0)
+		iBind = Byte.toUnsignedInt(bSD.bSD[bSD.iCurPos]);
+		
+		switch (iBind)
 		{
-			bSD.iCurPos += DATA_INTERVALS.iSize;
-			iBlockSize = Byte.toUnsignedInt(bSD.bSD[bSD.iCurPos]) + Byte.toUnsignedInt(bSD.bSD[bSD.iCurPos + 1]) * 256;
-			bSD.iCurPos += 4;
-			if (iBlockSize != 0)
+			case 1:
 			{
-				this.isQF = true;
-				this.sQueryFormula = sSD.substring(bSD.iCurPos, bSD.iCurPos + iBlockSize);
-				bSD.iCurPos += iBlockSize;
+				bSD.iCurPos+=4;
+				iFormID = Byte.toUnsignedInt(bSD.bSD[bSD.iCurPos]) + Byte.toUnsignedInt(bSD.bSD[bSD.iCurPos + 1]) * 256;
+				bSD.iCurPos+=4;
+				iFormField = Byte.toUnsignedInt(bSD.bSD[bSD.iCurPos]) + Byte.toUnsignedInt(bSD.bSD[bSD.iCurPos + 1]) * 256;
+				break;
 			}
-		}
-		else
-		{
-			bSD.iCurPos += DATA_INTERVALS.QUERY_FORMULA.getPos();
-		}
-		
-		if (bSD.bSD[bSD.iCurPos] != 0)
-		{
-			iBlockSize = Byte.toUnsignedInt(bSD.bSD[bSD.iCurPos]) + Byte.toUnsignedInt(bSD.bSD[bSD.iCurPos + 1]) * 256;
-			bSD.iCurPos += 4;
-			if (iBlockSize != 0)
+			default:
 			{
-				this.isSF = true;
-				this.sSort = sSD.substring(bSD.iCurPos, bSD.iCurPos + iBlockSize);
-				bSD.iCurPos += iBlockSize;
+				break;
 			}
-		}
-		else
-		{
-			bSD.iCurPos += DATA_INTERVALS.SORT_FORMULA.getPos();
-		}
-		
-		if (bSD.bSD[bSD.iCurPos] != 0)
-		{
-			bBind = true;
-			iFormID = Byte.toUnsignedInt(bSD.bSD[bSD.iCurPos+4]) + Byte.toUnsignedInt(bSD.bSD[bSD.iCurPos + 5]) * 256;
 		}
 	}
 }

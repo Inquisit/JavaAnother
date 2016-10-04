@@ -1,22 +1,22 @@
-package branchAW;
+package specData;
 
 import java.io.UnsupportedEncodingException;
 
 import globals.DATA_INTERVALS;
 
-public class SD_TabbedPane extends SpecificData 
+public class SD_Table extends SpecificData 
 {
-	protected boolean bButtonLike;
-	protected int iSide;
-	protected boolean isIcon;
-	protected byte[] bIcon;
+	protected boolean isQF;
+	protected String sQueryFormula;
+	protected boolean isSort;
+	protected String sSort;
+	protected boolean bBind;
+	protected int iFormID;
 	
-	SD_TabbedPane()
+	public SD_Table()
 	{
 		super();
-		isIcon = false;
-		bButtonLike = false;
-		iSide = 0;
+		isQF = false;
 	}
 	
 	public void parse(SD_Byte bSD)
@@ -155,24 +155,45 @@ public class SD_TabbedPane extends SpecificData
 			}
 		}
 		
-		bSD.iCurPos += 20;
-		
-		if (bSD.bSD[bSD.iCurPos] != 0)
-		{
-			isIcon = true;
-			int iIconSize = SD_Methods.sdGetIcoSize(bSD);
-			bIcon = new byte [iIconSize];
-			SD_Methods.sdParseIco(bSD, bIcon);
-		}
-		
 		bSD.iCurPos += 16;
 		
 		if (bSD.bSD[bSD.iCurPos] != 0)
 		{
-			bButtonLike = true;
+			bSD.iCurPos += DATA_INTERVALS.iSize;
+			iBlockSize = Byte.toUnsignedInt(bSD.bSD[bSD.iCurPos]) + Byte.toUnsignedInt(bSD.bSD[bSD.iCurPos + 1]) * 256;
+			bSD.iCurPos += 4;
+			if (iBlockSize != 0)
+			{
+				this.isQF = true;
+				this.sQueryFormula = sSD.substring(bSD.iCurPos, bSD.iCurPos + iBlockSize);
+				bSD.iCurPos += iBlockSize;
+			}
+		}
+		else
+		{
+			bSD.iCurPos += DATA_INTERVALS.QUERY_FORMULA.getPos();
 		}
 		
-		bSD.iCurPos += 4;
-		iSide = Byte.toUnsignedInt(bSD.bSD[bSD.iCurPos]);
+		if (bSD.bSD[bSD.iCurPos] != 0)
+		{
+			iBlockSize = Byte.toUnsignedInt(bSD.bSD[bSD.iCurPos]) + Byte.toUnsignedInt(bSD.bSD[bSD.iCurPos + 1]) * 256;
+			bSD.iCurPos += 4;
+			if (iBlockSize != 0)
+			{
+				this.isSF = true;
+				this.sSort = sSD.substring(bSD.iCurPos, bSD.iCurPos + iBlockSize);
+				bSD.iCurPos += iBlockSize;
+			}
+		}
+		else
+		{
+			bSD.iCurPos += DATA_INTERVALS.SORT_FORMULA.getPos();
+		}
+		
+		if (bSD.bSD[bSD.iCurPos] != 0)
+		{
+			bBind = true;
+			iFormID = Byte.toUnsignedInt(bSD.bSD[bSD.iCurPos+4]) + Byte.toUnsignedInt(bSD.bSD[bSD.iCurPos + 5]) * 256;
+		}
 	}
 }

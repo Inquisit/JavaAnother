@@ -1,28 +1,14 @@
-package branchAW;
+package specData;
 
 import java.io.UnsupportedEncodingException;
 
 import globals.DATA_INTERVALS;
 
-public class SD_CheckBox extends SpecificData
+public class SD_GroupPane extends SpecificData 
 {
-	protected boolean bMultiLine;
-	protected boolean bButtonLike;
-	protected boolean isIcoUnCh;
-	protected byte[] bIcoUnCh;
-	protected boolean isIcoChosen;
-	protected byte[] bIcoChosen;
-	protected boolean isIcoUndef;
-	protected byte[] bIcoUndef;
-	
-	SD_CheckBox()
+	public SD_GroupPane()
 	{
 		super();
-		isIcoChosen = false;
-		isIcoUnCh = false;
-		isIcoUndef = false;
-		bMultiLine = false;
-		bButtonLike = false;
 	}
 	
 	public void parse(SD_Byte bSD)
@@ -159,62 +145,6 @@ public class SD_CheckBox extends SpecificData
 					this.bService = true;
 				}
 			}
-		}
-		else
-		{
-			bSD.iCurPos += DATA_INTERVALS.SERVICE.getPos();
-		}
-		
-		bSD.iCurPos += 16;
-		
-		if (bSD.bSD[bSD.iCurPos] != 0)
-		{
-			isIcoUnCh = true;
-			int iIconSize = SD_Methods.sdGetIcoSize(bSD);
-			bIcoUnCh = new byte [iIconSize];
-			SD_Methods.sdParseIco(bSD, bIcoUnCh);
-		}
-		else
-		{
-			bSD.iCurPos += 4;
-		}
-		
-		if (bSD.bSD[bSD.iCurPos] != 0)
-		{
-			isIcoChosen = true;
-			int iIconSize = SD_Methods.sdGetIcoSize(bSD);
-			bIcoChosen = new byte [iIconSize];
-			SD_Methods.sdParseIco(bSD, bIcoChosen);
-		}
-		else
-		{
-			bSD.iCurPos += 4;
-		}
-		
-		if (bSD.bSD[bSD.iCurPos] != 0)
-		{
-			isIcoUndef = true;
-			int iIconSize = SD_Methods.sdGetIcoSize(bSD);
-			bIcoUndef = new byte [iIconSize];
-			SD_Methods.sdParseIco(bSD, bIcoUndef);
-		}
-		else
-		{
-			bSD.iCurPos += 4;
-		}
-		
-		bSD.iCurPos += 12;
-		
-		if (bSD.bSD[bSD.iCurPos] != 0)
-		{
-			this.bButtonLike = true;
-		}
-		
-		bSD.iCurPos += DATA_INTERVALS.MULTILINE.getPos();
-		
-		if (bSD.bSD[bSD.iCurPos] != 0)
-		{
-			this.bMultiLine = true;
 		}
 	}
 }

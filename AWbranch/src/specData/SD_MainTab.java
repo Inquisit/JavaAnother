@@ -1,14 +1,28 @@
-package branchAW;
+package specData;
 
 import java.io.UnsupportedEncodingException;
 
 import globals.DATA_INTERVALS;
 
-public class SD_Label extends SpecificData 
+public class SD_MainTab extends SD_TabbedPane 
 {
-	SD_Label()
+	protected boolean isIcon;
+	protected byte[] bIcon;
+	
+	public SD_MainTab()
 	{
 		super();
+		isIcon = false;
+	}
+	
+	public boolean isIcon()
+	{
+		return isIcon;
+	}
+	
+	public byte[] getIcon()
+	{
+		return bIcon;
 	}
 	
 	public void parse(SD_Byte bSD)
@@ -145,6 +159,16 @@ public class SD_Label extends SpecificData
 					this.bService = true;
 				}
 			}
+		}
+		
+		bSD.iCurPos += 20;
+		
+		if (bSD.bSD[bSD.iCurPos] != 0)
+		{
+			isIcon = true;
+			int iIconSize = SD_Methods.sdGetIcoSize(bSD);
+			bIcon = new byte [iIconSize];
+			SD_Methods.sdParseIco(bSD, bIcon);
 		}
 	}
 }

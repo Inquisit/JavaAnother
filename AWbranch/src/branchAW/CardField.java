@@ -35,6 +35,20 @@ import javax.swing.table.TableColumn;
 import globals.FIELD_TYPES;
 import globals.GLOBAL_CONSTANTS;
 import net.sf.image4j.codec.ico.ICODecoder;
+import specData.SD_Byte;
+import specData.SD_CheckBox;
+import specData.SD_Column;
+import specData.SD_ComboBox;
+import specData.SD_GroupPane;
+import specData.SD_Image;
+import specData.SD_Label;
+import specData.SD_MainTab;
+import specData.SD_RadioButton;
+import specData.SD_TabPanel;
+import specData.SD_TabbedPane;
+import specData.SD_Table;
+import specData.SD_TextArea;
+import specData.SpecificData;
 
 public class CardField implements Comparable<CardField>
 {
@@ -85,12 +99,12 @@ public class CardField implements Comparable<CardField>
 					cCard.jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 					sdData = new SD_MainTab();
 					sdData.parse(bSD);
-					if (((SD_MainTab)sdData).isIcon)
+					if (((SD_MainTab)sdData).isIcon())
 					{
 						List<BufferedImage> img = null;
 						try
 						{
-							img = ICODecoder.read(new ByteArrayInputStream(((SD_MainTab)sdData).bIcon));
+							img = ICODecoder.read(new ByteArrayInputStream(((SD_MainTab)sdData).getIcon()));
 						} 
 						catch (IOException e) 
 						{
@@ -115,7 +129,7 @@ public class CardField implements Comparable<CardField>
 					sdData = new SD_TabbedPane();
 					sdData.parse(bSD);
 				}
-				JTabbedPane tp = new JTabbedPane(((SD_TabbedPane)sdData).iSide + 1);
+				JTabbedPane tp = new JTabbedPane(((SD_TabbedPane)sdData).getSide() + 1);
 				tp.setTabLayoutPolicy(JTabbedPane.SCROLL_TAB_LAYOUT);
 				tp.setSize((int)(iWidth*GLOBAL_CONSTANTS.SCALE), (int)(iHeight*GLOBAL_CONSTANTS.SCALE));
 				tp.setLocation(new Point((int)((iID==0?0:iLeft)*GLOBAL_CONSTANTS.SCALE), (int)((iID==0?0:iTop)*GLOBAL_CONSTANTS.SCALE)));
@@ -142,12 +156,12 @@ public class CardField implements Comparable<CardField>
 				jp.setVisible(true);
 				ButtonGroup bg = new ButtonGroup();
 				cCard.mGroups.put(jp.getName(), bg);
-				if (((SD_TabPanel)sdData).isIcon)
+				if (((SD_TabPanel)sdData).isIcon())
 				{
 					List<BufferedImage> img = null;
 					try
 					{
-						img = ICODecoder.read(new ByteArrayInputStream(((SD_TabPanel)sdData).bIcon));
+						img = ICODecoder.read(new ByteArrayInputStream(((SD_TabPanel)sdData).getIcon()));
 					} 
 					catch (IOException e) 
 					{
@@ -359,14 +373,14 @@ public class CardField implements Comparable<CardField>
 			{
 				sdData = new SD_Image();
 				sdData.parse(bSD);
-				if (!((SD_Image)sdData).isImage)
+				if (!((SD_Image)sdData).isImage())
 				{
 					break;
 				}
 				BufferedImage img = null;
 				try 
 				{
-		            InputStream inputStream = new ByteArrayInputStream(((SD_Image)sdData).bImage);
+		            InputStream inputStream = new ByteArrayInputStream(((SD_Image)sdData).getImage());
 		            img = ImageIO.read(inputStream);
 		        } 
 				catch (IOException ex) 
@@ -374,7 +388,7 @@ public class CardField implements Comparable<CardField>
 		            System.out.println(ex.getMessage());
 		        }
 				Image scaled = null;
-				switch (((SD_Image)sdData).iScale)
+				switch (((SD_Image)sdData).getScale())
 				{
 					case 1:
 					{
@@ -406,7 +420,7 @@ public class CardField implements Comparable<CardField>
 				JLabel jl = new JLabel(icon);
 				jl.setHorizontalAlignment(JLabel.LEFT);
 				jl.setVerticalAlignment(JLabel.TOP);
-				if (((SD_Image)sdData).bBorder)
+				if (((SD_Image)sdData).isBorder())
 				{
 					jl.setBorder(BorderFactory.createLineBorder(Color.black));
 				}

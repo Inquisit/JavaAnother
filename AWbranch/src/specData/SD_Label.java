@@ -1,12 +1,12 @@
-package branchAW;
+package specData;
 
 import java.io.UnsupportedEncodingException;
 
 import globals.DATA_INTERVALS;
 
-public class SD_GroupPane extends SpecificData 
+public class SD_Label extends SpecificData 
 {
-	SD_GroupPane()
+	public SD_Label()
 	{
 		super();
 	}

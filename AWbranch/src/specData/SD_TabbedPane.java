@@ -1,25 +1,37 @@
-package branchAW;
+package specData;
 
 import java.io.UnsupportedEncodingException;
 
 import globals.DATA_INTERVALS;
 
-public class SD_Image extends SpecificData
+public class SD_TabbedPane extends SpecificData 
 {
-	protected boolean isImage;
-	protected byte[] bImage;
-	protected int iScale;
-	protected boolean bBorder;
-	protected boolean bPath;
-	protected String sPath;
+	protected boolean bButtonLike;
+	protected int iSide;
+	protected boolean isIcon;
+	protected byte[] bIcon;
 	
-	SD_Image()
+	public SD_TabbedPane()
 	{
 		super();
-		isImage = false;
-		iScale = 0;
-		bBorder = false;
-		bPath = false;
+		isIcon = false;
+		bButtonLike = false;
+		iSide = 0;
+	}
+	
+	public int getSide()
+	{
+		return iSide;
+	}
+	
+	public boolean isIcon()
+	{
+		return isIcon;
+	}
+	
+	public byte[] getIcon()
+	{
+		return bIcon;
 	}
 	
 	public void parse(SD_Byte bSD)
@@ -157,74 +169,25 @@ public class SD_Image extends SpecificData
 				}
 			}
 		}
-		else
+		
+		bSD.iCurPos += 20;
+		
+		if (bSD.bSD[bSD.iCurPos] != 0)
 		{
-			bSD.iCurPos += DATA_INTERVALS.SERVICE.getPos();
+			isIcon = true;
+			int iIconSize = SD_Methods.sdGetIcoSize(bSD);
+			bIcon = new byte [iIconSize];
+			SD_Methods.sdParseIco(bSD, bIcon);
 		}
 		
 		bSD.iCurPos += 16;
 		
 		if (bSD.bSD[bSD.iCurPos] != 0)
 		{
-			iBlockSize = Byte.toUnsignedInt(bSD.bSD[bSD.iCurPos]) + Byte.toUnsignedInt(bSD.bSD[bSD.iCurPos + 1]) * 256;
-			bSD.iCurPos += 4 + iBlockSize;
-			int iImSize = Byte.toUnsignedInt(bSD.bSD[bSD.iCurPos]) + Byte.toUnsignedInt(bSD.bSD[bSD.iCurPos + 1]) * 256 + Byte.toUnsignedInt(bSD.bSD[bSD.iCurPos + 2]) * 65536 + Byte.toUnsignedInt(bSD.bSD[bSD.iCurPos + 3]) * 16777216;
-			if (iImSize != 0)
-			{
-				isImage = true;
-				bImage = new byte [iImSize];
-				bImage[0] = Byte.decode("0x42");
-				bImage[1] = Byte.decode("0x4D");
-				bImage[2] = bSD.bSD[bSD.iCurPos];
-				++bSD.iCurPos;
-				bImage[3] = bSD.bSD[bSD.iCurPos];
-				++bSD.iCurPos;
-				bImage[4] = bSD.bSD[bSD.iCurPos];
-				++bSD.iCurPos;
-				bImage[5] = bSD.bSD[bSD.iCurPos];
-				++bSD.iCurPos;
-				bImage[6] = 0;
-				bImage[7] = 0;
-				bImage[8] = 0;
-				bImage[9] = 0;
-				bImage[10] = (byte) (bSD.bSD[bSD.iCurPos] + Byte.decode("0x0E"));
-				bImage[11] = 0;
-				bImage[12] = 0;
-				bImage[13] = 0;
-				for (int i = 14; i < iImSize; ++i, ++bSD.iCurPos)
-				{
-					bImage[i] = bSD.bSD[bSD.iCurPos];
-				}
-			}
-		}
-		else
-		{
-			bSD.iCurPos += DATA_INTERVALS.IMAGE.getPos();
-		}
-		
-		bSD.iCurPos += 14;
-		if (bSD.bSD[bSD.iCurPos] != 0)
-		{
-			iScale = Byte.toUnsignedInt(bSD.bSD[bSD.iCurPos]);
+			bButtonLike = true;
 		}
 		
 		bSD.iCurPos += 4;
-		if (bSD.bSD[bSD.iCurPos] != 0)
-		{
-			bBorder = true;
-		}
-		
-		bSD.iCurPos += 4;
-		if (bSD.bSD[bSD.iCurPos] != 0)
-		{
-			bPath = true;
-			bSD.iCurPos += 4;
-			iBlockSize = bSD.iCurPos;
-			while (bSD.bSD[bSD.iCurPos] != 0)
-			{
-				++bSD.iCurPos;
-			}
-			sPath = sSD.substring(iBlockSize, bSD.iCurPos);
-		}
+		iSide = Byte.toUnsignedInt(bSD.bSD[bSD.iCurPos]);
 	}
 }
