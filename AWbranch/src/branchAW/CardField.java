@@ -347,6 +347,8 @@ public class CardField implements Comparable<CardField>
 			}
 			case COLUMN:
 			{
+				sdData = new SD_Column();
+				sdData.parse(bSD);
 				TableColumn tc = new TableColumn();
 				tc.setPreferredWidth((int)(iWidth*GLOBAL_CONSTANTS.SCALE));
 				tc.setHeaderValue(sText);
