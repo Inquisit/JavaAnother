@@ -2,13 +2,14 @@ package specData;
 
 public abstract class SpecificData 
 {
-	protected String sMainFormula;
-	protected String sAddFormula;
+	protected final int iSize = 16;
+	protected StringBuffer sMainFormula;
+	protected StringBuffer sAddFormula;
 	protected boolean bCalcMethod;
 	protected boolean bRecalc;
-	protected String sDisabled;
-	protected String sInvisible;
-	protected String sSelFormula;
+	protected StringBuffer sDisabled;
+	protected StringBuffer sInvisible;
+	protected StringBuffer sSelFormula;
 	protected boolean bService;
 	
 	protected boolean isMF;
@@ -19,11 +20,11 @@ public abstract class SpecificData
 	
 	SpecificData()
 	{
-		sMainFormula = "";
-		sAddFormula = "";
-		sSelFormula = "";
-		sDisabled = "";
-		sInvisible = "";
+		sMainFormula = new StringBuffer("");
+		sAddFormula = new StringBuffer("");
+		sSelFormula = new StringBuffer("");
+		sDisabled = new StringBuffer("");
+		sInvisible = new StringBuffer("");
 		bCalcMethod = false;
 		bRecalc = false;
 		bService = false;

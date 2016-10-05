@@ -1,3 +1,84 @@
+/*if (bSD.bSD[bSD.iCurPos] != 0)
+		{
+			bSD.iCurPos += DATA_INTERVALS.iSize;
+			iBlockSize = Byte.toUnsignedInt(bSD.bSD[bSD.iCurPos]) + Byte.toUnsignedInt(bSD.bSD[bSD.iCurPos + 1]) * 256;
+			bSD.iCurPos += 4;
+			if (iBlockSize != 0)
+			{
+				this.isMF = true;
+				this.sMainFormula = sSD.substring(bSD.iCurPos, bSD.iCurPos + iBlockSize);
+				bSD.iCurPos += iBlockSize;
+			}
+		}
+		else
+		{
+			bSD.iCurPos += DATA_INTERVALS.MAIN_FORMULA.getPos();
+		}*/
+		/*if (bSD.bSD[bSD.iCurPos] != 0)
+		{
+			bSD.iCurPos += DATA_INTERVALS.iSize;
+			iBlockSize = Byte.toUnsignedInt(bSD.bSD[bSD.iCurPos]) + Byte.toUnsignedInt(bSD.bSD[bSD.iCurPos + 1]) * 256;
+			bSD.iCurPos += 4;
+			if (iBlockSize != 0)
+			{
+				this.isAF = true;
+				this.sAddFormula = sSD.substring(bSD.iCurPos, bSD.iCurPos + iBlockSize);
+				bSD.iCurPos += iBlockSize;
+			}
+		}
+		else
+		{
+			bSD.iCurPos += DATA_INTERVALS.ADD_FORMULA.getPos();
+		}*/
+		/*if (bSD.bSD[bSD.iCurPos] != 0)
+		{
+			bSD.iCurPos += DATA_INTERVALS.iSize;
+			iBlockSize = Byte.toUnsignedInt(bSD.bSD[bSD.iCurPos]) + Byte.toUnsignedInt(bSD.bSD[bSD.iCurPos + 1]) * 256;
+			bSD.iCurPos += 4;
+			if (iBlockSize != 0)
+			{
+				this.isDS = true;
+				this.sDisabled = sSD.substring(bSD.iCurPos, bSD.iCurPos + iBlockSize);
+				bSD.iCurPos += iBlockSize;
+			}
+		}
+		else
+		{
+			bSD.iCurPos += DATA_INTERVALS.DISABLED.getPos();
+		}*/
+		/*if (bSD.bSD[bSD.iCurPos] != 0)
+		{
+			bSD.iCurPos += DATA_INTERVALS.iSize;
+			iBlockSize = Byte.toUnsignedInt(bSD.bSD[bSD.iCurPos]) + Byte.toUnsignedInt(bSD.bSD[bSD.iCurPos + 1]) * 256;
+			bSD.iCurPos += 4;
+			if (iBlockSize != 0)
+			{
+				this.isIN = true;
+				this.sInvisible = sSD.substring(bSD.iCurPos, bSD.iCurPos + iBlockSize);
+				bSD.iCurPos += iBlockSize;
+			}
+		}
+		else
+		{
+			bSD.iCurPos += DATA_INTERVALS.INVISIBLE.getPos();
+		}*/
+		/*if (bSD.bSD[bSD.iCurPos] != 0)
+		{
+			bSD.iCurPos += DATA_INTERVALS.iSize;
+			iBlockSize = Byte.toUnsignedInt(bSD.bSD[bSD.iCurPos]) + Byte.toUnsignedInt(bSD.bSD[bSD.iCurPos + 1]) * 256;
+			bSD.iCurPos += 4;
+			if (iBlockSize != 0)
+			{
+				this.isSF = true;
+				this.sSelFormula = sSD.substring(bSD.iCurPos, bSD.iCurPos + iBlockSize);
+				bSD.iCurPos += iBlockSize;
+			}
+		}
+		else
+		{
+			bSD.iCurPos += DATA_INTERVALS.SEL_FORMULA.getPos();
+		}*/
+
 //	public static final String THEME = "Windows Classic";
 
 

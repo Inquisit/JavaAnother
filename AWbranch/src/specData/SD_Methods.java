@@ -4,6 +4,30 @@ import java.nio.ByteBuffer;
 
 public class SD_Methods 
 {
+	private final static int iSize = 16;
+	
+	public static boolean sdGetFormula(SD_Byte bSD, StringBuffer sFormula, String sSD)
+	{
+		int iBlockSize = 0;
+		if (bSD.bSD[bSD.iCurPos] != 0)
+		{
+			bSD.iCurPos += iSize;
+			iBlockSize = Byte.toUnsignedInt(bSD.bSD[bSD.iCurPos]) + Byte.toUnsignedInt(bSD.bSD[bSD.iCurPos + 1]) * 256;
+			bSD.iCurPos += 4;
+			if (iBlockSize != 0)
+			{
+				sFormula = new StringBuffer(sSD.substring(bSD.iCurPos, bSD.iCurPos + iBlockSize));
+				bSD.iCurPos += iBlockSize;
+				return true;
+			}
+			return false;
+		}
+		else
+		{
+			bSD.iCurPos += 4;
+			return false;
+		}
+	}
 
 	public static int sdGetIcoSize(SD_Byte bSD)
 	{

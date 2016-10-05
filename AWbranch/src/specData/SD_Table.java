@@ -2,14 +2,12 @@ package specData;
 
 import java.io.UnsupportedEncodingException;
 
-import globals.DATA_INTERVALS;
-
 public class SD_Table extends SpecificData 
 {
 	protected boolean isQF;
-	protected String sQueryFormula;
+	protected StringBuffer sQueryFormula;
 	protected boolean isSort;
-	protected String sSort;
+	protected StringBuffer sSort;
 	protected boolean bBind;
 	protected int iFormID;
 	
@@ -32,51 +30,20 @@ public class SD_Table extends SpecificData
 			e.printStackTrace();
 			return;
 		}
-		bSD.iCurPos = DATA_INTERVALS.iSize; 
+		bSD.iCurPos = iSize; 
+		
+		this.isMF = SD_Methods.sdGetFormula(bSD, sMainFormula, sSD);		
+		this.isAF = SD_Methods.sdGetFormula(bSD, sAddFormula, sSD);
 		
 		if (bSD.bSD[bSD.iCurPos] != 0)
 		{
-			bSD.iCurPos += DATA_INTERVALS.iSize;
-			iBlockSize = Byte.toUnsignedInt(bSD.bSD[bSD.iCurPos]) + Byte.toUnsignedInt(bSD.bSD[bSD.iCurPos + 1]) * 256;
-			bSD.iCurPos += 4;
-			if (iBlockSize != 0)
-			{
-				this.isMF = true;
-				this.sMainFormula = sSD.substring(bSD.iCurPos, bSD.iCurPos + iBlockSize);
-				bSD.iCurPos += iBlockSize;
-			}
-		}
-		else
-		{
-			bSD.iCurPos += DATA_INTERVALS.MAIN_FORMULA.getPos();
-		}
-		
-		if (bSD.bSD[bSD.iCurPos] != 0)
-		{
-			bSD.iCurPos += DATA_INTERVALS.iSize;
-			iBlockSize = Byte.toUnsignedInt(bSD.bSD[bSD.iCurPos]) + Byte.toUnsignedInt(bSD.bSD[bSD.iCurPos + 1]) * 256;
-			bSD.iCurPos += 4;
-			if (iBlockSize != 0)
-			{
-				this.isAF = true;
-				this.sAddFormula = sSD.substring(bSD.iCurPos, bSD.iCurPos + iBlockSize);
-				bSD.iCurPos += iBlockSize;
-			}
-		}
-		else
-		{
-			bSD.iCurPos += DATA_INTERVALS.ADD_FORMULA.getPos();
-		}
-		
-		if (bSD.bSD[bSD.iCurPos] != 0)
-		{
-			bSD.iCurPos += DATA_INTERVALS.iSize-1;
+			bSD.iCurPos += iSize-1;
 			iBlockSize = Byte.toUnsignedInt(bSD.bSD[bSD.iCurPos]);
 			if (iBlockSize != 0)
 			{
 				this.bCalcMethod = true;
 			}
-			bSD.iCurPos += DATA_INTERVALS.RECALC.getPos();
+			bSD.iCurPos += 4;
 			iBlockSize = Byte.toUnsignedInt(bSD.bSD[bSD.iCurPos]);
 			if (iBlockSize != 0)
 			{
@@ -86,63 +53,17 @@ public class SD_Table extends SpecificData
 		}
 		else
 		{
-			bSD.iCurPos += DATA_INTERVALS.CALC_METHOD.getPos();
-		}
-		
-		if (bSD.bSD[bSD.iCurPos] != 0)
-		{
-			bSD.iCurPos += DATA_INTERVALS.iSize;
-			iBlockSize = Byte.toUnsignedInt(bSD.bSD[bSD.iCurPos]) + Byte.toUnsignedInt(bSD.bSD[bSD.iCurPos + 1]) * 256;
 			bSD.iCurPos += 4;
-			if (iBlockSize != 0)
-			{
-				this.isDS = true;
-				this.sDisabled = sSD.substring(bSD.iCurPos, bSD.iCurPos + iBlockSize);
-				bSD.iCurPos += iBlockSize;
-			}
 		}
-		else
-		{
-			bSD.iCurPos += DATA_INTERVALS.DISABLED.getPos();
-		}
+		
+		
+		this.isDS = SD_Methods.sdGetFormula(bSD, sDisabled, sSD);
+		this.isIN = SD_Methods.sdGetFormula(bSD, sInvisible, sSD);
+		this.isSF = SD_Methods.sdGetFormula(bSD, sSelFormula, sSD);
 		
 		if (bSD.bSD[bSD.iCurPos] != 0)
 		{
-			bSD.iCurPos += DATA_INTERVALS.iSize;
-			iBlockSize = Byte.toUnsignedInt(bSD.bSD[bSD.iCurPos]) + Byte.toUnsignedInt(bSD.bSD[bSD.iCurPos + 1]) * 256;
-			bSD.iCurPos += 4;
-			if (iBlockSize != 0)
-			{
-				this.isIN = true;
-				this.sInvisible = sSD.substring(bSD.iCurPos, bSD.iCurPos + iBlockSize);
-				bSD.iCurPos += iBlockSize;
-			}
-		}
-		else
-		{
-			bSD.iCurPos += DATA_INTERVALS.INVISIBLE.getPos();
-		}
-		
-		if (bSD.bSD[bSD.iCurPos] != 0)
-		{
-			bSD.iCurPos += DATA_INTERVALS.iSize;
-			iBlockSize = Byte.toUnsignedInt(bSD.bSD[bSD.iCurPos]) + Byte.toUnsignedInt(bSD.bSD[bSD.iCurPos + 1]) * 256;
-			bSD.iCurPos += 4;
-			if (iBlockSize != 0)
-			{
-				this.isSF = true;
-				this.sSelFormula = sSD.substring(bSD.iCurPos, bSD.iCurPos + iBlockSize);
-				bSD.iCurPos += iBlockSize;
-			}
-		}
-		else
-		{
-			bSD.iCurPos += DATA_INTERVALS.SEL_FORMULA.getPos();
-		}
-		
-		if (bSD.bSD[bSD.iCurPos] != 0)
-		{
-			bSD.iCurPos += DATA_INTERVALS.iSize;
+			bSD.iCurPos += iSize;
 			iBlockSize = Byte.toUnsignedInt(bSD.bSD[bSD.iCurPos]);
 			bSD.iCurPos += 4;
 			if (iBlockSize != 0)
@@ -157,38 +78,8 @@ public class SD_Table extends SpecificData
 		
 		bSD.iCurPos += 16;
 		
-		if (bSD.bSD[bSD.iCurPos] != 0)
-		{
-			bSD.iCurPos += DATA_INTERVALS.iSize;
-			iBlockSize = Byte.toUnsignedInt(bSD.bSD[bSD.iCurPos]) + Byte.toUnsignedInt(bSD.bSD[bSD.iCurPos + 1]) * 256;
-			bSD.iCurPos += 4;
-			if (iBlockSize != 0)
-			{
-				this.isQF = true;
-				this.sQueryFormula = sSD.substring(bSD.iCurPos, bSD.iCurPos + iBlockSize);
-				bSD.iCurPos += iBlockSize;
-			}
-		}
-		else
-		{
-			bSD.iCurPos += DATA_INTERVALS.QUERY_FORMULA.getPos();
-		}
-		
-		if (bSD.bSD[bSD.iCurPos] != 0)
-		{
-			iBlockSize = Byte.toUnsignedInt(bSD.bSD[bSD.iCurPos]) + Byte.toUnsignedInt(bSD.bSD[bSD.iCurPos + 1]) * 256;
-			bSD.iCurPos += 4;
-			if (iBlockSize != 0)
-			{
-				this.isSF = true;
-				this.sSort = sSD.substring(bSD.iCurPos, bSD.iCurPos + iBlockSize);
-				bSD.iCurPos += iBlockSize;
-			}
-		}
-		else
-		{
-			bSD.iCurPos += DATA_INTERVALS.SORT_FORMULA.getPos();
-		}
+		this.isQF = SD_Methods.sdGetFormula(bSD, sQueryFormula, sSD);
+		this.isSF = SD_Methods.sdGetFormula(bSD, sSort, sSD);
 		
 		if (bSD.bSD[bSD.iCurPos] != 0)
 		{
